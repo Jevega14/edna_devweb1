@@ -1,0 +1,64 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.dashboard-main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  align-items: center;
+  padding: 2rem;
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+  text-align: center;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  background-color: #f2f2f2;
+}
+
+.icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.dashboard-footer {
+  padding: 1rem 2rem;
+  text-align: right;
+}
+
+.logout-button {
+  border: none;
+  background: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
