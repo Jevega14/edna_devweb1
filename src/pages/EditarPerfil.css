@@ -1,0 +1,107 @@
+/* profile.css */
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #f3f4f6; /* Similar al color de fondo de la página de login */
+}
+
+.profile-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.profile-card {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 32rem; /* Un poco más ancho que el de login para los campos adicionales */
+}
+
+.profile-title-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  color: #1f2937;
+}
+
+.profile-title {
+  font-size: 1.875rem;
+  font-weight: 600;
+  text-align: center;
+  margin-right: 0.5rem; /* Espacio entre el texto y el icono */
+}
+
+.profile-icon {
+  width: 2rem; /* Tamaño del icono */
+  height: 2rem;
+  /* Puedes usar un icono SVG aquí o un emoji */
+  font-size: 2rem; /* Ajustar si usas emoji */
+}
+
+.form-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem; /* Padding para la línea divisoria */
+  border-bottom: 1px solid #e5e7eb; /* Línea divisoria suave */
+}
+
+.form-field:last-of-type {
+  border-bottom: none; /* No hay línea divisoria para el último campo */
+  margin-bottom: 2rem; /* Más espacio antes del botón Guardar */
+}
+
+.field-label {
+  color: #374151;
+  font-size: 1rem; /* Text-base */
+  font-weight: 500;
+  min-width: 8rem; /* Ancho mínimo para las etiquetas */
+}
+
+.field-input {
+  flex-grow: 1; /* Permite que el input ocupe el espacio restante */
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  outline: none;
+  transition-property: all;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  margin-left: 1rem; /* Espacio entre la etiqueta y el input */
+}
+
+.field-input:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 2px #3b82f6;
+}
+
+.save-button {
+  width: 100%;
+  background-color: #2563eb; /* Color azul para el botón de guardar */
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  transition-property: all;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  outline: none;
+  border: none; /* Asegurarse de que no haya borde predeterminado */
+}
+
+.save-button:hover {
+  background-color: #1d4ed8; /* Tono más oscuro al pasar el ratón */
+}
+
+.save-button:focus {
+  box-shadow: 0 0 0 2px #3b82f6, 0 0 0 2px rgba(59, 130, 246, 0.75);
+}
