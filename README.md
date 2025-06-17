@@ -1,6 +1,6 @@
 # EdnaModa - Desarrollo Web I
 
-Una aplicación web para conectar diseñadores de moda con usuarios que buscan prendas personalizadas.
+Una aplicación web para conectar a tu tía Edna con usuarios que buscan prendas personalizadas.
 
 ## 🚀 Cómo ejecutar la aplicación
 
@@ -42,13 +42,6 @@ Una vez que la aplicación esté ejecutándose, puedes navegar a:
 - `/perfil` - Editar perfil de usuario
 - `/perfil-diseñador` - Editar perfil de diseñador (accesible desde el dashboard del diseñador)
 
-### Comandos disponibles
-
-- `npm start` - Ejecuta la aplicación en modo desarrollo
-- `npm run build` - Construye la aplicación para producción
-- `npm test` - Ejecuta las pruebas
-- `npm run eject` - Expone la configuración de webpack (no recomendado)
-
 ## 📁 Estructura del proyecto
 
 ```
@@ -64,22 +57,6 @@ edna_devweb1/
 └── README.md            # Este archivo
 ```
 
-## 📋 Archivos importantes para subir
-
-### Incluir en el repositorio:
-- `src/` - Todo el código fuente
-- `public/` - Archivos públicos
-- `package.json` - Lista de dependencias
-- `tsconfig.json` - Configuración TypeScript
-- `README.md` - Documentación
-- `.gitignore` - Archivos a excluir
-
-### NO incluir (ya están en .gitignore):
-- `node_modules/` - Dependencias instaladas
-- `build/` - Archivos de producción
-- `package-lock.json` - Archivo de bloqueo de versiones
-- Archivos de configuración del IDE
-
 ## 🛠️ Tecnologías utilizadas
 
 - React 19
@@ -93,9 +70,6 @@ edna_devweb1/
 - Los archivos JSON que se generan automáticamente (como `package-lock.json`) no se suben al repositorio
 - El archivo `.gitignore` se encarga de excluir automáticamente los archivos innecesarios
 
----
-
-*Más documentación será agregada conforme se desarrollen nuevas funcionalidades.*
 
 
 
