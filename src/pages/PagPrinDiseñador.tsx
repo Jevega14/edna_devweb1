@@ -1,13 +1,21 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './PagPrinDiseñador.css';
 
 const PagPrinDiseñador: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
         <h1>EdnaModa</h1>
         <div className="user-info">
-          <span>👤 Diseñador</span>
+          <span 
+            style={{ cursor: 'pointer' }}
+            onClick={() => navigate('/perfil-diseñador')}
+          >
+            👤 Diseñador
+          </span>
         </div>
       </header>
 

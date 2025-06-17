@@ -5,6 +5,8 @@ import InicioSesion from './pages/InicioSesion';
 import PagPrinDiseñador from './pages/PagPrinDiseñador';
 import PagPrinUsuario from './pages/PagPrinUsuario';
 import EditarPerfil from './pages/EditarPerfil';
+import EditarPerfilDiseñador from './pages/EditarPerfilDiseñador';
+import Register from './pages/Register';
 
 const App: React.FC = () => {
   return (
@@ -22,9 +24,11 @@ const App: React.FC = () => {
       {/* Definición de rutas */}
       <Routes>
         <Route path="/login" element={<InicioSesion />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/diseñador" element={<PagPrinDiseñador />} />
         <Route path="/usuario" element={<PagPrinUsuario />} />
         <Route path="/perfil" element={<EditarPerfil />} />
+        <Route path="/perfil-diseñador" element={<EditarPerfilDiseñador />} />
       </Routes>
     </Router>
   );
