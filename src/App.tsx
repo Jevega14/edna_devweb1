@@ -7,6 +7,8 @@ import PagPrinUsuario from './pages/PagPrinUsuario';
 import EditarPerfil from './pages/EditarPerfil';
 import EditarPerfilDiseñador from './pages/EditarPerfilDiseñador';
 import Register from './pages/Register';
+import CrearDiseños from './pages/CrearDiseños';
+import DiseñosGuardados from './pages/DiseñosGuardados';
 
 const App: React.FC = () => {
   return (
@@ -18,6 +20,8 @@ const App: React.FC = () => {
         <Link to="/register" style={{ marginRight: '1rem' }}>Registro</Link>
         <Link to="/diseñador" style={{ marginRight: '1rem' }}>Diseñador</Link>
         <Link to="/usuario" style={{ marginRight: '1rem' }}>Usuario</Link>
+        <Link to="/creardiseño" style={{ marginRight: '1rem' }}>Crear Diseños</Link>
+        <Link to="/diseñosguardados" style={{ marginRight: '1rem' }}>Diseños Guardados</Link>
         <Link to="/perfil">Editar perfil</Link>
       </nav>
 
@@ -29,6 +33,8 @@ const App: React.FC = () => {
         <Route path="/usuario" element={<PagPrinUsuario />} />
         <Route path="/perfil" element={<EditarPerfil />} />
         <Route path="/perfil-diseñador" element={<EditarPerfilDiseñador />} />
+        <Route path="/creardiseño" element={<CrearDiseños/>} />
+        <Route path="/diseñosguardados" element={<DiseñosGuardados />} />
       </Routes>
     </Router>
   );
