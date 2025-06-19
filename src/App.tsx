@@ -9,13 +9,16 @@ import EditarPerfilDiseñador from './pages/EditarPerfilDiseñador';
 import Register from './pages/Register';
 import CrearDiseños from './pages/CrearDiseños';
 import DiseñosGuardados from './pages/DiseñosGuardados';
+import Home from './pages/Home';
+import RealizacionPedidoUser from './pages/RealizacionPedidoUser';
+import CarritoCompra from './pages/CarritoCompra';
 
 const App: React.FC = () => {
   return (
     <Router>
       <nav style={{ padding: '1rem', borderBottom: '1px solid #ccc' }}>
         {/* Enlaces para navegar */}
-        <Link to="/" style={{ marginRight: '1rem' }}>Home</Link>
+        <Link to="/Home" style={{ marginRight: '1rem' }}>Home</Link>
         <Link to="/login" style={{ marginRight: '1rem' }}>Iniciar sesión</Link>
         <Link to="/register" style={{ marginRight: '1rem' }}>Registro</Link>
         <Link to="/diseñador" style={{ marginRight: '1rem' }}>Diseñador</Link>
@@ -23,6 +26,8 @@ const App: React.FC = () => {
         <Link to="/creardiseño" style={{ marginRight: '1rem' }}>Crear Diseños</Link>
         <Link to="/diseñosguardados" style={{ marginRight: '1rem' }}>Diseños Guardados</Link>
         <Link to="/perfil">Editar perfil</Link>
+        <Link to="/RealizacionPedidoUser" style={{ marginLeft: '1rem' }}>Realizar pedido usuario</Link>
+        <Link to="/CarritoCompra" style={{ marginLeft: '1rem' }}>Carrito de compra</Link>
       </nav>
 
       {/* Definición de rutas */}
@@ -35,6 +40,10 @@ const App: React.FC = () => {
         <Route path="/perfil-diseñador" element={<EditarPerfilDiseñador />} />
         <Route path="/creardiseño" element={<CrearDiseños/>} />
         <Route path="/diseñosguardados" element={<DiseñosGuardados />} />
+        <Route path="/Home" element={<Home />} />
+        <Route path="/RealizacionPedidoUser" element={<RealizacionPedidoUser />} />
+        <Route path="/CarritoCompra" element={<CarritoCompra />} />
+        {/* Ruta por defecto */}
       </Routes>
     </Router>
   );
