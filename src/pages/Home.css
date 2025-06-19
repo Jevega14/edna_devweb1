@@ -1,0 +1,234 @@
+/* Home.css */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+.home-header {
+    padding: 1rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    background-color: white;
+    display: flex; /* Added flex to align nav and title */
+    flex-direction: column; /* Stack nav and title */
+    align-items: center; /* Center horizontally */
+    gap: 1rem; /* Space between nav and title */
+}
+
+.header-title { /* New class for the h1 title */
+    margin: 0;
+    color: #333;
+    font-size: 1.8rem;
+}
+
+/* Styles for the main navigation */
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Allow items to wrap */
+    gap: 1.5rem; /* Space between navigation items */
+}
+
+.main-nav li a {
+    text-decoration: none;
+    color: #6a0dad; /* Purple color for links */
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    transition: color 0.2s ease-in-out;
+}
+
+.main-nav li a:hover {
+    color: #8c4edb; /* Lighter purple on hover */
+}
+
+
+.home-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 2rem;
+    gap: 2rem; /* Increased gap between main sections */
+}
+
+.welcome-section {
+    text-align: center;
+    margin-bottom: 0; /* Removed explicit margin-bottom as gap will handle it */
+}
+
+.welcome-title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.welcome-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    margin: 0;
+}
+
+.auth-section {
+    display: flex;
+    gap: 8rem;
+    margin-bottom: 0; /* Removed explicit margin-bottom as gap will handle it */
+    align-items: center;
+}
+
+.auth-option {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px; /* Kept fixed width for consistency */
+}
+
+.auth-option h3 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1.1rem;
+    height: 1.5rem; /* Fixed height for consistent alignment */
+    display: flex;
+    align-items: center;
+}
+
+.auth-button {
+    padding: 0;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 200px;
+    height: 50px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.register-button {
+    background-color: white;
+    color: #007bff;
+}
+
+.register-button:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.login-button {
+    background-color: #007bff;
+    color: white;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+}
+
+/* Categories section - removed absolute positioning */
+.categories-section {
+    position: relative; /* Changed to relative */
+    top: auto; /* Removed top */
+    left: auto; /* Removed left */
+    transform: none; /* Removed transform */
+    z-index: 1;
+    margin-top: 2rem; /* Added margin-top for spacing */
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 2.5rem;
+    justify-items: center;
+}
+
+.category-item {
+    width: 120px;
+    height: 120px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); /* Added shadow for consistency */
+}
+
+.category-item:hover {
+    border-color: #007bff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}
+
+.category-icon {
+    font-size: 3.5rem;
+}
+
+@media (max-width: 768px) {
+    .home-header {
+        padding: 1rem;
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .auth-section {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .auth-option {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .auth-button {
+        width: 100% !important;
+        max-width: 300px !important;
+        min-width: 200px !important;
+    }
+
+    .categories-section {
+        margin-top: 2rem; /* Ensure spacing on small screens */
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(3, 1fr); /* Adjust grid for smaller screens */
+        gap: 1.5rem;
+    }
+
+    .category-item {
+        width: 80px;
+        height: 80px;
+    }
+
+    .category-icon {
+        font-size: 2.5rem;
+    }
+
+    .welcome-title {
+        font-size: 1.5rem;
+    }
+
+    .home-main {
+        gap: 2rem;
+        padding: 1rem;
+    }
+}
