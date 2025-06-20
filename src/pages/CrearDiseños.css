@@ -1,4 +1,4 @@
-/* designEditor.css */
+/* CrearDiseños.css */
 
 /* Asegura que el body y html ocupen toda la altura de la ventana */
 html, body, #root { /* Asume #root es el ID de tu div raíz de React */
@@ -82,10 +82,6 @@ body {
 
 .nav-item:hover {
   background-color: #f0f0f0;
-}
-
-.nav-item svg {
-  margin-right: 0.5rem;
 }
 
 .clothing-display-image {

@@ -1,4 +1,4 @@
-/* designGallery.css (Corregido v2) */
+/* DiseñosGuardados.css */
 
 /* Reseteo y configuración global */
 html {
@@ -25,7 +25,6 @@ body, #root {
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  /* Eliminamos overflow: hidden para que no interfiera con los hijos */
 }
 
 /* Encabezado */
@@ -33,9 +32,9 @@ body, #root {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem; /* Reducimos un poco el margen */
+  margin-bottom: 1.5rem;
   padding: 0 1rem;
-  flex-shrink: 0; /* Evita que el encabezado se encoja */
+  flex-shrink: 0;
 }
 
 .header h1 {
@@ -55,44 +54,45 @@ body, #root {
   gap: 0.25rem;
 }
 
-
-/* --- ÁREA DE CAMBIOS PRINCIPALES --- */
-
 /* Contenedor del contenido principal (el recuadro blanco) */
 .main-content-gallery {
-  flex: 1; /* NUEVO: Forma abreviada de flex-grow: 1, flex-shrink: 1, flex-basis: 0%. Ocupará todo el espacio vertical disponible. */
+  flex: 1;
   display: flex;
   flex-direction: column;
   background-color: #fff;
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* CRUCIAL: Mantiene el contenido (incluyendo los botones) dentro de los bordes redondeados. */
-  min-height: 0; /* Evita problemas de desbordamiento en contenedores flex. */
+  overflow: hidden;
+  min-height: 0;
 }
 
 /* Cuadrícula de tarjetas de diseño */
 .design-cards-grid {
-  flex: 1; /* NUEVO: Hará que la cuadrícula crezca para llenar el espacio disponible dentro de .main-content-gallery */
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
-  overflow-y: auto; /* CRUCIAL: SOLO esta área tendrá una barra de desplazamiento si el contenido es demasiado largo. */
-  padding: 1.5rem; /* Aumentamos el padding para más aire */
+  overflow-y: auto;
+  padding: 1.5rem;
   min-height: 0;
 }
 
 /* Contenedor para las acciones inferiores */
 .bottom-actions {
-  flex-shrink: 0; /* Evita que esta sección se encoja */
+  flex-shrink: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1.5rem; /* Padding consistente */
-  border-top: 1px solid #e5e7eb; /* Línea de separación sutil */
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #e5e7eb;
 }
 
-/* --- FIN DEL ÁREA DE CAMBIOS PRINCIPALES --- */
-
+/* Contenedor para acciones de la izquierda (Crear nuevo diseño, Seleccionar todos) */
+.left-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap; /* Permite que los botones se envuelvan en pantallas pequeñas */
+}
 
 .design-card {
   background-color: #f9f9f9;
@@ -138,7 +138,7 @@ body, #root {
   background-color: #0056b3;
 }
 
-.select-radio-group {
+.select-radio-group { /* Renombrado de radio-group a select-group para mayor generalidad con checkbox */
   display: flex;
   align-items: center;
   margin-top: 0.5rem;
@@ -146,7 +146,7 @@ body, #root {
   color: #555;
 }
 
-.select-radio-group input[type="radio"] {
+.select-radio-group input[type="checkbox"] { /* Asegura que aplique a checkbox */
   margin-right: 0.5rem;
 }
 
@@ -172,6 +172,7 @@ body, #root {
 .right-action-buttons {
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap; /* Permite que los botones se envuelvan en pantallas pequeñas */
 }
 
 .add-to-cart-button-gallery,
@@ -228,10 +229,9 @@ body, #root {
     gap: 1rem;
     padding: 1rem;
   }
-  .right-action-buttons {
-    flex-direction: column;
-    gap: 0.75rem;
-    align-items: stretch;
+  .left-actions, .right-action-buttons {
+    width: 100%; /* Asegura que los grupos de botones ocupen todo el ancho */
+    justify-content: center; /* Centra los botones dentro de sus grupos */
   }
   
   .create-design-button, .add-to-cart-button-gallery, .remove-design-button {
