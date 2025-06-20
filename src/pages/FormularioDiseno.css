@@ -1,0 +1,144 @@
+.formulario-diseno {
+  font-family: Arial, sans-serif;
+  padding: 2rem;
+}
+
+.formulario-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 1rem;
+}
+
+.usuario-label {
+  font-size: 1rem;
+}
+
+.formulario-main {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.columna-izquierda {
+  flex: 1;
+  max-width: 300px;
+  text-align: center;
+}
+
+.imagen-preview {
+  border: 1px dashed #aaa;
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+.cargar-imagen {
+  display: block;
+  cursor: pointer;
+}
+
+.nombre-archivo {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.columna-derecha {
+  flex: 2;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.columna-derecha label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.columna-derecha input,
+.columna-derecha select {
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+}
+
+.colores {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.boton-logo {
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.confirmar-container {
+  margin-top: 2rem;
+  text-align: right;
+}
+
+.boton-confirmar {
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+
+.color-picker-area {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.color-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.color-preview-box {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: default;
+}
+
+.color-picker-area {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.color-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  min-height: 40px;
+}
+
+.color-preview-box {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.imagen-cargada {
+  margin-top: 1rem;
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
