@@ -76,7 +76,7 @@ edna_devweb1/
 - Después de clonar el proyecto, siempre ejecuta `npm install` para instalar las dependencias
 - Los archivos JSON que se generan automáticamente (como `package-lock.json`) no se suben al repositorio
 - El archivo `.gitignore` se encarga de excluir automáticamente los archivos innecesarios
-
+- Algunas de las funcionalidades como crear nuevo material o gestionar inventario son puramente visuales y sólo funcionan dentro de la pestaña, pues aún no se ha enlazado una base de datos de soporte
 
 
 
