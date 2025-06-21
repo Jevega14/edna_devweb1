@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './FormularioDiseno.css';
+import './styles/FormularioDiseno.css';
 
 const FormularioDiseno: React.FC = () => {
   const [imagen, setImagen] = useState<File | null>(null);

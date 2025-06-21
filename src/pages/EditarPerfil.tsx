@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../styles.css';
-import './EditarPerfil.css';
+import './styles/EditarPerfil.css';
 
 // Define el tipo para los datos del perfil
 interface UserProfile {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './GestionInventario.css';
+import './styles/GestionInventario.css';
 
 const GestionInventario: React.FC = () => {
   const navigate = useNavigate();

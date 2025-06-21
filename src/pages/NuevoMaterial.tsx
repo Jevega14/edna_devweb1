@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './NuevoMaterial.css';
+import './styles/NuevoMaterial.css';
 
 const NuevoMaterial: React.FC = () => {
   const [nombre, setNombre] = useState('');

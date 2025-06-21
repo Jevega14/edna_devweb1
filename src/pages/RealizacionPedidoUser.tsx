@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './RealizacionPedidoUser.css';
+import './styles/RealizacionPedidoUser.css';
 
 const RealizacionPedidoUser: React.FC = () => {
     const navigate = useNavigate();

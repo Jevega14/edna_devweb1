@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './CarritoCompra.css';
+import './styles/CarritoCompra.css';
 
 const CarritoCompra: React.FC = () => {
     const navigate = useNavigate();

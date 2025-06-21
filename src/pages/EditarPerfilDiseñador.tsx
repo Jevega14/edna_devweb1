@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./EditarPerfilDiseñador.css";
+import './styles/EditarPerfilDiseñador.css';
 
 // Define el tipo para los datos del perfil del diseñador
 interface DesignerProfile {

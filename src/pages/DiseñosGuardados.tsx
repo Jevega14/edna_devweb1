@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './DiseñosGuardados.css'; 
+import './styles/DiseñosGuardados.css'; 
 
 const App: React.FC = () => {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './InicioSesion.css';
+import './styles/InicioSesion.css';
 
 // Componente principal de la aplicación
 const InicioSesion: React.FC = () => {

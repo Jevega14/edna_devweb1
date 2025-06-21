@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './CrearDiseños.css'; // Assuming you have a CSS file for styles
+import './styles/CrearDiseños.css'; // Assuming you have a CSS file for styles
 
 
 // Define the interfaces for the data types
