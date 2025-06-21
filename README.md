@@ -41,7 +41,9 @@ Una vez que la aplicación esté ejecutándose, puedes navegar a:
 - `/diseñador` - Dashboard principal del diseñador
 - `/perfil` - Editar perfil de usuario
 - `/perfil-diseñador` - Editar perfil de diseñador (accesible desde el dashboard del diseñador)
-
+- `/Gestionar mis diseños` - Eliminar,crear y modificar diseños guardados (accesible desde el dashboard del usuario)
+- `/Carrito de compras` - Ver pedidos a ordenar (accesible desde el dashboard del usuario)
+- `/Mis pedidos` - Detalles ede pedidos ya realizados (accesible desde el dashboard del usuario)
 ## 📁 Estructura del proyecto
 
 ```
