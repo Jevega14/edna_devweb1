@@ -7,7 +7,6 @@ const RealizacionPedidoUser: React.FC = () => {
             <header className="pedido-header">
                 <h1>EdnaModa</h1>
                 <div className="user-info">
-                    <span>👤 Usuario</span>
                     <span>👤 Perfil</span>
                 </div>
             </header>
