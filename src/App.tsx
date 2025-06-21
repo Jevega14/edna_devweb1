@@ -30,17 +30,12 @@ const App: React.FC = () => {
         <Link to="/perfil">Editar perfil</Link>
         <Link to="/RealizacionPedidoUser" style={{ marginLeft: '1rem' }}>Realizar pedido usuario</Link>
         <Link to="/CarritoCompra" style={{ marginLeft: '1rem' }}>Carrito de compra</Link>
-<<<<<<< Updated upstream
         <Link to="/CarritoCompra" style={{ marginLeft: '1rem' }}> 🛒 </Link>
-=======
-<<<<<<< HEAD
         <Link to="/inventario" style={{ marginLeft: '1rem' }}>Gestion inventario diseñador</Link>
         <Link to="/nuevo-diseno" style={{ marginLeft: '1rem' }}>Creacion nuevo diseño</Link>
         <Link to="/nuevo-material" style={{ marginLeft: '1rem' }}>Nuevo material</Link>
-=======
         <Link to="/CarritoCompra" style={{ marginLeft: '1rem' }}> 🛒 </Link>
->>>>>>> c06376492af4e5404a961026c14b01ea3a574748
->>>>>>> Stashed changes
+
       </nav>
 
       {/* Definición de rutas */}
@@ -56,17 +51,13 @@ const App: React.FC = () => {
         <Route path="/Home" element={<Home />} />
         <Route path="/RealizacionPedidoUser" element={<RealizacionPedidoUser />} />
         <Route path="/CarritoCompra" element={<CarritoCompra />} />
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
+
         <Route path="/inventario" element={<GestionInventario />} />
         <Route path="/nuevo-diseno" element={<FormularioDiseno />} />
         <Route path="/nuevo-material" element={<NuevoMaterial />} />
 
         {/* Ruta por defecto */}
-=======
->>>>>>> c06376492af4e5404a961026c14b01ea3a574748
->>>>>>> Stashed changes
+
       </Routes>
     </Router>
   );
