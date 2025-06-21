@@ -43,7 +43,12 @@ Una vez que la aplicación esté ejecutándose, puedes navegar a:
 - `/perfil-diseñador` - Editar perfil de diseñador (accesible desde el dashboard del diseñador)
 - `/Gestionar mis diseños` - Eliminar,crear y modificar diseños guardados (accesible desde el dashboard del usuario)
 - `/Carrito de compras` - Ver pedidos a ordenar (accesible desde el dashboard del usuario)
-- `/Mis pedidos` - Detalles ede pedidos ya realizados (accesible desde el dashboard del usuario)
+- `/Mis pedidos` - Detalles de pedidos ya realizados (accesible desde el dashboard del usuario)
+- `/perfil-diseñador` - Editar perfil de diseñador (accesible desde el dashboard del diseñador)
+- `/Gestionar inventario` - Editar, crear y eliminar prendas del diseñador y materiales (accesible desde el dashboard del diseñador)
+- `/Añadir material` - Crear nuevo material para las prendas  (accesible desde el dashboard del diseñador)
+- `/Crear nuevo diseño` - Crear desde 0 diseño para el catálogo  (accesible desde el dashboard del diseñador)
+- `/Mis pedidos` - Detalles de pedidos realizados al diseñador (accesible desde el dashboard del diseñador)
 ## 📁 Estructura del proyecto
 
 ```
