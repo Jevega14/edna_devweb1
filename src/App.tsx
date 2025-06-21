@@ -4,7 +4,6 @@ import InicioSesion from './pages/InicioSesion';
 import PagPrinDiseñador from './pages/PagPrinDiseñador';
 import PagPrinUsuario from './pages/PagPrinUsuario';
 import EditarPerfil from './pages/EditarPerfil';
-import EditarPerfilDiseñador from './pages/EditarPerfilDiseñador';
 import Register from './pages/Register';
 import CrearDiseños from './pages/CrearDiseños';
 import DiseñosGuardados from './pages/DiseñosGuardados';
@@ -29,7 +28,7 @@ const App: React.FC = () => {
         <Route path="/diseñador" element={<PagPrinDiseñador />} />
         <Route path="/usuario" element={<PagPrinUsuario />} />
         <Route path="/perfil" element={<EditarPerfil />} />
-        <Route path="/perfil-diseñador" element={<EditarPerfilDiseñador />} />
+        <Route path="/perfil-diseñador" element={<EditarPerfil />} />
         <Route path="/creardiseño" element={<CrearDiseños/>} />
         <Route path="/diseñosguardados" element={<DiseñosGuardados />} />
         <Route path="/Home" element={<Home />} />
