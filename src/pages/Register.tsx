@@ -1,25 +1,21 @@
 import React, { useState } from 'react';
-import './Register.css';
-
-// Tipo para el rol del usuario
-type UserRole = 'usuario' | 'diseñador';
+import { useNavigate } from 'react-router-dom';
+import './styles/Register.css';
 
 // Interfaz para los datos del registro
 interface RegisterData {
-  role: UserRole;
   name: string;
   username: string;
   email: string;
   password: string;
   confirmPassword: string;
-  // Campos adicionales para diseñador
   phone?: string;
   address?: string;
 }
 
 const Register: React.FC = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<RegisterData>({
-    role: 'usuario',
     name: '',
     username: '',
     email: '',
@@ -38,61 +34,37 @@ const Register: React.FC = () => {
     }));
   };
 
-  // Manejador para cambio de rol
-  const handleRoleChange = (role: UserRole) => {
-    setFormData(prev => ({
-      ...prev,
-      role
-    }));
+  // Validación de contraseña: mínimo 6 caracteres, al menos una letra y un número
+  const isPasswordValid = (password: string) => {
+    return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(password);
   };
 
   // Manejador para el registro
   const handleRegister = () => {
-    // Validaciones básicas
     if (!formData.name || !formData.username || !formData.email || !formData.password) {
       alert('Por favor completa todos los campos obligatorios');
       return;
     }
-
+    if (!isPasswordValid(formData.password)) {
+      alert('La contraseña debe tener al menos 6 caracteres, incluir letras y números.');
+      return;
+    }
     if (formData.password !== formData.confirmPassword) {
       alert('Las contraseñas no coinciden');
       return;
     }
-
     // Lógica de registro
-    console.log('Datos de registro:', formData);
-    alert(`Registro exitoso como ${formData.role}`);
+    alert('Registro exitoso. Ahora puedes iniciar sesión.');
+    navigate('/login');
   };
 
   return (
     <div className="register-container">
       <div className="register-card">
-        <h2 className="register-title">Crear cuenta</h2>
-
-        {/* Selector de rol */}
-        <div className="role-selector">
-          <label className="role-selector-label">Tipo de cuenta:</label>
-          <div className="role-options">
-            <button
-              type="button"
-              className={`role-button ${formData.role === 'usuario' ? 'active' : ''}`}
-              onClick={() => handleRoleChange('usuario')}
-            >
-              👤 Usuario
-            </button>
-            <button
-              type="button"
-              className={`role-button ${formData.role === 'diseñador' ? 'active' : ''}`}
-              onClick={() => handleRoleChange('diseñador')}
-            >
-              👨‍🎨 Diseñador
-            </button>
-          </div>
-        </div>
-
+        <h2 className="register-title">Registro</h2>
         {/* Campos comunes */}
         <div className="form-group">
-          <label htmlFor="name" className="form-label">Nombre completo *</label>
+          <label htmlFor="name" className="form-label">Nombre *</label>
           <input
             type="text"
             id="name"
@@ -102,7 +74,6 @@ const Register: React.FC = () => {
             placeholder="Tu nombre completo"
           />
         </div>
-
         <div className="form-group">
           <label htmlFor="username" className="form-label">Nombre de usuario *</label>
           <input
@@ -114,7 +85,6 @@ const Register: React.FC = () => {
             placeholder="nombre.usuario"
           />
         </div>
-
         <div className="form-group">
           <label htmlFor="email" className="form-label">Correo electrónico *</label>
           <input
@@ -126,36 +96,28 @@ const Register: React.FC = () => {
             placeholder="tu@correo.com"
           />
         </div>
-
-        {/* Campos adicionales para usuario */}
-        {formData.role === 'usuario' && (
-          <>
-            <div className="form-group">
-              <label htmlFor="phone" className="form-label">Teléfono</label>
-              <input
-                type="tel"
-                id="phone"
-                className="form-input"
-                value={formData.phone}
-                onChange={handleInputChange}
-                placeholder="123-456-7890"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="address" className="form-label">Dirección</label>
-              <input
-                type="text"
-                id="address"
-                className="form-input"
-                value={formData.address}
-                onChange={handleInputChange}
-                placeholder="Tu dirección"
-              />
-            </div>
-          </>
-        )}
-
+        <div className="form-group">
+          <label htmlFor="phone" className="form-label">Teléfono</label>
+          <input
+            type="tel"
+            id="phone"
+            className="form-input"
+            value={formData.phone}
+            onChange={handleInputChange}
+            placeholder="123-456-7890"
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="address" className="form-label">Dirección</label>
+          <input
+            type="text"
+            id="address"
+            className="form-input"
+            value={formData.address}
+            onChange={handleInputChange}
+            placeholder="Tu dirección"
+          />
+        </div>
         <div className="form-group">
           <label htmlFor="password" className="form-label">Contraseña *</label>
           <input
@@ -166,8 +128,8 @@ const Register: React.FC = () => {
             onChange={handleInputChange}
             placeholder="••••••••"
           />
+          <small style={{color:'#888',fontSize:'0.92rem'}}>Mínimo 6 caracteres, debe incluir letras y números.</small>
         </div>
-
         <div className="form-group-last">
           <label htmlFor="confirmPassword" className="form-label">Confirmar contraseña *</label>
           <input
@@ -179,12 +141,11 @@ const Register: React.FC = () => {
             placeholder="••••••••"
           />
         </div>
-
         <button
           onClick={handleRegister}
           className="register-button"
         >
-          Registrarse como {formData.role}
+          Crear cuenta
         </button>
       </div>
     </div>

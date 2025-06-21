@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import './InicioSesion.css';
+import { useNavigate } from 'react-router-dom';
+import './styles/InicioSesion.css';
 
 // Componente principal de la aplicación
 const InicioSesion: React.FC = () => {
   // Estados para almacenar los valores de los campos de correo y contraseña
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const navigate = useNavigate();
 
   // Manejador del cambio para el campo de correo
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,22 +19,10 @@ const InicioSesion: React.FC = () => {
     setPassword(e.target.value);
   };
 
-  // Manejador para el botón "Registrarse"
-  const handleRegister = () => {
-    // Lógica para registrarse (puedes añadir tu implementación aquí)
-    console.log('Registrarse con:', { email, password });
-    // En un entorno de producción, aquí podrías mostrar un modal de confirmación
-    // o un mensaje en la UI en lugar de un alert.
-    console.log('Funcionalidad de registro pendiente.');
-  };
-
   // Manejador para el botón "Ingresar"
   const handleLogin = () => {
-    // Lógica para iniciar sesión (puedes añadir tu implementación aquí)
-    console.log('Ingresar con:', { email, password });
-    // En un entorno de producción, aquí podrías mostrar un modal de confirmación
-    // o un mensaje en la UI en lugar de un alert.
-    console.log('Funcionalidad de inicio de sesión pendiente.');
+    // Aquí podrías validar credenciales
+    navigate('/usuario');
   };
 
   return (
@@ -78,18 +68,12 @@ const InicioSesion: React.FC = () => {
         </div>
 
         {/* Grupo de botones */}
-        <div className="button-group">
-          {/* Botón de registrarse */}
-          <button
-            onClick={handleRegister}
-            className="button-base register-button"
-          >
-            Registrarse
-          </button>
+        <div className="button-group" style={{ display: 'flex', justifyContent: 'center' }}>
           {/* Botón de ingresar */}
           <button
-            onClick={handleLogin}
             className="button-base login-button"
+            onClick={handleLogin}
+            style={{ width: '60%' }}
           >
             Ingresar
           </button>

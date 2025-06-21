@@ -1,38 +1,60 @@
 import React from 'react';
-import './PagPrinUsuario.css';
+import { useNavigate } from 'react-router-dom';
+import '../styles.css';
 
 const PagPrinUsuario: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
-    <div className="usuario-container">
-      <header className="usuario-header">
-        <h1>EdnaModa</h1>
-        <div className="user-info">
-          <span>👤 Usuario</span>
-        </div>
-      </header>
-
-      <main className="usuario-main">
-        <div className="card" onClick={() => alert('Gestionar mis diseños')}>
-          <span className="icon">👘</span>
-          <p>Gestionar mis diseños</p>
-        </div>
-
-        <div className="card" onClick={() => alert('Mi carrito de compras')}>
-          <span className="icon">🛒</span>
-          <p>Mi carrito de compras</p>
-        </div>
-
-        <div className="card" onClick={() => alert('Mis pedidos')}>
-          <span className="icon">🧾</span>
-          <p>Mis pedidos</p>
-        </div>
-      </main>
-
-      <footer className="usuario-footer">
-        <button className="logout-button" onClick={() => alert('Cerrar sesión')}>
-          🔄 Cerrar sesión
+    <div style={{ position: 'relative', minHeight: '100vh', background: '#f5f5f5' }}>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', padding: '2.5rem 4vw 0 4vw' }}>
+        <button className="edna-btn edna-user-profile-btn" style={{ marginTop: '-1.2rem' }} onClick={() => navigate('/perfil')}>
+          Mi perfil
         </button>
-      </footer>
+      </div>
+      <div className="edna-user-home" style={{ margin: '3.5rem auto 0 auto', maxWidth: '820px', minHeight: '340px' }}>
+        <main className="edna-user-main" style={{ gap: '3rem', padding: '2.5rem 1.5rem' }}>
+          <div className="edna-user-card" style={{ minWidth: '200px', minHeight: '200px' }} onClick={() => navigate('/diseñosguardados')}>
+            <span className="edna-user-icon" style={{ fontSize: '3rem' }}>
+              {/* Ícono de camiseta */}
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#232323" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="14" y="14" width="20" height="24" rx="4" fill="#cccccc"/>
+                <polyline points="14,14 8,8 16,4 24,12 32,4 40,8 34,14" fill="none"/>
+              </svg>
+            </span>
+            <p>Gestionar mis diseños</p>
+          </div>
+          <div className="edna-user-card" style={{ minWidth: '200px', minHeight: '200px' }} onClick={() => navigate('/CarritoCompra')}>
+            <span className="edna-user-icon" style={{ fontSize: '3rem' }}>
+              {/* Ícono de carrito elegante */}
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#232323" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="17" cy="40" r="3" fill="#cccccc"/>
+                <circle cx="35" cy="40" r="3" fill="#cccccc"/>
+                <path d="M10 12h2l4 20h16l4-12H16" fill="none"/>
+                <rect x="10" y="12" width="28" height="4" rx="2" fill="#cccccc"/>
+              </svg>
+            </span>
+            <p>Mi carrito de compras</p>
+          </div>
+          <div className="edna-user-card" style={{ minWidth: '200px', minHeight: '200px' }} onClick={() => navigate('/pedidos-usuario')}>
+            <span className="edna-user-icon" style={{ fontSize: '3rem' }}>
+              {/* Ícono de recibo/lista */}
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="#232323" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="12" y="8" width="24" height="32" rx="4" fill="#cccccc"/>
+                <line x1="16" y1="16" x2="32" y2="16" />
+                <line x1="16" y1="24" x2="32" y2="24" />
+                <line x1="16" y1="32" x2="32" y2="32" />
+              </svg>
+            </span>
+            <p>Mis pedidos</p>
+          </div>
+        </main>
+      </div>
+      <div style={{ position: 'fixed', right: '3.5rem', bottom: '2.5rem', zIndex: 10 }}>
+        <button className="edna-btn edna-logout-btn" onClick={() => navigate('/login')}>
+          Cerrar sesión
+        </button>
+      </div>
     </div>
   );
 };

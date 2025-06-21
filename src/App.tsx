@@ -1,6 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-// Agregar demás páginas aquí
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import InicioSesion from './pages/InicioSesion';
 import PagPrinDiseñador from './pages/PagPrinDiseñador';
 import PagPrinUsuario from './pages/PagPrinUsuario';
@@ -15,10 +14,17 @@ import CarritoCompra from './pages/CarritoCompra';
 import GestionInventario from './pages/GestionInventario';
 import FormularioDiseno from './pages/FormularioDiseno';
 import NuevoMaterial from './pages/NuevoMaterial';
+<<<<<<< HEAD
+=======
+import PedidosDisenador from './pages/PedidosDisenador';
+import PedidosUsuario from './pages/PedidosUsuario';
+import Header from './components/Header';
+>>>>>>> feature/jessi
 
 const App: React.FC = () => {
   return (
     <Router>
+<<<<<<< HEAD
       <nav style={{ padding: '1rem', borderBottom: '1px solid #ccc' }}>
         {/* Enlaces para navegar */}
         <Link to="/Home" style={{ marginRight: '1rem' }}>Home</Link>
@@ -39,7 +45,11 @@ const App: React.FC = () => {
       </nav>
 
       {/* Definición de rutas */}
+=======
+      <Header />
+>>>>>>> feature/jessi
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<InicioSesion />} />
         <Route path="/register" element={<Register />} />
         <Route path="/diseñador" element={<PagPrinDiseñador />} />
@@ -54,8 +64,13 @@ const App: React.FC = () => {
         <Route path="/inventario" element={<GestionInventario />} />
         <Route path="/nuevo-diseno" element={<FormularioDiseno />} />
         <Route path="/nuevo-material" element={<NuevoMaterial />} />
+<<<<<<< HEAD
 
         {/* Ruta por defecto */}
+=======
+        <Route path="/pedidos-disenador" element={<PedidosDisenador />} />
+        <Route path="/pedidos-usuario" element={<PedidosUsuario />} />
+>>>>>>> feature/jessi
       </Routes>
     </Router>
   );

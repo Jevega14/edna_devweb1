@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./EditarPerfilDiseñador.css";
+import './styles/EditarPerfilDiseñador.css';
 
 // Define el tipo para los datos del perfil del diseñador
 interface DesignerProfile {
@@ -37,81 +37,146 @@ const EditarPerfilDiseñador: React.FC = () => {
   };
 
   return (
-    <div className="designer-profile-container">
-      <div className="designer-profile-card">
-        <div className="designer-profile-title-group">
-          <h2 className="designer-profile-title">
-            Editar mi perfil - Diseñador
-          </h2>
-          {/* Icono de diseñador */}
-          <span
-            role="img"
-            aria-label="designer icon"
-            className="designer-profile-icon"
+    <div
+      className="designer-profile-container"
+      style={{
+        fontFamily: "Montserrat, Segoe UI, Arial, sans-serif",
+        background: "#f5f5f5",
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        paddingTop: '4.5rem'
+      }}
+    >
+      <div
+        className="designer-profile-card"
+        style={{
+          background: "#fff",
+          borderRadius: 18,
+          boxShadow: "0 4px 24px rgba(35,35,35,0.10)",
+          padding: "3.2rem 2.8rem 2.8rem 2.8rem",
+          maxWidth: 540,
+          width: '100%',
+          margin: 0
+        }}
+      >
+        <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+          <h2
+            style={{
+              fontFamily: "Montserrat, Segoe UI, Arial, sans-serif",
+              fontWeight: 800,
+              fontSize: "2.1rem",
+              color: "#232323",
+              margin: 0,
+              letterSpacing: "1px",
+            }}
           >
-            👨‍🎨
-          </span>
+            Editar mi perfil 
+          </h2>
         </div>
-
         {/* Campo para el nombre */}
-        <div className="designer-form-field">
-          <label htmlFor="name" className="designer-field-label">
+        <div className="designer-form-field" style={{ marginBottom: '1rem', paddingBottom: '0.5rem' }}>
+          <label
+            htmlFor="name"
+            className="designer-field-label"
+            style={{
+              color: "#232323",
+              fontWeight: 600,
+            }}
+          >
             Nombre
           </label>
           <input
             type="text"
             id="name"
             className="designer-field-input"
+            style={{
+              fontFamily: "Montserrat, Segoe UI, Arial, sans-serif",
+            }}
             value={profile.name}
             onChange={handleChange}
           />
         </div>
-
         {/* Campo para el nombre de usuario */}
-        <div className="designer-form-field">
-          <label htmlFor="username" className="designer-field-label">
+        <div className="designer-form-field" style={{ marginBottom: '1rem', paddingBottom: '0.5rem' }}>
+          <label
+            htmlFor="username"
+            className="designer-field-label"
+            style={{
+              color: "#232323",
+              fontWeight: 600,
+            }}
+          >
             Nombre de usuario
           </label>
           <input
             type="text"
             id="username"
             className="designer-field-input"
+            style={{
+              fontFamily: "Montserrat, Segoe UI, Arial, sans-serif",
+            }}
             value={profile.username}
             onChange={handleChange}
           />
         </div>
-
         {/* Campo para el correo */}
-        <div className="designer-form-field">
-          <label htmlFor="email" className="designer-field-label">
+        <div className="designer-form-field" style={{ marginBottom: '1rem', paddingBottom: '0.5rem' }}>
+          <label
+            htmlFor="email"
+            className="designer-field-label"
+            style={{
+              color: "#232323",
+              fontWeight: 600,
+            }}
+          >
             Correo
           </label>
           <input
             type="email"
             id="email"
             className="designer-field-input"
+            style={{
+              fontFamily: "Montserrat, Segoe UI, Arial, sans-serif",
+            }}
             value={profile.email}
             onChange={handleChange}
           />
         </div>
-
         {/* Campo para la contraseña */}
-        <div className="designer-form-field">
-          <label htmlFor="password" className="designer-field-label">
+        <div className="designer-form-field" style={{ marginBottom: '1.5rem', paddingBottom: '0.5rem', borderBottom: 'none' }}>
+          <label
+            htmlFor="password"
+            className="designer-field-label"
+            style={{
+              color: "#232323",
+              fontWeight: 600,
+            }}
+          >
             Contraseña
           </label>
           <input
             type="password"
             id="password"
             className="designer-field-input"
+            style={{
+              fontFamily: "Montserrat, Segoe UI, Arial, sans-serif",
+            }}
             placeholder="Nueva contraseña"
             value={profile.password}
             onChange={handleChange}
           />
         </div>
-
         {/* Botón de guardar */}
-        <button onClick={handleSave} className="designer-save-button">
+        <button
+          onClick={handleSave}
+          className="edna-btn"
+          style={{
+            width: "100%",
+            marginTop: "0.5rem",
+          }}
+        >
           Guardar modificaciones
         </button>
       </div>
