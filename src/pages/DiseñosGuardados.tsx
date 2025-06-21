@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './DiseñosGuardados.css'; 
 
 const App: React.FC = () => {
+  const navigate = useNavigate();
   // Estado y función para mostrar mensajes en la UI (reemplazo de alert)
   const [message, setMessage] = useState('');
   const [showMessage, setShowMessage] = useState(false);
@@ -53,9 +55,7 @@ const App: React.FC = () => {
 
   // Manejador para el botón "Crear nuevo diseño"
   const handleCreateNewDesign = () => {
-    console.log('Crear nuevo diseño');
-    // Lógica para crear un nuevo diseño o navegar a un formulario de creación
-    displayMessage('Funcionalidad para crear nuevo diseño pendiente.');
+    navigate('/creardiseño');
   };
 
   // Manejador para el botón "Añadir al carrito" (para los diseños seleccionados)
@@ -115,15 +115,10 @@ const App: React.FC = () => {
       )}
 
       {/* Encabezado */}
-      <header className="header">
-        <h1>Edna Moda</h1>
-        <div className="header-links">
-          <h2>Mis diseños</h2>
-          <a href="#" className="flex items-center gap-1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            Usuario
-          </a>
-        </div>
+      <header className="header" style={{ justifyContent: 'center', alignItems: 'center', marginBottom: '1.5rem', padding: '0 1rem' }}>
+        <h2 style={{ fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif', fontWeight: 800, fontSize: '2rem', color: '#232323', margin: 0, letterSpacing: '1px', textAlign: 'center' }}>
+          Mis diseños
+        </h2>
       </header>
 
       {/* Contenido principal de la galería */}

@@ -100,29 +100,41 @@ body {
 }
 
 .register-button {
-  background-color: #e5e7eb; /* bg-gray-200 */
-  color: #1f2937; /* text-gray-800 */
+  background-color: #232323;
+  color: #cccccc;
+  border: 2px solid #cccccc;
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: all 200ms;
 }
 
 .register-button:hover {
-  background-color: #d1d5db; /* hover:bg-gray-300 */
+  background-color: #cccccc;
+  color: #232323;
+  border: 2px solid #232323;
 }
 
 .register-button:focus {
-  box-shadow: 0 0 0 2px #9ca3af; /* focus:ring-2 focus:ring-gray-400 */
-  box-shadow: 0 0 0 2px rgba(156, 163, 175, 0.75); /* focus:ring-opacity-75 */
+  box-shadow: 0 0 0 2px #cccccc;
 }
 
 .login-button {
-  background-color: #2563eb; /* bg-blue-600 */
-  color: #ffffff; /* text-white */
+  background-color: #232323;
+  color: #cccccc;
+  border: 2px solid #cccccc;
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: all 200ms;
 }
 
 .login-button:hover {
-  background-color: #1d4ed8; /* hover:bg-blue-700 */
+  background-color: #cccccc;
+  color: #232323;
+  border: 2px solid #232323;
 }
 
 .login-button:focus {
-  box-shadow: 0 0 0 2px #3b82f6; /* focus:ring-2 focus:ring-blue-500 */
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.75); /* focus:ring-opacity-75 */
+  box-shadow: 0 0 0 2px #cccccc;
 }

@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CarritoCompra.css';
 
 const CarritoCompra: React.FC = () => {
+    const navigate = useNavigate();
+    const [designs, setDesigns] = useState<string[]>(['Diseño boda', 'Diseño azul', 'Diseño 1', 'Diseño final']);
     const [selectedDesigns, setSelectedDesigns] = useState<string[]>([]);
-    const allDesigns = ['Diseño boda', 'Diseño azul', 'Diseño 1', 'Diseño final'];
 
     const handleSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.checked) {
-            setSelectedDesigns(allDesigns);
+            setSelectedDesigns(designs);
         } else {
             setSelectedDesigns([]);
         }
@@ -24,73 +26,70 @@ const CarritoCompra: React.FC = () => {
         }
     };
 
-    return (
-        <div className="cart-container">
-            <header className="cart-header">
-                <h1>EdnaModa</h1>
-                <div className="user-info">
-                    <span>👤 Usuario</span>
-                </div>
-            </header>
+    const handleDeleteFromCart = () => {
+        setDesigns(prev => prev.filter(design => !selectedDesigns.includes(design)));
+        setSelectedDesigns([]);
+    };
 
-            <main className="cart-main">
-                <div className="cart-header-section">
-                    <h2>🛒 Carrito de compras</h2>
-                    <label className="select-all-checkbox">
+    return (
+        <div className="cart-container" style={{ fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif', background: '#f5f5f5', minHeight: '100vh' }}>
+            <main className="cart-main" style={{ background: '#fff', borderRadius: 18, boxShadow: '0 4px 24px rgba(35,35,35,0.10)', margin: '2.5rem auto', padding: '2.5rem 1.5rem', maxWidth: 900 }}>
+                <div className="cart-header-section" style={{ width: '100%', alignItems: 'center', marginBottom: '1.5rem' }}>
+                    <h2 style={{ fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif', fontWeight: 800, fontSize: '2rem', color: '#232323', margin: 0, letterSpacing: '1px', textAlign: 'left' }}>🛒 Carrito de compras</h2>
+                    <label className="select-all-checkbox" style={{ marginTop: '0.7rem', fontWeight: 600, color: '#232323' }}>
                         <input
                             type="checkbox"
                             onChange={handleSelectAll}
-                            checked={selectedDesigns.length === allDesigns.length}
+                            checked={selectedDesigns.length === designs.length}
                         />{' '}
                         Seleccionar todos
                     </label>
                 </div>
 
                 <div className="cart-items">
-                    {allDesigns.map((design) => (
-                        <div className="cart-item-card" key={design}>
-              <span className="item-icon">
-                {design === 'Diseño boda'
-                    ? '👕'
-                    : design === 'Diseño azul'
-                        ? '👖'
-                        : design === 'Diseño 1'
-                            ? '👗'
-                            : '👚'}
-              </span>
-                            <p>{design}</p>
-                            <input
-                                type="checkbox" // Changed to checkbox for individual selection
-                                value={design}
-                                checked={selectedDesigns.includes(design)}
-                                onChange={handleDesignSelect}
-                            />{' '}
-                            Seleccionar
+                    {designs.map((design) => (
+                        <div className="cart-item-card" key={design} style={{ border: '1.5px solid #e0e0e0', borderRadius: 14, background: '#f5f5f5', fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif' }}>
+                            <span className="item-icon" style={{ fontSize: 48, marginBottom: 10 }}>
+                                {design === 'Diseño boda'
+                                    ? '👕'
+                                    : design === 'Diseño azul'
+                                        ? '👖'
+                                        : design === 'Diseño 1'
+                                            ? '👗'
+                                            : '👚'}
+                            </span>
+                            <p style={{ fontWeight: 700, color: '#232323', marginBottom: 8 }}>{design}</p>
+                            <label style={{ fontSize: '1rem', color: '#444', fontWeight: 500 }}>
+                                <input
+                                    type="checkbox"
+                                    value={design}
+                                    checked={selectedDesigns.includes(design)}
+                                    onChange={handleDesignSelect}
+                                    style={{ marginRight: 6 }}
+                                />
+                                Seleccionar
+                            </label>
                         </div>
                     ))}
                 </div>
 
-                <div className="cart-actions-right"> {/* Renamed for better clarity */}
+                <div className="cart-actions-right" style={{ position: 'static', display: 'flex', flexDirection: 'row', gap: '1.5rem', justifyContent: 'flex-end', marginTop: '2.5rem' }}>
                     <button
-                        className="action-button delete-button"
-                        onClick={() => alert('Eliminar del carrito: ' + selectedDesigns.join(', ') || 'Ningún diseño seleccionado')}
+                        className="edna-btn"
+                        style={{ background: '#dc3545', color: '#fff', border: 'none', minWidth: 180, fontWeight: 700 }}
+                        onClick={handleDeleteFromCart}
                     >
                         🗑️ Eliminar del carrito
                     </button>
                     <button
-                        className="action-button order-button"
-                        onClick={() => alert('Realizar pedido de: ' + selectedDesigns.join(', ') || 'Ningún diseño seleccionado')}
+                        className="edna-btn"
+                        style={{ background: '#232323', color: '#cccccc', border: '2px solid #cccccc', minWidth: 180, fontWeight: 700 }}
+                        onClick={() => navigate('/realizacionpedidouser')}
                     >
                         🔒 Realizar pedido
                     </button>
                 </div>
             </main>
-
-            <footer className="cart-footer">
-                <button className="back-button" onClick={() => alert('Volver')}>
-                    ↩️ Volver
-                </button>
-            </footer>
         </div>
     );
 };

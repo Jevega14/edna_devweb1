@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CrearDiseños.css'; // Assuming you have a CSS file for styles
 
 
@@ -21,6 +22,7 @@ interface FabricOption {
 }
 
 const App: React.FC = () => {
+  const navigate = useNavigate();
   // Predefined options for selectors
   const colorOptions = ['Rojo', 'Azul', 'Verde', 'Negro', 'Blanco', 'Gris', 'Amarillo', 'Morado']; // Added more colors
   const fabricOptions: FabricOption[] = [
@@ -263,17 +265,30 @@ const App: React.FC = () => {
     // Logic to add all designs to the cart
   };
 
+  // Handler to add a new design item
+  const handleAddDesign = () => {
+    const newId = designs.length > 0 ? Math.max(...designs.map(d => d.id)) + 1 : 1;
+    setDesigns(prev => [
+      ...prev,
+      {
+        id: newId,
+        type: 'Accesorio',
+        selectedType: 'Lentes',
+        colors: colorOptions,
+        selectedColor: 'Rojo',
+        selectedFabric: 'algodon',
+        selectedSize: 'M',
+      }
+    ]);
+  };
+
   return (
     <div className="editor-container">
       {/* Header */}
-      <header className="header">
-        <h1>Edna Moda</h1>
-        <div className="header-links">
-          <a href="#" className="flex items-center gap-1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            Usuario
-          </a>
-        </div>
+      <header className="header" style={{ flexDirection: 'column', alignItems: 'center', marginBottom: '2rem', padding: 0 }}>
+        <h2 style={{ fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif', fontWeight: 800, fontSize: '2rem', color: '#232323', margin: 0, letterSpacing: '1px', textAlign: 'center' }}>
+          Crear diseño
+        </h2>
       </header>
 
       {/* Main content */}
@@ -281,10 +296,10 @@ const App: React.FC = () => {
         {/* Sidebar */}
         <aside className="sidebar">
           <div>
-            <a href="#" className="nav-item">
+            <button className="nav-item" style={{ width: '100%' }} onClick={() => navigate('/diseñosguardados')}>
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-t-shirt"><path d="M7 21h10"/><path d="M12 17v4"/><path d="M17 21v-4H7v4"/><path d="M9.4 17a2 2 0 0 1-2.8 0L2 12V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v6l-4.6 5a2 2 0 0 1-2.8 0"/></svg>
               Mis diseños
-            </a>
+            </button>
           </div>
           {/* Dynamically updated clothing images */}
           {designs.map(design => (
@@ -402,8 +417,14 @@ const App: React.FC = () => {
               </tbody>
             </table>
           </div>
+          {/* Botón para añadir prenda/diseño debajo de la tabla */}
+          <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', margin: '1.2rem 0 0.5rem 0' }}>
+            <button className="edna-btn" style={{ padding: '0.5rem 1.2rem', fontSize: '1rem', minWidth: 0, width: 'auto', borderRadius: 8 }} onClick={handleAddDesign}>
+              + Añadir prenda/diseño
+            </button>
+          </div>
           {/* Save design button */}
-          <button onClick={handleSaveDesign} className="save-design-button">
+          <button onClick={handleSaveDesign} className="edna-btn" style={{ background: '#28a745', color: '#fff', fontWeight: 700, minWidth: 150, position: 'absolute', bottom: '1.5rem', left: '1.5rem' }}>
             Guardar diseño
           </button>
 
@@ -419,7 +440,8 @@ const App: React.FC = () => {
             />
             <button
               onClick={() => globalFileInputRef.current?.click()}
-              className="upload-global-logo-button"
+              className="edna-btn"
+              style={{ background: '#6c757d', color: '#fff', border: 'none', marginRight: '1rem', fontWeight: 700 }}
             >
               Subir Logo Personalizado Global
             </button>
@@ -429,7 +451,8 @@ const App: React.FC = () => {
             </div>
             <button
               onClick={handleAddToCartAll}
-              className="add-to-cart-button"
+              className="edna-btn"
+              style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700 }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-shopping-cart"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
               Añadir diseño al carrito

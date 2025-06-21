@@ -1,25 +1,18 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './RealizacionPedidoUser.css';
 
 const RealizacionPedidoUser: React.FC = () => {
+    const navigate = useNavigate();
     return (
-        <div className="pedido-container">
-            <header className="pedido-header">
-                <h1>EdnaModa</h1>
-                <div className="user-info">
-                    <span>👤 Usuario</span>
-                    <span>👤 Perfil</span>
-                </div>
-            </header>
-
-            <main className="pedido-main">
-                <div className="order-title">
+        <div className="pedido-container" style={{ fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif', background: '#f5f5f5', minHeight: '100vh', position: 'relative' }}>
+            <main className="pedido-main" style={{ background: '#fff', borderRadius: 18, boxShadow: '0 4px 24px rgba(35,35,35,0.10)', maxWidth: 1100, margin: '3.5rem auto 0 auto', padding: '2.5rem 1.5rem' }}>
+                <div className="order-title" style={{ justifyContent: 'center' }}>
                     <span className="lock-icon">🔒</span>
-                    <h2>Realiza tu pedido</h2>
+                    <h2 style={{ fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif', fontWeight: 800, fontSize: '2rem', color: '#232323', margin: 0, letterSpacing: '1px' }}>Realiza tu pedido</h2>
                 </div>
-
-                <div className="order-details-summary">
-                    <div className="order-details-card">
+                <div className="order-details-summary" style={{ gap: '3.5rem' }}>
+                    <div className="order-details-card" style={{ maxWidth: 520, minWidth: 340, flex: 1 }}>
                         <h3>Datos del pedido</h3>
                         <div className="input-group">
                             <label htmlFor="delivery-address">Dirección de entrega</label>
@@ -34,8 +27,7 @@ const RealizacionPedidoUser: React.FC = () => {
                             <textarea id="additional-data" className="textarea-input"></textarea>
                         </div>
                     </div>
-
-                    <div className="order-summary-card">
+                    <div className="order-summary-card" style={{ maxWidth: 520, minWidth: 340, flex: 1 }}>
                         <h3>Resumen del pedido</h3>
                         <div className="summary-items">
                             <div className="summary-item">
@@ -53,18 +45,19 @@ const RealizacionPedidoUser: React.FC = () => {
                             <p><strong>Encargado del diseño:</strong></p>
                             <p className="summary-text">_ _ _ _ _ _ _ _</p>
                         </div>
-                        <button className="make-order-button" onClick={() => alert('Hacer pedido')}>
-                            Hacer pedido ❯
-                        </button>
+                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1.5rem' }}>
+                            <button className="edna-btn" style={{ fontWeight: 700, width: 'fit-content', fontSize: '1.08rem' }} onClick={() => alert('Hacer pedido')}>
+                                Hacer pedido ❯
+                            </button>
+                        </div>
                     </div>
                 </div>
             </main>
-
-            <footer className="pedido-footer">
-                <button className="back-button" onClick={() => alert('Volver')}>
-                    ↩️ Volver
+            <div style={{ width: '100%', display: 'flex', justifyContent: 'center', margin: '2.5rem 0 1.5rem 0' }}>
+                <button className="edna-btn" style={{ fontSize: '1rem', padding: '0.5rem 1.5rem', minWidth: 0, width: 'auto', borderRadius: 8, background: '#fff', color: '#232323', border: '2px solid #cccccc', boxShadow: 'none' }} onClick={() => navigate('/usuario')}>
+                    ↩ Volver
                 </button>
-            </footer>
+            </div>
         </div>
     );
 };
