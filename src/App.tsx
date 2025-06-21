@@ -37,6 +37,8 @@ const App: React.FC = () => {
         <Link to="/nuevo-material" style={{ marginLeft: '1rem' }}>Nuevo material</Link>
         <Link to="/pedidos-disenador" style={{ marginLeft: '1rem' }}>Pedidos Diseñador</Link>
         <Link to="/pedidos-usuario" style={{ marginLeft: '1rem' }}>Pedidos Usuario</Link>
+        <Link to="/CarritoCompra" style={{ marginLeft: '1rem' }}> 🛒 </Link>
+
       </nav>
 
       {/* Definición de rutas */}
@@ -57,8 +59,6 @@ const App: React.FC = () => {
         <Route path="/nuevo-material" element={<NuevoMaterial />} />
         <Route path="/pedidos-disenador" element={<PedidosDisenador />} />
         <Route path="/pedidos-usuario" element={<PedidosUsuario />} />
-
-        {/* Ruta por defecto */}
       </Routes>
     </Router>
   );
