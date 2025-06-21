@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-<<<<<<< HEAD
-import './FormularioDiseno.css';
-=======
 import './styles/FormularioDiseno.css';
->>>>>>> feature/jessi
 
 const FormularioDiseno: React.FC = () => {
   const [imagen, setImagen] = useState<File | null>(null);
@@ -38,149 +34,6 @@ const FormularioDiseno: React.FC = () => {
   };
 
   return (
-<<<<<<< HEAD
-    <div className="formulario-diseno">
-      <header className="formulario-header">
-        <h1>Diseño</h1>
-        <span className="usuario-label">👤 Diseñador</span>
-      </header>
-
-      <main className="formulario-main">
-        {/* Columna izquierda: imagen */}
-        <div className="columna-izquierda">
-          <p>&lt; Nombre &gt;</p>
-          <div className="imagen-preview">
-            <label htmlFor="cargar-imagen" className="cargar-imagen">
-              ⬆️
-              <p>Cargar imagen</p>
-            </label>
-            <input
-              id="cargar-imagen"
-              type="file"
-              accept="image/*"
-              onChange={handleImagen}
-              style={{ display: 'none' }}
-            />
-            {imagen && <p className="nombre-archivo">{imagen.name}</p>}
-            {imagenPreview && (
-              <img
-                src={imagenPreview}
-                alt="Vista previa"
-                className="imagen-cargada"
-              />
-            )}
-          </div>
-        </div>
-
-        {/* Columna derecha: formulario */}
-        <div className="columna-derecha">
-          <label>
-            Nombre:
-            <input type="text" />
-          </label>
-
-          <label>
-            Tipo de prenda:
-            <select>
-              <option>Gafas</option>
-              <option>Pañoleta</option>
-              <option>Sombrero</option>
-              <option>Tocado</option>
-              <option>Camisa</option>
-              <option>Camiseta</option>
-              <option>Pantalon</option>
-              <option>Shorts</option>
-              <option>Vestido</option>
-              <option>Short</option>
-              <option>Falda</option>
-            </select>
-          </label>
-
-          <label>
-            Talla:
-            <select>
-              <option>xxs</option>
-              <option>xs</option>
-              <option>s</option>
-              <option>m</option>
-              <option>l</option>
-              <option>xl</option>
-              <option>xxl</option>
-            </select>
-          </label>
-
-          <label>
-            Color(es):
-            <div className="color-picker-area">
-              <input
-                type="color"
-                value={color}
-                onChange={(e) => setColor(e.target.value)}
-              />
-              <button type="button" onClick={agregarColor}>
-                Añadir
-              </button>
-            </div>
-            <div className="color-list">
-              {coloresSeleccionados.map((col, i) => (
-                <div
-                  key={i}
-                  className="color-preview-box"
-                  style={{ backgroundColor: col }}
-                  title={col}
-                />
-              ))}
-            </div>
-          </label>
-          <label>
-            Tipo de tela:
-            <select>
-              <option>Algodón</option>
-              <option>Lino</option>
-              <option>Lana</option>
-              <option>Cuero real</option>
-              <option>Cuero sintético</option> 
-              <option>Cuerina</option>
-              <option>Latex</option>
-              <option>Tul</option>
-              <option>Vinilo</option>
-              <option>Lino</option>
-              <option>Seda</option>
-            </select>
-          </label>
-          <label className="logo-section">
-            Logo:
-            <label htmlFor="logo-input" className="boton-logo">
-              ➕
-            </label>
-            <input
-              id="logo-input"
-              type="file"
-              accept="image/*"
-              style={{ display: 'none' }}
-              onChange={handleLogo}
-            />
-            {logo && <p className="nombre-archivo">{logo.name}</p>}
-            {logoPreview && (
-              <img
-                src={logoPreview}
-                alt="Vista previa del logo"
-                className="logo-preview"
-              />
-            )}
-          </label>
-
-          <label>
-            Costo:
-            <input type="number" />
-          </label>
-
-          <div className="confirmar-container">
-            <button className="boton-confirmar">Confirmar ➤</button>
-          </div>
-        </div>
-      </main>
-=======
     <div style={{ fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif', background: '#f5f5f5', minHeight: '100vh', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '4.5rem' }}>
       <div style={{ background: '#fff', borderRadius: 18, boxShadow: '0 4px 24px rgba(35,35,35,0.10)', padding: '3.5rem 3.2rem', maxWidth: 1100, width: '100%' }}>
         <h1 style={{ fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif', fontWeight: 800, fontSize: '2.2rem', color: '#232323', margin: 0, letterSpacing: '1px', textAlign: 'center', marginBottom: '2.5rem' }}>Diseño</h1>
@@ -316,7 +169,6 @@ const FormularioDiseno: React.FC = () => {
           </div>
         </main>
       </div>
->>>>>>> feature/jessi
     </div>
   );
 };

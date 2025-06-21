@@ -14,40 +14,14 @@ import CarritoCompra from './pages/CarritoCompra';
 import GestionInventario from './pages/GestionInventario';
 import FormularioDiseno from './pages/FormularioDiseno';
 import NuevoMaterial from './pages/NuevoMaterial';
-<<<<<<< HEAD
-=======
 import PedidosDisenador from './pages/PedidosDisenador';
 import PedidosUsuario from './pages/PedidosUsuario';
 import Header from './components/Header';
->>>>>>> feature/jessi
 
 const App: React.FC = () => {
   return (
     <Router>
-<<<<<<< HEAD
-      <nav style={{ padding: '1rem', borderBottom: '1px solid #ccc' }}>
-        {/* Enlaces para navegar */}
-        <Link to="/Home" style={{ marginRight: '1rem' }}>Home</Link>
-        <Link to="/login" style={{ marginRight: '1rem' }}>Iniciar sesión</Link>
-        <Link to="/register" style={{ marginRight: '1rem' }}>Registro</Link>
-        <Link to="/diseñador" style={{ marginRight: '1rem' }}>Diseñador</Link>
-        <Link to="/usuario" style={{ marginRight: '1rem' }}>Usuario</Link>
-        <Link to="/creardiseño" style={{ marginRight: '1rem' }}>Crear Diseños</Link>
-        <Link to="/diseñosguardados" style={{ marginRight: '1rem' }}>Diseños Guardados</Link>
-        <Link to="/perfil">Editar perfil</Link>
-        <Link to="/RealizacionPedidoUser" style={{ marginLeft: '1rem' }}>Realizar pedido usuario</Link>
-        <Link to="/CarritoCompra" style={{ marginLeft: '1rem' }}>Carrito de compra</Link>
-        <Link to="/inventario" style={{ marginLeft: '1rem' }}>Gestion inventario diseñador</Link>
-        <Link to="/nuevo-diseno" style={{ marginLeft: '1rem' }}>Creacion nuevo diseño</Link>
-        <Link to="/nuevo-material" style={{ marginLeft: '1rem' }}>Nuevo material</Link>
-        <Link to="/CarritoCompra" style={{ marginLeft: '1rem' }}> 🛒 </Link>
-
-      </nav>
-
-      {/* Definición de rutas */}
-=======
       <Header />
->>>>>>> feature/jessi
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<InicioSesion />} />
@@ -64,13 +38,8 @@ const App: React.FC = () => {
         <Route path="/inventario" element={<GestionInventario />} />
         <Route path="/nuevo-diseno" element={<FormularioDiseno />} />
         <Route path="/nuevo-material" element={<NuevoMaterial />} />
-<<<<<<< HEAD
-
-        {/* Ruta por defecto */}
-=======
         <Route path="/pedidos-disenador" element={<PedidosDisenador />} />
         <Route path="/pedidos-usuario" element={<PedidosUsuario />} />
->>>>>>> feature/jessi
       </Routes>
     </Router>
   );
