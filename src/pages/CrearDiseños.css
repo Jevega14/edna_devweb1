@@ -1,7 +1,7 @@
 /* CrearDiseños.css */
 
-/* Asegura que el body y html ocupen toda la altura de la ventana */
-html, body, #root { /* Asume #root es el ID de tu div raíz de React */
+/* Ensure body and html take full viewport height */
+html, body, #root { /* Assumes #root is your React root div ID */
   height: 100%;
   margin: 0;
   padding: 0;
@@ -14,11 +14,11 @@ body {
 }
 
 .editor-container {
-  height: 100%; /* Asegura que ocupe el 100% de la altura disponible */
+  height: 100%; /* Ensure it takes 100% of available height */
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  box-sizing: border-box; /* Incluir padding en el ancho total */
+  box-sizing: border-box; /* Include padding in total width */
 }
 
 .header {
@@ -27,7 +27,7 @@ body {
   align-items: center;
   margin-bottom: 2rem;
   padding: 0 1rem;
-  flex-shrink: 0; /* Evita que el encabezado se encoja */
+  flex-shrink: 0; /* Prevent header from shrinking */
 }
 
 .header h1 {
@@ -49,9 +49,9 @@ body {
 
 .main-content {
   display: flex;
-  flex-grow: 1; /* Permite que el contenido principal ocupe todo el espacio restante verticalmente */
+  flex-grow: 1; /* Allow main content to take all remaining vertical space */
   gap: 1rem;
-  min-height: 0; /* Crucial para que los elementos hijos flex-grow puedan encogerse correctamente */
+  min-height: 0; /* Crucial for flex-grow children to shrink correctly */
 }
 
 .sidebar {
@@ -61,12 +61,12 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1rem;
   display: flex;
-  flex-direction: column; /* Apila los elementos verticalmente */
-  justify-content: flex-start; /* Alinea los elementos al inicio */
+  flex-direction: column; /* Stack elements vertically */
+  justify-content: flex-start; /* Align elements to the start */
   align-items: center;
-  gap: 1rem; /* Espacio entre los elementos de la sidebar */
-  flex-shrink: 0; /* Evita que la barra lateral se encoja */
-  overflow-y: auto; /* Permite desplazamiento si muchas imágenes */
+  gap: 1rem; /* Space between sidebar elements */
+  flex-shrink: 0; /* Prevent sidebar from shrinking */
+  overflow-y: auto; /* Allow scrolling if many images */
 }
 
 .nav-item {
@@ -84,87 +84,92 @@ body {
   background-color: #f0f0f0;
 }
 
+.nav-item svg {
+  margin-right: 0.5rem;
+}
+
 .clothing-display-image {
-  width: 150px; /* Tamaño más grande para las imágenes de ropa */
+  width: 150px; /* Larger size for clothing images */
   height: 150px;
   object-fit: contain;
   border-radius: 0.5rem;
   border: 1px solid #ddd;
-  margin-top: 0.5rem; /* Espacio entre imágenes */
+  margin-top: 0.5rem; /* Space between images */
 }
 
 
 .design-table-section {
-  flex-grow: 1; /* Permite que esta sección ocupe el espacio restante en el main-content */
+  flex-grow: 1; /* Allow this section to take remaining space in main-content */
   background-color: #fff;
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
-  /* El padding-bottom debe ser suficiente para los botones absolutos */
-  padding-bottom: 5.5rem; /* Ajustado para dejar espacio a los botones */
+  /* Padding-bottom must be sufficient for absolute buttons */
+  padding-bottom: 5.5rem; /* Adjusted to leave space for buttons */
   position: relative;
   display: flex;
-  flex-direction: column; /* Apila el wrapper de la tabla y deja espacio para los botones */
-  min-height: 0; /* Crucial para que se encoja si es necesario */
+  flex-direction: column; /* Stack table wrapper and leave space for buttons */
+  min-height: 0; /* Crucial for shrinking if necessary */
 }
 
 .design-table-wrapper {
-  flex-grow: 1; /* Permite que el wrapper de la tabla ocupe el espacio restante */
-  display: flex; /* Se convierte en contenedor flex para la tabla */
-  flex-direction: column; /* La tabla se apila verticalmente */
-  min-height: 0; /* Crucial para que la tabla pueda usar flex-grow */
-  /* Removido overflow: hidden, ya que tbody se encargará de esto */
+  flex-grow: 1; /* Allow table wrapper to take remaining space */
+  display: flex; /* Becomes flex container for the table */
+  flex-direction: column; /* Table stacks vertically */
+  min-height: 0; /* Crucial for table to use flex-grow */
+  /* Removed overflow: hidden, as tbody will handle this */
 }
 
 .design-table {
   width: 100%;
   border-collapse: collapse;
-  display: flex; /* La tabla misma es un contenedor flex */
-  flex-direction: column; /* Apila thead y tbody */
-  flex-grow: 1; /* Permite que la tabla se expanda dentro de su wrapper */
-  min-height: 0; /* Crucial para que tbody pueda usar overflow-y: auto */
+  display: flex; /* Table itself is a flex container */
+  flex-direction: column; /* Stacks thead and tbody */
+  flex-grow: 1; /* Allow table to expand within its wrapper */
+  min-height: 0; /* Crucial for tbody to use overflow-y: auto */
 }
 
 .design-table thead {
-  /* No cambiar a display: block; debe seguir la semántica de thead para table-layout: fixed */
-  display: table; /* Para que las columnas se alineen con tbody */
+  /* Do not change to display: block; must follow thead semantics for table-layout: fixed */
+  display: table; /* So columns align with tbody */
   width: 100%;
-  table-layout: fixed; /* Asegura anchos de columna consistentes */
-  flex-shrink: 0; /* Evita que el thead se encoja */
+  table-layout: fixed; /* Ensures consistent column widths */
+  flex-shrink: 0; /* Prevent thead from shrinking */
 }
 
 .design-table tbody {
-  display: block; /* Importante para que el tbody sea un bloque con desplazamiento */
-  flex-grow: 1; /* Permite que el tbody ocupe todo el espacio vertical restante */
-  overflow-y: auto; /* Habilita el desplazamiento vertical en el cuerpo de la tabla */
+  display: block; /* Important for tbody to be a scrollable block */
+  flex-grow: 1; /* Allow tbody to take all remaining vertical space */
+  overflow-y: auto; /* Enable vertical scrolling in the table body */
   width: 100%;
 }
 
 .design-table tr {
-  /* Las filas dentro del tbody deben ser display: table para que table-layout: fixed funcione */
-  display: table; /* Asegura que las filas se comporten como filas de tabla para anchos fijos */
+  /* Rows inside tbody must be display: table for table-layout: fixed to work */
+  display: table; /* Ensures rows behave as table rows for fixed widths */
   width: 100%;
-  table-layout: fixed; /* Esto es clave para que las celdas hereden los anchos */
+  table-layout: fixed; /* This is key for cells to inherit widths */
 }
 
 .design-table th,
 .design-table td {
-  /* Las celdas deben ser table-cell */
+  /* Cells must be table-cell */
   display: table-cell;
   padding: 0.8rem 0.5rem;
   text-align: left;
   border-bottom: 1px solid #eee;
   white-space: nowrap;
+  vertical-align: middle; /* Align content vertically in the middle */
 }
 
 /* Column Widths (These percentages should add up to 100% and match your table columns) */
-.design-table th:nth-child(1), .design-table td:nth-child(1) { width: 10%; } /* Vista */
-.design-table th:nth-child(2), .design-table td:nth-child(2) { width: 15%; } /* Tipo */
-.design-table th:nth-child(3), .design-table td:nth-child(3) { width: 15%; } /* Color(es) */
-.design-table th:nth-child(4), .design-table td:nth-child(4) { width: 15%; } /* Tela */
-.design-table th:nth-child(5), .design-table td:nth-child(5) { width: 10%; } /* Talla */
+.design-table th:nth-child(1), .design-table td:nth-child(1) { width: 10%; } /* View */
+.design-table th:nth-child(2), .design-table td:nth-child(2) { width: 15%; } /* Type */
+.design-table th:nth-child(3), .design-table td:nth-child(3) { width: 20%; } /* Color(s) - increased for buttons */
+.design-table th:nth-child(4), .design-table td:nth-child(4) { width: 15%; } /* Fabric */
+.design-table th:nth-child(5), .design-table td:nth-child(5) { width: 10%; } /* Size */
 .design-table th:nth-child(6), .design-table td:nth-child(6) { width: 10%; } /* Logo */
-.design-table th:nth-child(7), .design-table td:nth-child(7) { width: 15%; } /* Costo */
+.design-table th:nth-child(7), .design-table td:nth-child(7) { width: 10%; } /* Cost */
 
 .design-table td select {
   width: 100%;
@@ -181,9 +186,46 @@ body {
   border-radius: 0.3rem;
 }
 
+.color-selection-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  justify-content: flex-start; /* Align items to the start */
+}
+
+.color-button {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px; /* Rounded corners for color buttons */
+  cursor: pointer;
+  border: 2px solid transparent; /* Default transparent border */
+  transition: border-color 0.2s ease, transform 0.1s ease;
+}
+
+.color-button.selected {
+  border-color: #007bff; /* Blue border for selected color */
+  transform: scale(1.1); /* Slightly larger for selected */
+}
+
 .cost-display {
   font-weight: bold;
   color: #007bff;
+}
+
+.upload-global-logo-button {
+  background-color: #6c757d; /* Grey button for upload */
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+  margin-right: 1rem; /* Space between upload button and total cost */
+}
+
+.upload-global-logo-button:hover {
+  background-color: #5a6268;
 }
 
 .save-design-button {
@@ -195,10 +237,10 @@ body {
   cursor: pointer;
   font-weight: 600;
   transition: background-color 0.2s ease;
-  position: absolute; /* Posicionamiento absoluto */
-  bottom: 1.5rem; /* Distancia desde abajo */
-  left: 1.5rem; /* Distancia desde la izquierda */
-  min-width: 150px; /* Ancho mínimo para el botón */
+  position: absolute; /* Absolute positioning */
+  bottom: 1.5rem; /* Distance from bottom */
+  left: 1.5rem; /* Distance from left */
+  min-width: 150px; /* Minimum width for button */
 }
 
 .save-design-button:hover {
@@ -207,18 +249,20 @@ body {
 
 .summary-actions {
   display: flex;
-  justify-content: flex-end; /* Alinea los elementos a la derecha */
+  justify-content: flex-end; /* Align elements to the right */
   align-items: center;
-  position: absolute; /* Posicionamiento absoluto */
-  bottom: 1.5rem; /* Distancia desde abajo */
-  right: 1.5rem; /* Distancia desde la derecha */
+  position: absolute; /* Absolute positioning */
+  bottom: 1.5rem; /* Distance from bottom */
+  right: 1.5rem; /* Distance from right */
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+  gap: 1rem; /* Space between elements */
 }
 
 .total-cost-display {
   font-size: 1.5rem;
   font-weight: bold;
   color: #333;
-  margin-right: 2rem; /* Espacio entre el costo total y el botón */
+  /* margin-right: 2rem; Removed as gap handles spacing */
 }
 
 .add-to-cart-button {
@@ -246,10 +290,10 @@ body {
   }
   .sidebar {
     width: 100%;
-    order: -1; /* Mueve la barra lateral arriba en móvil */
+    order: -1; /* Move sidebar up on mobile */
     margin-bottom: 1rem;
-    flex-direction: row; /* En fila para pantallas pequeñas */
-    flex-wrap: wrap; /* Permite que las imágenes se envuelvan */
+    flex-direction: row; /* In a row for small screens */
+    flex-wrap: wrap; /* Allow images to wrap */
     justify-content: center;
   }
   .clothing-display-image {
@@ -279,6 +323,14 @@ body {
     padding-bottom: 1.5rem; /* Revert padding for static buttons on mobile */
   }
   /* Removed design-table-wrapper margin-bottom */
+
+  .design-table th, .design-table td {
+      padding: 0.6rem 0.3rem; /* Adjust padding for smaller screens */
+  }
+  .upload-global-logo-button {
+      margin-right: 0; /* Remove margin on mobile as items are stacked */
+      width: 100%; /* Make button full width on mobile */
+  }
 }
 
 @media (max-width: 480px) {
@@ -288,7 +340,7 @@ body {
   .header-links a {
     margin-left: 1rem;
   }
-  .save-design-button, .add-to-cart-button {
+  .save-design-button, .add-to-cart-button, .upload-global-logo-button {
     padding: 0.6rem 1rem;
     font-size: 0.9rem;
   }
@@ -302,5 +354,9 @@ body {
   }
   .sidebar {
     padding: 0.5rem;
+  }
+  .color-button {
+    width: 20px;
+    height: 20px;
   }
 }
