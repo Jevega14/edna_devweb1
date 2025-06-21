@@ -1,0 +1,161 @@
+/* Paleta Edna Moda: morado, fucsia, dorado */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f8f6ff;
+}
+
+.edna-header {
+  background: linear-gradient(90deg, #a259c6 0%, #f357a8 60%, #ffd700 100%);
+  color: #fff;
+  padding: 2rem 0 1rem 0;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(162,89,198,0.10);
+  margin-bottom: 2rem;
+}
+
+.edna-header h1 {
+  margin: 0;
+  font-size: 2.7rem;
+  letter-spacing: 2px;
+  font-family: 'Montserrat', sans-serif;
+  text-shadow: 1px 2px 8px #a259c6;
+}
+
+.edna-header-sub {
+  display: block;
+  font-size: 1.1rem;
+  color: #ffd700;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+.edna-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  background: #fff;
+  border-bottom: 2px solid #ffd700;
+  padding: 0.5rem 0;
+  margin-bottom: 2rem;
+}
+
+.edna-nav a {
+  color: #a259c6;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.edna-nav a:hover {
+  background: #f357a8;
+  color: #fff;
+}
+
+.edna-home {
+  max-width: 500px;
+  margin: 3rem auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(162,89,198,0.10);
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+.edna-home h2 {
+  color: #a259c6;
+  margin-bottom: 1rem;
+}
+
+.edna-home p {
+  color: #444;
+  margin-bottom: 2rem;
+}
+
+.edna-home .edna-btn {
+  display: inline-block;
+  margin: 0.5rem 1rem;
+  padding: 0.75rem 2rem;
+  background: linear-gradient(90deg, #a259c6 0%, #f357a8 60%, #ffd700 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: box-shadow 0.2s, background 0.2s;
+  text-decoration: none;
+}
+
+.edna-home .edna-btn:hover {
+  box-shadow: 0 2px 12px rgba(162,89,198,0.15);
+  background: #a259c6;
+}
+
+.edna-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(162,89,198,0.08);
+  margin: 2rem 0;
+}
+
+.edna-table th, .edna-table td {
+  padding: 1.2rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid #f0e6fa;
+  vertical-align: middle;
+  font-size: 1.05rem;
+}
+
+.edna-table th {
+  background: linear-gradient(90deg, #a259c6 0%, #f357a8 60%, #ffd700 100%);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.edna-table tr:last-child td {
+  border-bottom: none;
+}
+
+.edna-status {
+  padding: 0.3rem 1rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  background: #f3e6fa;
+  color: #a259c6;
+  border: none;
+  min-width: 120px;
+}
+
+.edna-cancel-btn {
+  background: #fff0f3;
+  color: #f357a8;
+  border: 1px solid #f357a8;
+  border-radius: 8px;
+  padding: 0.4rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.edna-cancel-btn:hover {
+  background: #f357a8;
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .edna-table th, .edna-table td {
+    padding: 0.7rem 0.3rem;
+    font-size: 0.95rem;
+  }
+}
