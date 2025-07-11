@@ -265,10 +265,84 @@ body {
     align-items: center;
     gap: 1.5rem;
   }
+  .back-btn {
+  background: #fff;
+  color: #232323;
+  border: 2px solid #cccccc;
+  box-shadow: none;
+  font-size: 1rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
   .edna-user-card {
     width: 90vw;
     max-width: 320px;
     height: 120px;
     font-size: 1rem;
   }
+}
+/* RealizacionPedidoUser.responsive.css */
+
+/* Tablet */
+@media (max-width: 768px) {
+  /* Tarjetas en columna */
+  .order-details-summary {
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+
+  /* Asegurar ancho completo */
+  .order-details-card,
+  .order-summary-card {
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+    min-width: auto !important;
+  }
+
+  /* Botón de acción a ancho completo */
+  .edna-btn {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* Móvil */
+@media (max-width: 480px) {
+  /* Reducir márgenes y padding de contenedor */
+  .pedido-container {
+    padding: 1rem !important;
+  }
+  .pedido-main {
+    margin: 1rem auto !important;
+    padding: 1rem !important;
+    max-width: 100% !important;
+  }
+
+  /* Texto más pequeño en título */
+  .order-title h2 {
+    font-size: 1.5rem !important;
+  }
+
+  /* Botones más compactos */
+  .edna-btn {
+    font-size: 0.95rem !important;
+    padding: 0.5rem 1rem !important;
+  }
+
+  /* Si quieres anular el inline del back-button (sin clase) */
+  .pedido-container > div:last-child,
+  .pedido-container > div:last-child .edna-btn {
+    margin: 1rem 0 !important;
+    width: 100% !important;
+  }
+}
+
+
+.back-button {
+    border: none;
+    background: none;
+    font-size: 1rem;
+    cursor: pointer;
 }

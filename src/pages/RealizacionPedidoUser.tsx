@@ -54,7 +54,7 @@ const RealizacionPedidoUser: React.FC = () => {
                 </div>
             </main>
             <div style={{ width: '100%', display: 'flex', justifyContent: 'center', margin: '2.5rem 0 1.5rem 0' }}>
-                <button className="edna-btn" style={{ fontSize: '1rem', padding: '0.5rem 1.5rem', minWidth: 0, width: 'auto', borderRadius: 8, background: '#fff', color: '#232323', border: '2px solid #cccccc', boxShadow: 'none' }} onClick={() => navigate('/usuario')}>
+                <button className="edna-btn" style={{ fontSize: '1rem', padding: '0.5rem 1.5rem', minWidth: 0, width: 'auto', borderRadius: 8, background: '#fff', color: '#232323', border: '2px solid #cccccc', boxShadow: 'none' }} onClick={() => navigate('/Carritocompra')}>
                     ↩ Volver
                 </button>
             </div>

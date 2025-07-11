@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles.css';
 
 const pedidosMock = [
@@ -13,7 +14,7 @@ function PedidosUsuario() {
   const cancelarPedido = (id: number) => {
     setPedidos(pedidos.map(p => p.id === id ? { ...p, estado: 'Cancelado' } : p));
   };
-
+  const navigate = useNavigate();
   return (
     <div style={{ maxWidth: 950, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 4px 24px rgba(35,35,35,0.10)', padding: '2.5rem 1.5rem', fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif' }}>
       <h2 style={{ color: '#232323', fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif', fontWeight: 800, fontSize: '2.1rem', textAlign: 'center', letterSpacing: 1, marginBottom: '2rem' }}>
@@ -51,7 +52,13 @@ function PedidosUsuario() {
           ))}
         </tbody>
       </table>
+            <div style={{ width: '100%', display: 'flex', justifyContent: 'center', margin: '2.5rem 0 1.5rem 0' }}>
+                <button className="edna-btn" style={{ fontSize: '1rem', padding: '0.5rem 1.5rem', minWidth: 0, width: 'auto', borderRadius: 8, background: '#fff', color: '#232323', border: '2px solid #cccccc', boxShadow: 'none' }} onClick={() => navigate('/usuario')}>
+                    ↩ Volver
+                </button>
+            </div>
     </div>
+    
   );
 }
 
