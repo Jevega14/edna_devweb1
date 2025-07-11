@@ -28,6 +28,38 @@ const InicioSesion: React.FC = () => {
   return (
     // Usa la clase 'login-container' para el div principal
     <div className="login-container">
+      {/* Botón para navegar a la página de inicio */}
+      <div style={{ position: 'fixed', top: '1rem', left: '1rem', zIndex: 10 }}>
+        <button
+          className="edna-btn edna-home-btn"
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '0.5rem',
+          }}
+          onClick={() => navigate('/home')}
+        >
+          {/* Ícono de flecha hacia la izquierda */}
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#232323"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <polyline points="15 18 9 12 15 6"></polyline>
+            <path d="M19 12H9"></path>
+          </svg>
+        </button>
+      </div>
+
       {/* Usa la clase 'login-card' para el contenedor del formulario */}
       <div className="login-card">
         {/* Usa la clase 'login-title' para el título */}
@@ -68,13 +100,9 @@ const InicioSesion: React.FC = () => {
         </div>
 
         {/* Grupo de botones */}
-        <div className="button-group" style={{ display: 'flex', justifyContent: 'center' }}>
+        <div className="button-group">
           {/* Botón de ingresar */}
-          <button
-            className="button-base login-button"
-            onClick={handleLogin}
-            style={{ width: '60%' }}
-          >
+          <button className="button-base login-button" onClick={handleLogin}>
             Ingresar
           </button>
         </div>
