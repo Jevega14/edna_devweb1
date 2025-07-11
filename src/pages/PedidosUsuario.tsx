@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles.css';
+import './styles/PedidosUsuario.css';
 
 const pedidosMock = [
   { id: 1, valor: 120000, detalles: 'Traje de vuelo', disenador: 'Ana Torres', estado: 'Pendiente' },
@@ -16,6 +16,7 @@ function PedidosUsuario() {
   };
   const navigate = useNavigate();
   return (
+    
     <div style={{ maxWidth: 950, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 4px 24px rgba(35,35,35,0.10)', padding: '2.5rem 1.5rem', fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif' }}>
       <h2 style={{ color: '#232323', fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif', fontWeight: 800, fontSize: '2.1rem', textAlign: 'center', letterSpacing: 1, marginBottom: '2rem' }}>
         Mis pedidos
@@ -23,6 +24,7 @@ function PedidosUsuario() {
       <table className="edna-table" style={{ fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif', fontSize: '1.05rem', width: '100%', borderCollapse: 'collapse', margin: '0 auto' }}>
         <thead>
           <tr>
+            
             <th style={{ fontWeight: 700, textAlign: 'center', padding: '0.9rem 0.5rem' }}>Número</th>
             <th style={{ fontWeight: 700, textAlign: 'center', padding: '0.9rem 0.5rem' }}>Valor total</th>
             <th style={{ fontWeight: 700, textAlign: 'center', padding: '0.9rem 0.5rem' }}>Detalles</th>

@@ -1,0 +1,156 @@
+/* Variables globales para colores y espaciados */
+:root {
+  --color-principal: #232323;
+  --color-secundario: #7b2ff2;
+  --color-fondo: #ffffff;
+  --color-fondo-header: rgba(35, 35, 35, 0.05);
+  --color-hover-row: rgba(123, 47, 242, 0.07);
+  --radio-base: 1.125rem; /* 18px */
+  --sombra-base: 0 4px 24px rgba(35, 35, 35, 0.1);
+  --espacio-grande: 2.5rem;
+  --espacio-medio: 1.5rem;
+  --espacio-pequeño: 0.75rem;
+  --fuente-principal: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+}
+
+/* Contenedor principal */
+.pedidos-container {
+  max-width: 950px;
+  margin: var(--espacio-grande) auto;
+  background: var(--color-fondo);
+  border-radius: var(--radio-base);
+  box-shadow: var(--sombra-base);
+  padding: var(--espacio-grande) var(--espacio-medio);
+  font-family: var(--fuente-principal);
+}
+
+/* Título */
+.pedidos-container h2 {
+  color: var(--color-principal);
+  font-weight: 800;
+  font-size: 2.1rem;
+  text-align: center;
+  letter-spacing: 1px;
+  margin-bottom: var(--espacio-grande);
+}
+
+/* Tabla */
+.edna-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  /* Scroll en tablet/móvil: */
+  overflow-x: auto;
+}
+
+/* Encabezado */
+.edna-table th {
+  background: var(--color-fondo-header);
+  font-weight: 700;
+  text-align: center;
+  padding: 0.9rem 0.5rem;
+  font-size: 1.05rem;
+}
+
+/* Celdas */
+.edna-table td {
+  text-align: center;
+  padding: 0.9rem 0.5rem;
+  font-size: 1.05rem;
+  vertical-align: middle;
+}
+
+/* Zebra stripes y hover */
+.edna-table tbody tr:nth-child(odd) {
+  background: #fafafa;
+}
+.edna-table tbody tr:hover {
+  background: var(--color-hover-row);
+}
+
+/* Columna valor más destacada */
+.edna-table-valor {
+  font-weight: 600;
+}
+
+/* Estado */
+.edna-status {
+  border-radius: 8px;
+  padding: 0.3rem 1.1rem;
+  font-weight: 700;
+  background: #f5f5f5;
+  color: var(--color-secundario);
+  font-size: 1rem;
+  border: 1.5px solid #e0e0e0;
+  display: inline-block;
+  min-width: 90px;
+}
+
+/* Botón */
+.edna-btn {
+  font-size: 1rem;
+  padding: 0.5rem 1.2rem;
+  min-width: 120px;
+  border-radius: 8px;
+  background: var(--color-fondo);
+  color: var(--color-principal);
+  border: 2px solid #cccccc;
+  box-shadow: none;
+  margin: var(--espacio-pequeño) auto;
+  display: block;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.edna-btn:hover,
+.edna-btn:focus {
+  background: var(--color-fondo-header);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+/* Contenedor del botón “Volver” */
+.back-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: var(--espacio-grande) 0 var(--espacio-medio);
+}
+
+/* Responsive: Tablets (≤768px) */
+@media (max-width: 768px) {
+  .pedidos-container {
+    padding: var(--espacio-medio) var(--espacio-medio);
+  }
+  .edna-table th,
+  .edna-table td {
+    padding: 0.8rem 0.6rem;
+    font-size: 1rem;
+  }
+  .edna-btn {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* Responsive: Móviles (≤480px) */
+@media (max-width: 480px) {
+  .pedidos-container {
+    padding: 1rem 0.5rem;
+    margin: 1rem auto;
+  }
+  .edna-table {
+    display: block;
+    white-space: nowrap;
+  }
+  .edna-table th,
+  .edna-table td {
+    padding: 0.7rem 0.5rem;
+    font-size: 0.9rem;
+  }
+  .edna-btn {
+    padding: 0.5rem 1rem;
+  }
+  .back-container {
+    margin: 1rem 0;
+  }
+}

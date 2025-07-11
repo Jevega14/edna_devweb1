@@ -1,8 +1,10 @@
+/* Estilos base */
 .pedido-container {
     display: flex;
     flex-direction: column;
     height: 100vh;
     font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
 }
 
 .pedido-header {
@@ -32,6 +34,7 @@
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 1rem;
+    justify-content: center;
 }
 
 .lock-icon {
@@ -40,13 +43,16 @@
 
 .order-title h2 {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #232323;
+    letter-spacing: 1px;
 }
 
 .order-details-summary {
     display: flex;
-    gap: 3rem; /* Increased gap between the two main cards */
-    width: 80%; /* Adjust as needed */
+    gap: 3rem;
+    width: 80%;
     justify-content: center;
 }
 
@@ -58,8 +64,11 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    flex: 1; /* Allows cards to take equal width */
-    max-width: 450px; /* Max width for better control */
+    flex: 1;
+    max-width: 520px;
+    min-width: 340px;
+    background-color: #fff;
+    box-shadow: 0 4px 24px rgba(35,35,35,0.10);
 }
 
 .order-details-card h3,
@@ -81,13 +90,13 @@
     border-radius: 5px;
     padding: 0.5rem;
     font-size: 1rem;
-    width: 100%; /* Fill parent width */
-    box-sizing: border-box; /* Include padding in width */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .textarea-input {
-    resize: vertical; /* Allow vertical resizing */
-    min-height: 80px; /* Minimum height for textarea */
+    resize: vertical;
+    min-height: 80px;
 }
 
 .summary-items {
@@ -119,26 +128,28 @@
 }
 
 .summary-text {
-    border-bottom: 1px solid #000; /* Underline effect */
+    border-bottom: 1px solid #000;
     padding-bottom: 2px;
-    display: inline-block; /* Allow underline only on text */
-    min-width: 150px; /* Ensure some width for the underline */
+    display: inline-block;
+    min-width: 150px;
 }
 
-.make-order-button {
+.make-order-button,
+.edna-btn {
     background-color: #4CAF50;
     color: white;
     padding: 0.8rem 1.5rem;
     border: none;
     border-radius: 5px;
-    font-size: 1rem;
+    font-size: 1.08rem;
     cursor: pointer;
     transition: background-color 0.2s;
-    align-self: center; /* Center the button */
-    width: fit-content; /* Adjust width to content */
+    align-self: center;
+    width: fit-content;
 }
 
-.make-order-button:hover {
+.make-order-button:hover,
+.edna-btn:hover {
     background-color: #388e3c;
 }
 
@@ -147,9 +158,70 @@
     text-align: left;
 }
 
-.back-button {
+.back-button,
+.edna-btn.back {
     border: none;
     background: none;
     font-size: 1rem;
     cursor: pointer;
+    background-color: #fff;
+    color: #232323;
+    border: 2px solid #cccccc;
+    box-shadow: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+}
+
+/* Responsive Medium (tablet) */
+@media (max-width: 768px) {
+    .order-details-summary {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        width: 100% !important;
+    }
+    .order-details-card,
+    .order-summary-card {
+        max-width: 100% !important;
+        min-width: auto !important;
+    }
+    .pedido-main {
+        padding: 1.5rem !important;
+        width: 100% !important;
+    }
+    .order-title h2 {
+        font-size: 1.75rem !important;
+    }
+    .make-order-button,
+    .back-button,
+    .edna-btn.back {
+        width: 100% !important;
+        text-align: center !important;
+    }
+}
+
+/* Responsive Small (móvil) */
+@media (max-width: 480px) {
+    .order-title h2 {
+        font-size: 1.5rem !important;
+    }
+    .input-group {
+        gap: 0.25rem !important;
+    }
+    .text-input,
+    .textarea-input {
+        font-size: 0.9rem !important;
+    }
+    .make-order-button,
+    .back-button,
+    .edna-btn.back {
+        font-size: 0.9rem !important;
+        padding: 0.5rem 1rem !important;
+    }
+    .pedido-container {
+        padding: 1rem !important;
+    }
+    .pedido-main {
+        margin: 1rem auto !important;
+        max-width: 100% !important;
+    }
 }
