@@ -99,6 +99,9 @@ const App: React.FC = () => {
   // Ref for the global file input to trigger it programmatically
   const globalFileInputRef = useRef<HTMLInputElement>(null);
 
+  // Simulated available colors (normally fetched from a backend)
+  const [availableColors, setAvailableColors] = useState<string[]>(['Rojo', 'Azul', 'Verde', 'Negro']); // Example colors
+
   // Function to generate the clothing image URL for the sidebar
   const generateClothingImageUrl = (type: string, fabric: string, color: string): string => {
     // These URLs are placeholders. You should replace them with your own images.
@@ -220,12 +223,19 @@ const App: React.FC = () => {
     designs
   ]); // Simplified dependency array to just 'designs'
 
+  // Function to check if a color is available
+  const isColorAvailable = (color: string): boolean => availableColors.includes(color);
+
   // Handler for changes in design item selectors
   const handleDesignChange = (
     id: number,
     field: keyof DesignItem,
     value: string
   ) => {
+    if (field === 'selectedColor' && !isColorAvailable(value)) {
+      alert('Este color no está disponible.');
+      return;
+    }
     setDesigns(prevDesigns =>
       prevDesigns.map(design =>
         design.id === id ? { ...design, [field]: value } : design
@@ -320,102 +330,104 @@ const App: React.FC = () => {
         {/* Design table section */}
         <section className="design-table-section">
           <div className="design-table-wrapper">
-            <table className="design-table">
-              <thead>
-                <tr>
-                  <th>Vista</th>
-                  <th>Tipo</th>
-                  <th>Color(es)</th>
-                  <th>Tela</th>
-                  <th>Talla</th>
-                  <th>Logo</th>
-                  <th>Costo</th>
-                </tr>
-              </thead>
-              <tbody>
-                {designs.map(design => (
-                  <tr key={design.id}>
-                    <td>
-                      {/* Placeholder for the view image */}
-                      <img
-                        src={`https://placehold.co/50x50/F0F0F0/000?text=${design.selectedType.slice(0, 2)}`}
-                        alt={design.selectedType}
-                        className="design-image"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.onerror = null;
-                          target.src = "https://placehold.co/50x50/E0E0E0/000?text=Error";
-                        }}
-                      />
-                    </td>
-                    <td>
-                      <select
-                        value={design.selectedType}
-                        onChange={(e) => handleDesignChange(design.id, 'selectedType', e.target.value)}
-                      >
-                        {/* Render options based on the original broad type */}
-                        {typeOptions[design.type].map(specificType => (
-                          <option key={specificType} value={specificType}>
-                            {specificType}
-                          </option>
-                        ))}
-                      </select>
-                    </td>
-                    <td>
-                      <div className="color-selection-container">
-                        {design.colors.map(color => (
-                          <div
-                            key={color}
-                            className={`color-button ${design.selectedColor === color ? 'selected' : ''}`}
-                            style={{ backgroundColor: getHexColor(color) }}
-                            onClick={() => handleDesignChange(design.id, 'selectedColor', color)}
-                            title={color} // Tooltip for color name
-                          ></div>
-                        ))}
-                      </div>
-                    </td>
-                    <td>
-                      <select
-                        value={design.selectedFabric}
-                        onChange={(e) => handleDesignChange(design.id, 'selectedFabric', e.target.value)}
-                      >
-                        {fabricOptions.map(fabric => (
-                          <option key={fabric.value} value={fabric.value}>
-                            {fabric.label}
-                          </option>
-                        ))}
-                      </select>
-                    </td>
-                    <td>
-                      <select
-                        value={design.selectedSize}
-                        onChange={(e) => handleDesignChange(design.id, 'selectedSize', e.target.value)}
-                      >
-                        {sizeOptions.map(size => (
-                          <option key={size} value={size}>
-                            {size}
-                          </option>
-                        ))}
-                      </select>
-                    </td>
-                    <td>
-                      {/* Mostrar el logo derivado */}
-                      <img
-                        src={getDesignLogoUrl(design)}
-                        alt="Logo de tela"
-                        className="design-image"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.onerror = null;
-                          target.src = "https://placehold.co/50x50/E0E0E0/000?text=Error";
-                        }}
-                      />
-                    </td>
-                    <td className="cost-display">${calculateCost(design.selectedType, design.selectedFabric, design.selectedSize).toFixed(2)}</td>
+            <div className="design-table-scroll-container"></div>
+              <table className="design-table">
+                <thead>
+                  <tr>
+                    <th>Vista</th>
+                    <th>Tipo</th>
+                    <th>Color(es)</th>
+                    <th>Tela</th>
+                    <th>Talla</th>
+                    <th>Logo</th>
+                    <th>Costo</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {designs.map(design => (
+                    <tr key={design.id}>
+                      <td>
+                        {/* Placeholder for the view image */}
+                        <img
+                          src={`https://placehold.co/50x50/F0F0F0/000?text=${design.selectedType.slice(0, 2)}`}
+                          alt={design.selectedType}
+                          className="design-image"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.onerror = null;
+                            target.src = "https://placehold.co/50x50/E0E0E0/000?text=Error";
+                          }}
+                        />
+                      </td>
+                      <td>
+                        <select
+                          value={design.selectedType}
+                          onChange={(e) => handleDesignChange(design.id, 'selectedType', e.target.value)}
+                        >
+                          {/* Render options based on the original broad type */}
+                          {typeOptions[design.type].map(specificType => (
+                            <option key={specificType} value={specificType}>
+                              {specificType}
+                            </option>
+                          ))}
+                        </select>
+                      </td>
+                      <td>
+                        <div className="color-selection-container">
+                          {design.colors.filter(isColorAvailable).map(color => (
+                            <div
+                              key={color}
+                              className={`color-button ${design.selectedColor === color ? 'selected' : ''}`}
+                              style={{ backgroundColor: getHexColor(color) }}
+                              onClick={() => handleDesignChange(design.id, 'selectedColor', color)}
+                              title={color} // Tooltip for color name
+                            ></div>
+                          ))}
+                        </div>
+                      </td>
+                      <td>
+                        <select
+                          value={design.selectedFabric}
+                          onChange={(e) => handleDesignChange(design.id, 'selectedFabric', e.target.value)}
+                        >
+                          {fabricOptions.map(fabric => (
+                            <option key={fabric.value} value={fabric.value}>
+                              {fabric.label}
+                            </option>
+                          ))}
+                        </select>
+                      </td>
+                      <td>
+                        <select
+                          value={design.selectedSize}
+                          onChange={(e) => handleDesignChange(design.id, 'selectedSize', e.target.value)}
+                        >
+                          {sizeOptions.map(size => (
+                            <option key={size} value={size}>
+                              {size}
+                            </option>
+                          ))}
+                        </select>
+                      </td>
+                      <td>
+                        {/* Mostrar el logo derivado */}
+                        <img
+                          src={getDesignLogoUrl(design)}
+                          alt="Logo de tela"
+                          className="design-image"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.onerror = null;
+                            target.src = "https://placehold.co/50x50/E0E0E0/000?text=Error";
+                          }}
+                        />
+                      </td>
+                      <td className="cost-display">${calculateCost(design.selectedType, design.selectedFabric, design.selectedSize).toFixed(2)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            
           </div>
           {/* Botón para añadir prenda/diseño debajo de la tabla */}
           <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', margin: '1.2rem 0 0.5rem 0' }}>
@@ -424,9 +436,8 @@ const App: React.FC = () => {
             </button>
           </div>
           {/* Save design button */}
-          <button onClick={handleSaveDesign} className="edna-btn" style={{ background: '#28a745', color: '#fff', fontWeight: 700, minWidth: 150, position: 'absolute', bottom: '1.5rem', left: '1.5rem' }}>
-            Guardar diseño
-          </button>
+
+          
 
           {/* Total cost and Add to cart button at bottom right */}
           <div className="summary-actions">
@@ -452,10 +463,16 @@ const App: React.FC = () => {
             <button
               onClick={handleAddToCartAll}
               className="edna-btn"
-              style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700 }}
+              
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-shopping-cart"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
               Añadir diseño al carrito
+            </button>
+            <button
+              onClick={handleSaveDesign}
+              className="edna-btn "
+            >
+              Guardar diseño
             </button>
           </div>
         </section>

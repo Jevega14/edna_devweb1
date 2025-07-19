@@ -1,234 +1,356 @@
 /* Home.css */
+
+/* Contenedor general ocupa al menos toda la altura */
 .home-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  padding: 0;
+  margin: 0;
 }
 
+/* Header */
 .home-header {
-    padding: 1rem 2rem;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-    background-color: white;
-    display: flex; /* Added flex to align nav and title */
-    flex-direction: column; /* Stack nav and title */
-    align-items: center; /* Center horizontally */
-    gap: 1rem; /* Space between nav and title */
+  padding: 1rem 2rem;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
-.header-title { /* New class for the h1 title */
-    margin: 0;
-    color: #333;
-    font-size: 1.8rem;
+/* Título */
+.header-title {
+  margin: 0;
+  color: #333;
+  font-size: 2rem;          /* ajustado a rem */
 }
 
-/* Styles for the main navigation */
+/* Navegación principal */
 .main-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap; /* Allow items to wrap */
-    gap: 1.5rem; /* Space between navigation items */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 }
 
 .main-nav li a {
-    text-decoration: none;
-    color: #6a0dad; /* Purple color for links */
-    font-weight: bold;
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    transition: color 0.2s ease-in-out;
+  text-decoration: none;
+  color: #6a0dad;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  transition: color 0.2s ease-in-out;
 }
 
 .main-nav li a:hover {
-    color: #8c4edb; /* Lighter purple on hover */
+  color: #8c4edb;
 }
 
-
+/* Sección principal */
 .home-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 2rem;
-    gap: 2rem; /* Increased gap between main sections */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 2rem;
+  gap: 2rem;
 }
 
+/* Bienvenida */
 .welcome-section {
-    text-align: center;
-    margin-bottom: 0; /* Removed explicit margin-bottom as gap will handle it */
+  text-align: center;
 }
 
 .welcome-title {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
+  font-size: 2.4rem;        /* ligeramente mayor en pantallas grandes */
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
 }
 
 .welcome-subtitle {
-    font-size: 1.1rem;
-    color: #666;
-    margin: 0;
+  font-size: 1.1rem;
+  color: #666;
+  margin: 0;
 }
 
+/* Autenticación */
 .auth-section {
-    display: flex;
-    gap: 8rem;
-    margin-bottom: 0; /* Removed explicit margin-bottom as gap will handle it */
-    align-items: center;
+  display: flex;
+  gap: 4rem;                /* reducido para móviles más tarde */
+  align-items: center;
 }
 
 .auth-option {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 200px; /* Kept fixed width for consistency */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 180px;             /* anchura fija más compacta */
 }
 
 .auth-option h3 {
-    margin-bottom: 1rem;
-    color: #333;
-    font-size: 1.1rem;
-    height: 1.5rem; /* Fixed height for consistent alignment */
-    display: flex;
-    align-items: center;
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.1rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
 }
 
 .auth-button {
-    padding: 0;
-    border: 2px solid #007bff;
-    border-radius: 8px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    width: 200px;
-    height: 50px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    flex-shrink: 0;
+  border: 2px solid #007bff;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 180px;
+  height: 45px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
+/* Variantes de botón */
 .register-button {
-    background-color: white;
-    color: #007bff;
+  background-color: white;
+  color: #007bff;
 }
-
 .register-button:hover {
-    background-color: #007bff;
-    color: white;
+  background-color: #007bff;
+  color: white;
 }
 
 .login-button {
-    background-color: #007bff;
-    color: white;
+  background-color: #007bff;
+  color: white;
 }
-
 .login-button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
-/* Categories section - removed absolute positioning */
+/* Categorías */
 .categories-section {
-    position: relative; /* Changed to relative */
-    top: auto; /* Removed top */
-    left: auto; /* Removed left */
-    transform: none; /* Removed transform */
-    z-index: 1;
-    margin-top: 2rem; /* Added margin-top for spacing */
+  margin-top: 2rem;
+  width: 100%;
+  padding: 0 1rem;
 }
 
 .category-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 2.5rem;
-    justify-items: center;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 2rem;
+  justify-items: center;
 }
 
 .category-item {
-    width: 120px;
-    height: 120px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); /* Added shadow for consistency */
+  width: 100px;
+  height: 100px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .category-item:hover {
-    border-color: #007bff;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+  border-color: #007bff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
 }
 
+/* Tamaño de icono relativo */
 .category-icon {
-    font-size: 3.5rem;
+  font-size: 2.5rem;       /* escalable según viewport */
 }
 
+/* === Media Queries === */
+
+/* Tablet / pantallas medianas */
+@media (max-width: 1024px) {
+  .welcome-title { font-size: 2.2rem; }
+  .auth-section { gap: 3rem; }
+  .category-grid { grid-template-columns: repeat(4, 1fr); }
+  .category-item { width: 90px; height: 90px; }
+  .category-icon { font-size: 2.2rem; }
+}
+
+/* Móviles grandes */
 @media (max-width: 768px) {
-    .home-header {
-        padding: 1rem;
-    }
+  .home-header { padding: 1rem; }
+  .header-title { font-size: 1.8rem; }
 
-    .main-nav ul {
-        flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
-    }
+  .main-nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
 
-    .auth-section {
-        flex-direction: column;
-        gap: 2rem;
-    }
+  .home-main {
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
 
-    .auth-option {
-        width: 100%;
-        max-width: 300px;
-    }
+  .welcome-title { font-size: 1.8rem; }
+  .welcome-subtitle { font-size: 1rem; }
 
-    .auth-button {
-        width: 100% !important;
-        max-width: 300px !important;
-        min-width: 200px !important;
-    }
+  .auth-section {
+    flex-direction: column;
+    gap: 2rem;
+  }
 
-    .categories-section {
-        margin-top: 2rem; /* Ensure spacing on small screens */
-    }
+  .auth-option {
+    width: 100%;
+    max-width: 260px;
+  }
 
-    .category-grid {
-        grid-template-columns: repeat(3, 1fr); /* Adjust grid for smaller screens */
-        gap: 1.5rem;
-    }
+  .auth-button {
+    width: 100% !important;
+    max-width: 260px !important;
+    height: 40px;
+    font-size: 1rem;
+  }
 
-    .category-item {
-        width: 80px;
-        height: 80px;
-    }
+  .categories-section { padding: 0 1rem; margin-top: 1.5rem; }
+  .category-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .category-item { width: 80px; height: 80px; }
+  .category-icon { font-size: 2rem; }
+}
 
-    .category-icon {
-        font-size: 2.5rem;
-    }
+/* Móviles pequeños */
+@media (max-width: 480px) {
+  .header-title { font-size: 1.6rem; }
+  .auth-button { height: 36px; font-size: 0.9rem; }
+  .welcome-title { font-size: 1.6rem; }
+  .home-main { padding: 1rem; gap: 1rem; }
+  .category-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .category-item { width: 70px; height: 70px; }
+  .category-icon { font-size: 1.6rem; }
+}
 
-    .welcome-title {
-        font-size: 1.5rem;
-    }
+@media (max-width: 1024px) {
+  .edna-home {
+    padding: 2rem 1.5rem;           /* menos padding lateral */
+    max-width: 90%;                /* ocupa más espacio */
+  }
+  .edna-home h2 {
+    font-size: 2rem;               /* reduce título */
+  }
+  .edna-home p {
+    font-size: 1rem;               /* reduce texto */
+  }
+  .edna-home-actions {
+    gap: 2rem;                     /* menos separación */
+  }
+  .edna-category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
-    .home-main {
-        gap: 2rem;
-        padding: 1rem;
-    }
+/* Móviles grandes */
+@media (max-width: 430px) {
+  .edna-home {
+    max-width: calc(100% - 2rem);  /* 1rem de padding a cada lado */
+    margin: 2rem auto;             /* conserva el margen vertical */
+    padding: 1.5rem 1rem;          /* reduce un poco el padding interno */
+  }
+}
+
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+  .edna-home {
+    padding: 1rem 0.5rem;
+  }
+  .edna-home h2 {
+    font-size: 1.5rem;
+  }
+  .edna-home p {
+    font-size: 0.9rem;
+  }
+  .edna-home-actions {
+    gap: 0.8rem;
+  }
+  .edna-category-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+/* ==== iPhone 14 Pro Max – vista Portrait ==== */
+@media only screen 
+  and (device-width: 428px) 
+  and (device-height: 926px) 
+  and (-webkit-device-pixel-ratio: 3) 
+  and (orientation: portrait) {
+  
+  .edna-home {
+    padding: 1rem 0.75rem;        /* menos espacio en laterales */
+    max-width: 100%;
+  }
+  .edna-home h2 {
+    font-size: 1.6rem;            /* título más compacto */
+  }
+  .edna-home p {
+    font-size: 0.9rem;            /* texto más legible en móvil */
+  }
+  .edna-home-actions {
+    flex-direction: column;       /* botones apilados */
+    gap: 0.8rem;
+  }
+  .edna-category-grid {
+    grid-template-columns: 1fr;   /* una columna */
+    gap: 0.8rem;
+  }
+  .edna-category-item {
+    min-width: 80px;
+    min-height: 80px;
+  }
+}
+
+/* ==== iPhone 14 Pro Max – vista Landscape ==== */
+@media only screen 
+  and (device-width: 428px) 
+  and (device-height: 926px) 
+  and (-webkit-device-pixel-ratio: 3) 
+  and (orientation: landscape) {
+  
+  .edna-home {
+    padding: 1.5rem 1rem;
+    max-width: 90%;
+  }
+  .edna-home h2 {
+    font-size: 1.8rem;
+  }
+  .edna-home p {
+    font-size: 1rem;
+  }
+  .edna-home-actions {
+    flex-direction: row;
+    gap: 1rem;
+  }
+  .edna-category-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .edna-category-item {
+    min-width: 90px;
+    min-height: 90px;
+  }
 }
