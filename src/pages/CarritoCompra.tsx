@@ -88,6 +88,14 @@ const CarritoCompra: React.FC = () => {
                     >
                         🔒 Realizar pedido
                     </button>
+                              <div className="center-action">
+            <button
+              className="edna-btn"
+              onClick={() => navigate('/usuario')}
+            >
+              ↩ Volver
+            </button>
+          </div>
                 </div>
             </main>
         </div>

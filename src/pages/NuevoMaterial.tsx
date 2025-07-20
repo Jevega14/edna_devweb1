@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './styles/NuevoMaterial.css';
+import { useNavigate } from 'react-router-dom';
 
 const NuevoMaterial: React.FC = () => {
+  const navigate = useNavigate();
   const [nombre, setNombre] = useState('');
   const [imagen, setImagen] = useState<File | null>(null);
   const [imagenPreview, setImagenPreview] = useState<string | null>(null);
@@ -38,8 +40,17 @@ const NuevoMaterial: React.FC = () => {
           {imagenPreview && (
             <img src={imagenPreview} alt="Vista previa" style={{ marginTop: 12, maxWidth: '100%', maxHeight: 200, border: '1.5px solid #cccccc', borderRadius: 10 }} />
           )}
-        </div>
+
         <button className="edna-btn" style={{ width: '100%', marginTop: '0.5rem' }} onClick={handleGuardar}>Guardar</button>
+                </div>
+                  <div className="center-action">
+            <button
+              className="edna-btn"
+              onClick={() => navigate('/inventario')}
+            >
+              ↩ Volver
+            </button>
+          </div>
       </div>
     </div>
   );

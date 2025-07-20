@@ -4,9 +4,11 @@ body {
   background-color: #f3f4f6;
 }
 
+/* Contenedor principal: ahora en columna para apilar “Volver” encima de “Registro” */
 .register-container {
   min-height: 100vh;
   display: flex;
+  flex-direction: column;    /* añadido */
   align-items: center;
   justify-content: center;
   padding: 1rem;
@@ -16,7 +18,8 @@ body {
   background-color: #ffffff;
   padding: 2rem;
   border-radius: 0.5rem;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+              0 8px 10px -6px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 28rem;
 }
@@ -114,7 +117,8 @@ body {
   font-weight: 700;
   font-size: 1rem;
   transition: all 200ms;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+              0 2px 4px -2px rgba(0, 0, 0, 0.1);
   outline: none;
   border: 2px solid #cccccc;
   cursor: pointer;
@@ -131,4 +135,12 @@ body {
 
 .register-button:focus {
   box-shadow: 0 0 0 2px #cccccc;
+}
+
+/* Contenedor del botón “Volver” */
+.back-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start; /* alineado a la izquierda */
+  margin: var(--espacio-grande) 0 var(--espacio-medio);
 }

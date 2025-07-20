@@ -1,155 +1,117 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './styles/DiseñosGuardados.css'; 
+import './styles/DiseñosGuardados.css';
 
-const App: React.FC = () => {
+const DiseñosGuardados: React.FC = () => {
   const navigate = useNavigate();
-  // Estado y función para mostrar mensajes en la UI (reemplazo de alert)
   const [message, setMessage] = useState('');
   const [showMessage, setShowMessage] = useState(false);
 
-  // Interfaz para un elemento de diseño
   interface DesignItem {
-    id: string; // Usamos string para IDs para mayor flexibilidad (ej. UUIDs)
+    id: string;
     name: string;
     imageUrl: string;
     selected: boolean;
   }
 
-  // Estado para la lista de diseños
   const [designs, setDesigns] = useState<DesignItem[]>([
-    { id: 'design-1', name: 'Diseño boda', imageUrl: 'https://placehold.co/120x120/AEC6CF/000?text=BODA', selected: false },
-    { id: 'design-2', name: 'Diseño azul', imageUrl: 'https://placehold.co/120x120/6495ED/FFF?text=AZUL', selected: false },
-    { id: 'design-3', name: 'Diseño 1', imageUrl: 'https://placehold.co/120x120/FFD700/000?text=DISE%C3%91O1', selected: false },
-    { id: 'design-4', name: 'Diseño final', imageUrl: 'https://placehold.co/120x120/90EE90/000?text=FINAL', selected: false },
-    // Puedes añadir más diseños aquí
+    { id: 'design-1', name: 'Diseño boda',   imageUrl: 'https://placehold.co/120x120/AEC6CF/000?text=BODA',   selected: false },
+    { id: 'design-2', name: 'Diseño azul',   imageUrl: 'https://placehold.co/120x120/6495ED/FFF?text=AZUL',   selected: false },
+    { id: 'design-3', name: 'Diseño 1',      imageUrl: 'https://placehold.co/120x120/FFD700/000?text=DISE%C3%91O1', selected: false },
+    { id: 'design-4', name: 'Diseño final',  imageUrl: 'https://placehold.co/120x120/90EE90/000?text=FINAL',  selected: false },
   ]);
-
-  // Manejador para el botón "Editar" de un diseño
-  const handleEditDesign = (designId: string) => {
-    console.log(`Editar diseño con ID: ${designId}`);
-    // Lógica para navegar a la página de edición de ese diseño
-    const message = `Navegar a la edición del diseño: ${designId}`;
-    displayMessage(message);
-  };
-
-  // Manejador para la selección de un diseño (checkbox)
-  const handleSelectDesign = (designId: string) => {
-    setDesigns(prevDesigns =>
-      prevDesigns.map(design =>
-        design.id === designId ? { ...design, selected: !design.selected } : design
-      )
-    );
-  };
-
-  // Manejador para seleccionar/deseleccionar todos los diseños
-  const handleSelectAllDesigns = () => {
-    const allSelected = designs.every(design => design.selected);
-    setDesigns(prevDesigns =>
-      prevDesigns.map(design => ({
-        ...design,
-        selected: !allSelected, // Si todos están seleccionados, deseleccionar; de lo contrario, seleccionar todos
-      }))
-    );
-  };
-
-  // Manejador para el botón "Crear nuevo diseño"
-  const handleCreateNewDesign = () => {
-    navigate('/creardiseño');
-  };
-
-  // Manejador para el botón "Añadir al carrito" (para los diseños seleccionados)
-  const handleAddToCart = () => {
-    const selectedDesigns = designs.filter(design => design.selected);
-    if (selectedDesigns.length > 0) {
-      const designNames = selectedDesigns.map(design => `"${design.name}"`).join(', ');
-      console.log('Añadir al carrito:', selectedDesigns);
-      // Lógica para añadir los diseños seleccionados al carrito
-      displayMessage(`${designNames} añadido(s) al carrito.`);
-    } else {
-      displayMessage('Por favor, selecciona al menos un diseño para añadir al carrito.');
-    }
-  };
-
-  // Manejador para el botón "Eliminar de mis diseños" (para los diseños seleccionados)
-  const handleRemoveDesign = () => {
-    const selectedDesigns = designs.filter(design => design.selected);
-    if (selectedDesigns.length > 0) {
-      const designNames = selectedDesigns.map(design => `"${design.name}"`).join(', ');
-      console.log('Eliminar de mis diseños:', selectedDesigns);
-      // Lógica para eliminar los diseños seleccionados
-      setDesigns(prevDesigns => prevDesigns.filter(design => !design.selected));
-      displayMessage(`${designNames} eliminado(s) de mis diseños.`);
-    } else {
-      displayMessage('Por favor, selecciona al menos un diseño para eliminar.');
-    }
-  };
 
   const displayMessage = (msg: string) => {
     setMessage(msg);
     setShowMessage(true);
-    setTimeout(() => {
-      setShowMessage(false);
-      setMessage('');
-    }, 3000); // El mensaje desaparecerá después de 3 segundos
+    setTimeout(() => setShowMessage(false), 3000);
   };
 
+  const handleEditDesign = (id: string) => {
+    console.log(`Editar diseño ${id}`);
+    displayMessage(`Editar diseño ${id}`);
+  };
+
+  const handleSelectDesign = (id: string) => {
+    setDesigns(prev =>
+      prev.map(d => d.id === id ? { ...d, selected: !d.selected } : d)
+    );
+  };
+
+  const handleSelectAllDesigns = () => {
+    const all = designs.every(d => d.selected);
+    setDesigns(prev =>
+      prev.map(d => ({ ...d, selected: !all }))
+    );
+  };
+
+  const handleCreateNewDesign = () => {
+    navigate('/creardiseño');
+  };
+
+  const handleAddToCart = () => {
+    const selected = designs.filter(d => d.selected);
+    if (selected.length) {
+      const names = selected.map(d => `"${d.name}"`).join(', ');
+      displayMessage(`${names} añadido(s) al carrito.`);
+    } else {
+      displayMessage('Selecciona al menos un diseño para añadir al carrito.');
+    }
+  };
+
+  const handleRemoveDesign = () => {
+    const selected = designs.filter(d => d.selected);
+    if (selected.length) {
+      setDesigns(prev => prev.filter(d => !d.selected));
+      const names = selected.map(d => `"${d.name}"`).join(', ');
+      displayMessage(`${names} eliminado(s) de mis diseños.`);
+    } else {
+      displayMessage('Selecciona al menos un diseño para eliminar.');
+    }
+  };
 
   return (
     <div className="gallery-container">
       {showMessage && (
-        <div className="message-box" style={{
-          position: 'fixed',
-          top: '20px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          backgroundColor: '#333',
-          color: 'white',
-          padding: '10px 20px',
-          borderRadius: '5px',
-          zIndex: 1000,
-          boxShadow: '0 2px 10px rgba(0,0,0,0.2)'
-        }}>
+        <div className="message-box">
           {message}
         </div>
       )}
 
       {/* Encabezado */}
-      <header className="header" style={{ justifyContent: 'center', alignItems: 'center', marginBottom: '1.5rem', padding: '0 1rem' }}>
-        <h2 style={{ fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif', fontWeight: 800, fontSize: '2rem', color: '#232323', margin: 0, letterSpacing: '1px', textAlign: 'center' }}>
-          Mis diseños
-        </h2>
+      <header className="header">
+        <h2>Mis diseños</h2>
       </header>
 
-      {/* Contenido principal de la galería */}
+      {/* Galería */}
       <main className="main-content-gallery">
         <div className="design-cards-grid">
-          {designs.map(design => (
-            <div key={design.id} className="design-card">
-              {/* Botón Editar */}
-              <button onClick={() => handleEditDesign(design.id)} className="edit-button">
+          {designs.map(d => (
+            <div key={d.id} className="design-card">
+              <button
+                className="edit-button"
+                onClick={() => handleEditDesign(d.id)}
+              >
                 Editar
               </button>
               <img
-                src={design.imageUrl}
-                alt={design.name}
+                src={d.imageUrl}
+                alt={d.name}
                 className="design-card-image"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.onerror = null;
-                  target.src = "https://placehold.co/120x120/E0E0E0/000?text=Error";
+                onError={e => {
+                  const t = e.target as HTMLImageElement;
+                  t.onerror = null;
+                  t.src = "https://placehold.co/120x120/E0E0E0/000?text=Error";
                 }}
               />
-              <h3 className="design-card-title">{design.name}</h3>
-              {/* Checkbox para seleccionar */}
+              <h3 className="design-card-title">{d.name}</h3>
               <label className="select-radio-group">
                 <input
-                  type="checkbox" // Cambiado a checkbox
-                  name="selectedDesign"
-                  checked={design.selected}
-                  onChange={() => handleSelectDesign(design.id)}
-                />
-                Seleccionar
+                  type="checkbox"
+                  checked={d.selected}
+                  onChange={() => handleSelectDesign(d.id)}
+                /> Seleccionar
               </label>
             </div>
           ))}
@@ -157,29 +119,45 @@ const App: React.FC = () => {
 
         {/* Acciones inferiores */}
         <div className="bottom-actions">
+          {/* Izquierda */}
           <div className="left-actions">
-            {/* Botón Crear nuevo diseño */}
-            <button onClick={handleCreateNewDesign} className="create-design-button">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-plus"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
-              Crear nuevo diseño
+            <button
+              className="create-design-button"
+              onClick={handleCreateNewDesign}
+            >
+              + Crear nuevo diseño
             </button>
-            {/* Botón Seleccionar todos */}
-            <button onClick={handleSelectAllDesigns} className="add-to-cart-button-gallery" style={{ marginLeft: '1rem' }}>
+            
+              <button onClick={handleSelectAllDesigns} className="add-to-cart-button-gallery" style={{ marginLeft: '1rem' }}>
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-check-square"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
               Seleccionar todos
             </button>
+
           </div>
 
-          <div className="right-action-buttons">
-            {/* Botón Añadir al carrito */}
-            <button onClick={handleAddToCart} className="add-to-cart-button-gallery">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-shopping-cart"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
-              Añadir diseño al carrito
+          {/* Centro: Volver */}
+          <div className="center-action">
+            <button
+              className="edna-btn"
+              onClick={() => navigate('/usuario')}
+            >
+              ↩ Volver
             </button>
-            {/* Botón Eliminar de mis diseños */}
-            <button onClick={handleRemoveDesign} className="remove-design-button">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
-              Eliminar de mis diseños
+          </div>
+
+          {/* Derecha */}
+          <div className="right-action-buttons">
+            <button
+              className="add-to-cart-button-gallery"
+              onClick={handleAddToCart}
+            >
+              🛒 Añadir diseño al carrito
+            </button>
+            <button
+              className="remove-design-button"
+              onClick={handleRemoveDesign}
+            >
+              🗑️ Eliminar de mis diseños
             </button>
           </div>
         </div>
@@ -188,4 +166,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default DiseñosGuardados;

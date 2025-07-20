@@ -81,12 +81,22 @@ const GestionInventario: React.FC = () => {
               </div>
             </div>
           </section>
+          
         </main>
+                  
         <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '2.5rem' }}>
           <button className="edna-btn" style={{ minWidth: 180 }}>
             Guardar
           </button>
+        <button
+            className="edna-btn"
+            style={{ minWidth: 180 }}
+            onClick={() => navigate('/Diseñador')}
+          >
+            ↩ Volver
+          </button>
         </div>
+        
       </div>
     </div>
   );

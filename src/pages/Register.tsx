@@ -60,9 +60,36 @@ const Register: React.FC = () => {
 
   return (
     <div className="register-container">
+      {/* Volver arriba */}
+      <div
+        style={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'flex-start',
+          margin: '1rem 0 1.5rem 0'
+        }}
+      >
+        <button
+          className="edna-btn"
+          style={{
+            fontSize: '1rem',
+            padding: '0.5rem 1.5rem',
+            borderRadius: 8,
+            background: '#fff',
+            color: '#232323',
+            border: '2px solid #cccccc',
+            boxShadow: 'none'
+          }}
+          onClick={() => navigate('/home')}
+        >
+          ↩ Volver
+        </button>
+      </div>
+
+      {/* Tarjeta de registro */}
       <div className="register-card">
         <h2 className="register-title">Registro</h2>
-        {/* Campos comunes */}
+
         <div className="form-group">
           <label htmlFor="name" className="form-label">Nombre *</label>
           <input
@@ -74,6 +101,7 @@ const Register: React.FC = () => {
             placeholder="Tu nombre completo"
           />
         </div>
+
         <div className="form-group">
           <label htmlFor="username" className="form-label">Nombre de usuario *</label>
           <input
@@ -85,6 +113,7 @@ const Register: React.FC = () => {
             placeholder="nombre.usuario"
           />
         </div>
+
         <div className="form-group">
           <label htmlFor="email" className="form-label">Correo electrónico *</label>
           <input
@@ -96,6 +125,7 @@ const Register: React.FC = () => {
             placeholder="tu@correo.com"
           />
         </div>
+
         <div className="form-group">
           <label htmlFor="phone" className="form-label">Teléfono</label>
           <input
@@ -107,6 +137,7 @@ const Register: React.FC = () => {
             placeholder="123-456-7890"
           />
         </div>
+
         <div className="form-group">
           <label htmlFor="address" className="form-label">Dirección</label>
           <input
@@ -118,6 +149,7 @@ const Register: React.FC = () => {
             placeholder="Tu dirección"
           />
         </div>
+
         <div className="form-group">
           <label htmlFor="password" className="form-label">Contraseña *</label>
           <input
@@ -128,8 +160,11 @@ const Register: React.FC = () => {
             onChange={handleInputChange}
             placeholder="••••••••"
           />
-          <small style={{color:'#888',fontSize:'0.92rem'}}>Mínimo 6 caracteres, debe incluir letras y números.</small>
+          <small style={{ color: '#888', fontSize: '0.92rem' }}>
+            Mínimo 6 caracteres, debe incluir letras y números.
+          </small>
         </div>
+
         <div className="form-group-last">
           <label htmlFor="confirmPassword" className="form-label">Confirmar contraseña *</label>
           <input
@@ -141,6 +176,7 @@ const Register: React.FC = () => {
             placeholder="••••••••"
           />
         </div>
+
         <button
           onClick={handleRegister}
           className="register-button"
