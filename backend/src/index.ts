@@ -12,6 +12,7 @@ import prendaRoutes from './routes/prendaRoutes';
 import disenoRoutes from './routes/disenoRoutes';
 import pedidoRoutes from './routes/pedidoRoutes';
 import materialRoutes from './routes/materialRoutes';
+import userRoutes from './routes/userRoutes'; // <-- 1. IMPORTAR
 
 const main = async () => {
     // ... (código de conexión a la BD) ...
@@ -36,6 +37,8 @@ const main = async () => {
     app.use('/api/diseños', disenoRoutes);
     app.use('/api/pedidos', pedidoRoutes);
     app.use('/api/materiales', materialRoutes);
+    app.use('/api/usuarios', userRoutes); // <-- 2. AÑADIR
+
 
     app.listen(PORT, () => {
         console.log(`🚀 Servidor backend corriendo en http://localhost:${PORT}`);

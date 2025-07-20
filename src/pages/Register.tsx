@@ -2,30 +2,33 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './styles/Register.css';
 
-// Interfaz para los datos del registro
+// Interfaz para los datos del registro (la mantenemos igual)
 interface RegisterData {
-  name: string;
+  nombre: string;
   username: string;
   email: string;
   password: string;
   confirmPassword: string;
-  phone?: string;
-  address?: string;
+  telefono?: string;
+  direccion?: string;
 }
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<RegisterData>({
-    name: '',
+    nombre: '',
     username: '',
     email: '',
     password: '',
     confirmPassword: '',
-    phone: '',
-    address: ''
+    telefono: '',
+    direccion: ''
   });
 
-  // Manejador para cambios en campos de texto
+  // Estados para manejar la carga y los errores
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFormData(prev => ({
@@ -34,121 +37,101 @@ const Register: React.FC = () => {
     }));
   };
 
-  // Validación de contraseña: mínimo 6 caracteres, al menos una letra y un número
   const isPasswordValid = (password: string) => {
     return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(password);
   };
 
-  // Manejador para el registro
-  const handleRegister = () => {
-    if (!formData.name || !formData.username || !formData.email || !formData.password) {
-      alert('Por favor completa todos los campos obligatorios');
+  // --- FUNCIÓN DE REGISTRO ACTUALIZADA ---
+  const handleRegister = async () => {
+    setError(null);
+    setIsLoading(true);
+
+    // Validaciones del frontend
+    if (formData.password !== formData.confirmPassword) {
+      setError('Las contraseñas no coinciden.');
+      setIsLoading(false);
       return;
     }
     if (!isPasswordValid(formData.password)) {
-      alert('La contraseña debe tener al menos 6 caracteres, incluir letras y números.');
+      setError('La contraseña debe tener al menos 6 caracteres, con letras y números.');
+      setIsLoading(false);
       return;
     }
-    if (formData.password !== formData.confirmPassword) {
-      alert('Las contraseñas no coinciden');
-      return;
+
+    try {
+      // 1. Preparamos los datos para enviar (excluimos confirmPassword)
+      const { confirmPassword, ...dataToSend } = formData;
+
+      // 2. Hacemos la petición POST al backend
+      const response = await fetch('http://localhost:4000/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSend),
+      });
+
+      const data = await response.json();
+
+      // 3. Verificamos si la respuesta del backend fue exitosa
+      if (!response.ok) {
+        throw new Error(data.message || 'Error al registrar la cuenta.');
+      }
+
+      // 4. Si el registro es exitoso, informamos al usuario y lo redirigimos
+      alert('¡Registro exitoso! Ahora puedes iniciar sesión.');
+      navigate('/login');
+
+    } catch (err: any) {
+      // Si algo falla, mostramos el error
+      setError(err.message);
+    } finally {
+      // Pase lo que pase, dejamos de cargar
+      setIsLoading(false);
     }
-    // Lógica de registro
-    alert('Registro exitoso. Ahora puedes iniciar sesión.');
-    navigate('/login');
   };
 
   return (
-    <div className="register-container">
-      <div className="register-card">
-        <h2 className="register-title">Registro</h2>
-        {/* Campos comunes */}
-        <div className="form-group">
-          <label htmlFor="name" className="form-label">Nombre *</label>
-          <input
-            type="text"
-            id="name"
-            className="form-input"
-            value={formData.name}
-            onChange={handleInputChange}
-            placeholder="Tu nombre completo"
-          />
+      <div className="register-container">
+        <div className="register-card">
+          <h2 className="register-title">Registro</h2>
+
+          {error && <p style={{ color: 'red', textAlign: 'center', marginBottom: '1rem' }}>{error}</p>}
+
+          <div className="form-group">
+            <label htmlFor="nombre" className="form-label">Nombre *</label>
+            <input type="text" id="nombre" className="form-input" value={formData.nombre} onChange={handleInputChange} placeholder="Tu nombre completo" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="username" className="form-label">Nombre de usuario *</label>
+            <input type="text" id="username" className="form-input" value={formData.username} onChange={handleInputChange} placeholder="nombre.usuario" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email" className="form-label">Correo electrónico *</label>
+            <input type="email" id="email" className="form-input" value={formData.email} onChange={handleInputChange} placeholder="tu@correo.com" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="telefono" className="form-label">Teléfono</label>
+            <input type="tel" id="telefono" className="form-input" value={formData.telefono} onChange={handleInputChange} placeholder="123-456-7890" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="direccion" className="form-label">Dirección</label>
+            <input type="text" id="direccion" className="form-input" value={formData.direccion} onChange={handleInputChange} placeholder="Tu dirección" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password" className="form-label">Contraseña *</label>
+            <input type="password" id="password" className="form-input" value={formData.password} onChange={handleInputChange} placeholder="••••••••" />
+            <small style={{ color: '#888', fontSize: '0.92rem' }}>Mínimo 6 caracteres, debe incluir letras y números.</small>
+          </div>
+          <div className="form-group-last">
+            <label htmlFor="confirmPassword" className="form-label">Confirmar contraseña *</label>
+            <input type="password" id="confirmPassword" className="form-input" value={formData.confirmPassword} onChange={handleInputChange} placeholder="••••••••" />
+          </div>
+          <button onClick={handleRegister} className="register-button" disabled={isLoading}>
+            {isLoading ? 'Creando cuenta...' : 'Crear cuenta'}
+          </button>
         </div>
-        <div className="form-group">
-          <label htmlFor="username" className="form-label">Nombre de usuario *</label>
-          <input
-            type="text"
-            id="username"
-            className="form-input"
-            value={formData.username}
-            onChange={handleInputChange}
-            placeholder="nombre.usuario"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email" className="form-label">Correo electrónico *</label>
-          <input
-            type="email"
-            id="email"
-            className="form-input"
-            value={formData.email}
-            onChange={handleInputChange}
-            placeholder="tu@correo.com"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="phone" className="form-label">Teléfono</label>
-          <input
-            type="tel"
-            id="phone"
-            className="form-input"
-            value={formData.phone}
-            onChange={handleInputChange}
-            placeholder="123-456-7890"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="address" className="form-label">Dirección</label>
-          <input
-            type="text"
-            id="address"
-            className="form-input"
-            value={formData.address}
-            onChange={handleInputChange}
-            placeholder="Tu dirección"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password" className="form-label">Contraseña *</label>
-          <input
-            type="password"
-            id="password"
-            className="form-input"
-            value={formData.password}
-            onChange={handleInputChange}
-            placeholder="••••••••"
-          />
-          <small style={{color:'#888',fontSize:'0.92rem'}}>Mínimo 6 caracteres, debe incluir letras y números.</small>
-        </div>
-        <div className="form-group-last">
-          <label htmlFor="confirmPassword" className="form-label">Confirmar contraseña *</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            className="form-input"
-            value={formData.confirmPassword}
-            onChange={handleInputChange}
-            placeholder="••••••••"
-          />
-        </div>
-        <button
-          onClick={handleRegister}
-          className="register-button"
-        >
-          Crear cuenta
-        </button>
       </div>
-    </div>
   );
 };
 
