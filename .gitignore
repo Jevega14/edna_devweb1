@@ -71,3 +71,13 @@ package-lock.json
 # Temporary folders
 tmp/
 temp/
+
+# TypeScript incremental build
+*.tsbuildinfo
+
+# ESLint cache
+.eslintcache
+
+# Paquetes .pack generados por npm/yarn
+*.pack
+*.pack.old
