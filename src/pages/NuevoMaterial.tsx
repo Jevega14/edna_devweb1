@@ -11,6 +11,21 @@ const NuevoMaterial: React.FC = () => {
 
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [imagenPreview, setImagenPreview] = useState<string | null>(null);
+
+  // Maneja la carga de imagen y genera la vista previa
+  const handleImagen = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagenPreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setImagenPreview(null);
+    }
+  };
 
   const handleGuardar = async () => {
     setError(null);
