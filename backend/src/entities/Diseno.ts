@@ -4,43 +4,46 @@ import { Prenda } from './Prenda';
 import { Material } from './Material';
 import { PedidoDiseno } from './PedidoDiseno';
 
-@Entity('diseño')
+@Entity()
 export class Diseno {
-    @PrimaryGeneratedColumn()
-    id!: number;
+  @PrimaryGeneratedColumn()
+  id!: number;
 
-    @Column()
-    nombre!: string;
+  @Column()
+  nombre!: string;
 
-    // --- NUEVOS CAMPOS DEL FORMULARIO ---
-    @Column({ type: 'varchar', length: 10, nullable: true })
-    talla?: string;
+  @Column({ length: 100 })
+  tipo_prenda!: string;
 
-    @Column({ type: 'json', nullable: true })
-    colores?: string[]; // Se guardará como un array de strings en formato JSON
+  // --- NUEVOS CAMPOS DEL FORMULARIO ---
+  @Column()
+  talla!: string;
 
-    @Column({ nullable: true })
-    logo?: string; // Por ahora, guardaremos la URL de la imagen
+  @Column({ type: 'json', nullable: true })
+  colores?: string[]; // Se guardará como un array de strings en formato JSON
 
-    @Column({ nullable: true })
-    imagen?: string; // Por ahora, guardaremos la URL de la imagen
+  @Column({ nullable: true })
+  logo?: string; // URL de la imagen del logo
 
-    @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
-    costo?: number;
+  @Column({ nullable: true })
+  imagen?: string; // URL de la imagen
 
-    // --- RELACIONES EXISTENTES ---
-    @ManyToOne(() => Usuario)
-    @JoinColumn({ name: 'usuario_id' })
-    usuario!: Usuario;
+  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
+  costo?: number;
 
-    @ManyToOne(() => Prenda)
-    @JoinColumn({ name: 'prenda_id' })
-    prenda!: Prenda;
+  // --- RELACIONES EXISTENTES ---
+  @ManyToOne(() => Usuario)
+  @JoinColumn({ name: 'usuario_id' })
+  usuario!: Usuario;
 
-    @ManyToOne(() => Material)
-    @JoinColumn({ name: 'material_id' })
-    material!: Material;
+  @ManyToOne(() => Prenda)
+  @JoinColumn({ name: 'prenda_id' })
+  prenda!: Prenda;
 
-    @OneToMany(() => PedidoDiseno, (pedidoDiseno) => pedidoDiseno.diseno)
-    public pedidos_disenos!: PedidoDiseno[];
+  @ManyToOne(() => Material)
+  @JoinColumn({ name: 'material_id' })
+  material!: Material;
+
+  @OneToMany(() => PedidoDiseno, pedidoDiseno => pedidoDiseno.diseno)
+  pedidos_disenos!: PedidoDiseno[];
 }
