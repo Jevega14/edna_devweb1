@@ -145,7 +145,7 @@ const GestionInventario: React.FC = () => {
                 ))}
                 <div style={{ background: '#e0e0e0', borderRadius: 12, padding: '1.2rem 1.1rem', minWidth: 160, minHeight: 120, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '2px dashed #cccccc' }} onClick={() => navigate('/nuevo-diseno')}>
                   <span style={{ fontSize: '2rem', fontWeight: 'bold' }}>+</span>
-                  <span>Agregar nuevo diseño</span>
+                  <span>Agregar nueva prenda</span>
                 </div>
               </div>
             </section>

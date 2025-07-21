@@ -42,6 +42,7 @@ CREATE TABLE Prenda (
     talla VARCHAR(10) NOT NULL,
     logo VARCHAR(255), -- Ruta a la imagen del logo
     imagen VARCHAR(255), -- Ruta a la imagen de la prenda
+    costo   DECIMAL(10, 2) NOT NULL,
     administrador_id INT,
     FOREIGN KEY (administrador_id) REFERENCES Administrador(id)
 );
@@ -82,8 +83,9 @@ CREATE TABLE Pedido_Diseno (
     FOREIGN KEY (diseno_id) REFERENCES Diseño(id)
 );
 
-ALTER TABLE edna_moda.diseño
+ALTER TABLE edna_moda.prenda
     ADD COLUMN talla VARCHAR(10) NULL,
+    ADD COLUMN tipo_prenda VARCHAR(100) NOT NULL,
     ADD COLUMN colores JSON NULL,
     ADD COLUMN logo VARCHAR(255) NULL,
     ADD COLUMN imagen VARCHAR(255) NULL,

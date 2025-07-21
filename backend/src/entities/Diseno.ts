@@ -1,46 +1,35 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
+import {
+  Entity, PrimaryGeneratedColumn, Column,
+  ManyToOne, JoinColumn
+} from 'typeorm';
 import { Usuario } from './Usuario';
-import { Prenda } from './Prenda';
 import { Material } from './Material';
-import { PedidoDiseno } from './PedidoDiseno';
 
-@Entity('diseño')
+@Entity()
 export class Diseno {
-    @PrimaryGeneratedColumn()
-    id!: number;
+  @PrimaryGeneratedColumn()
+  id!: number;
 
-    @Column()
-    nombre!: string;
+  @Column()
+  nombre!: string;
 
-    // --- NUEVOS CAMPOS DEL FORMULARIO ---
-    @Column({ type: 'varchar', length: 10, nullable: true })
-    talla?: string;
+  @Column({ length: 100 })
+  tipo_prenda!: string;
 
-    @Column({ type: 'json', nullable: true })
-    colores?: string[]; // Se guardará como un array de strings en formato JSON
+  @Column()
+  talla!: string;
 
-    @Column({ nullable: true })
-    logo?: string; // Por ahora, guardaremos la URL de la imagen
+  @Column('simple-array')
+  colores!: string[];
 
-    @Column({ nullable: true })
-    imagen?: string; // Por ahora, guardaremos la URL de la imagen
+  @Column('decimal')
+  costo!: number;
 
-    @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
-    costo?: number;
+  @ManyToOne(() => Material)
+  @JoinColumn({ name: 'material_id' })
+  material!: Material;
 
-    // --- RELACIONES EXISTENTES ---
-    @ManyToOne(() => Usuario)
-    @JoinColumn({ name: 'usuario_id' })
-    usuario!: Usuario;
-
-    @ManyToOne(() => Prenda)
-    @JoinColumn({ name: 'prenda_id' })
-    prenda!: Prenda;
-
-    @ManyToOne(() => Material)
-    @JoinColumn({ name: 'material_id' })
-    material!: Material;
-
-    @OneToMany(() => PedidoDiseno, (pedidoDiseno) => pedidoDiseno.diseno)
-    public pedidos_disenos!: PedidoDiseno[];
+  @ManyToOne(() => Usuario)
+  @JoinColumn({ name: 'usuario_id' })
+  usuario!: Usuario;
 }

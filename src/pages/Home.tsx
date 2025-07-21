@@ -1,8 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles.css";
-import IconoMascara from "../icons/icon-mascara.png";
-
+import MascaraIcono from "../icons/MascaraIcono.svg";
+import BotaIcono from "../icons/BotaIcono.svg";
+import CapaIcono from "../icons/CapaIcono.svg";
+import CinturonIcono from "../icons/CinturonIcono.svg";
+import EscudoIcono from "../icons/EscudoIcono.svg";
+import GuantesIcono from "../icons/GuantesIcono.svg";
 const Home: React.FC = () => {
   const navigate = useNavigate();
 
@@ -36,109 +40,43 @@ const Home: React.FC = () => {
         <div className="edna-category-grid">
           <div className="edna-category-item">
             {/* Máscara (eye icon) */}
-            <span className="edna-category-icon">
-              <svg
-                width="36"
-                height="36"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#232323"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <ellipse cx="12" cy="12" rx="10" ry="6" />
-                <circle cx="12" cy="12" r="2.5" fill="#cccccc" stroke="#232323" />
-              </svg>
-            </span>
+      <span className="edna-category-icon">
+        <img src={MascaraIcono} width={36} height={36} alt="Escudo" />
+      </span>
             <span className="edna-category-label">Máscara</span>
           </div>
           <div className="edna-category-item">
             {/* Capa (wind icon) */}
-            <span className="edna-category-icon">
-              <svg
-                width="36"
-                height="36"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#232323"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M3 12s4-8 9-8 9 8 9 8-4 8-9 8-9-8-9-8z" fill="#cccccc" />
-              </svg>
-            </span>
+      <span className="edna-category-icon">
+        <img src={CapaIcono} width={36} height={36} alt="Escudo" />
+      </span>
             <span className="edna-category-label">Capa</span>
           </div>
-          <div className="edna-category-item">
-            {/* Escudo (shield icon) */}
-              <img
-          src={IconoMascara}
-          width={36}
-          height={36}
-          alt="Escudo"
-        />
-            <span className="edna-category-icon" style={{ display: 'none' }}></span>
-            <span className="edna-category-label" style={{ display: 'none' }}
-            >Escudo</span>
-          </div>
+    <div className="edna-category-item">
+      <span className="edna-category-icon">
+        <img src={EscudoIcono} width={36} height={36} alt="Escudo" />
+      </span>
+      <span className="edna-category-label">Escudo</span>
+    </div>
           <div className="edna-category-item">
             {/* Botas (activity icon) */}
-            <span className="edna-category-icon">
-              <svg
-                width="36"
-                height="36"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#232323"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-                <rect x="7" y="18" width="4" height="3" fill="#cccccc" stroke="#232323" />
-              </svg>
-            </span>
+                 <span className="edna-category-icon">
+        <img src={BotaIcono} width={36} height={36} alt="Escudo" />
+      </span>
             <span className="edna-category-label">Botas</span>
           </div>
           <div className="edna-category-item">
             {/* Guantes (hand icon) */}
-            <span className="edna-category-icon">
-              <svg
-                width="36"
-                height="36"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#232323"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M8 13V7a2 2 0 1 1 4 0v6" />
-                <path d="M12 13V5a2 2 0 1 1 4 0v8" />
-                <rect x="6" y="13" width="12" height="7" rx="2" fill="#cccccc" stroke="#232323" />
-              </svg>
-            </span>
+                 <span className="edna-category-icon">
+        <img src={GuantesIcono} width={36} height={36} alt="Escudo" />
+      </span>
             <span className="edna-category-label">Guantes</span>
           </div>
           <div className="edna-category-item">
             {/* Cinturón (circle icon) */}
-            <span className="edna-category-icon">
-              <svg
-                width="36"
-                height="36"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#232323"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle cx="12" cy="12" r="8" fill="#cccccc" />
-                <circle cx="12" cy="12" r="3" fill="#232323" />
-              </svg>
-            </span>
+              <span className="edna-category-icon">
+        <img src={CinturonIcono} width={36} height={36} alt="Escudo" />
+      </span>
             <span className="edna-category-label">Cinturón</span>
           </div>
         </div>

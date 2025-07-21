@@ -21,6 +21,7 @@ const FormularioDiseno: React.FC = () => {
   const [prendaId, setPrendaId] = useState('');
   const [talla, setTalla] = useState('xxs');
   const [color, setColor] = useState('#ff0000');
+  const [tipoPrenda, setTipoPrenda] = useState('');
   const [coloresSeleccionados, setColoresSeleccionados] = useState<string[]>([]);
   const [imagen, setImagen] = useState<string | null>(null);
   const [materialId, setMaterialId] = useState('');
@@ -63,18 +64,19 @@ const FormularioDiseno: React.FC = () => {
     };
     fetchData();
   }, []); // El array vacío asegura que solo se ejecute una vez
-      const manejarArchivo = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const archivo = e.target.files?.[0];
-        if (archivo) {
-          const lector = new FileReader();
-          lector.onloadend = () => {
-            if (lector.result) {
-              setImagen(lector.result as string);
-            }
-          };
-          lector.readAsDataURL(archivo);
+
+  const manejarArchivo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const archivo = e.target.files?.[0];
+    if (archivo) {
+      const lector = new FileReader();
+      lector.onloadend = () => {
+        if (lector.result) {
+          setImagen(lector.result as string);
         }
       };
+      lector.readAsDataURL(archivo);
+    }
+  };
 
   const agregarColor = () => {
     if (color && !coloresSeleccionados.includes(color)) {
@@ -87,7 +89,6 @@ const FormularioDiseno: React.FC = () => {
     const userId = localStorage.getItem('userId');
 
     if (!token || !userId) {
-
       return;
     }
     if (!nombre || !prendaId || !materialId || !talla || !costo) {
@@ -104,14 +105,12 @@ const FormularioDiseno: React.FC = () => {
         },
         body: JSON.stringify({
           nombre,
+          tipo_prenda: prendaId,
           talla,
           colores: coloresSeleccionados,
           costo: parseFloat(costo),
-          prenda_id: parseInt(prendaId),
-          
           material_id: parseInt(materialId),
           usuario_id: parseInt(userId)
-          
           // Los campos 'logo' e 'imagen' se pueden añadir aquí si se manejan
         })
       });
@@ -123,6 +122,7 @@ const FormularioDiseno: React.FC = () => {
 
       alert("¡Diseño creado exitosamente!");
       navigate('/diseñosguardados');
+
     } catch (err: any) {
       alert(`Error: ${err.message}`);
     }
@@ -133,7 +133,7 @@ const FormularioDiseno: React.FC = () => {
 
   return (
       <div style={{ fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif', padding: '2rem' }}>
-        <h1 style={{ textAlign: 'center' }}>Diseño</h1>
+        <h1 style={{ textAlign: 'center' }}>Diseño de la prenda</h1>
         <main style={{ display: 'flex', gap: '2rem', maxWidth: '900px', margin: 'auto' }}>
           <div style={{ flex: 1 }}>
             {/* Aquí puedes añadir la lógica para la previsualización de la imagen */}
@@ -169,7 +169,7 @@ const FormularioDiseno: React.FC = () => {
               onChange={manejarArchivo}
             />
 
-            <p style={{ textAlign: 'center', marginTop: '1rem' }}>&lt; {nombre || 'Nombre del Diseño'} &gt;</p>
+            <p style={{ textAlign: 'center', marginTop: '1rem' }}>&lt; {nombre || 'Nombre de la prenda'} &gt;</p>
           </div>
           <div style={{ flex: 2, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <label>Nombre: <input type="text" value={nombre} onChange={e => setNombre(e.target.value)} style={{width: '100%', padding: '8px'}} /></label>
@@ -180,7 +180,7 @@ const FormularioDiseno: React.FC = () => {
                 <option value="Sombrero">Sombrero</option>
                 <option value="Gorra">Gorra</option>
                 <option value="Collar">Collar</option>
-                 <option value="Máscara">Máscara</option>
+                <option value="Máscara">Máscara</option>
                 <option value="Corbata">Corbata</option>
                 <option value="Pañoleta">Pañoleta</option>
                 <option value="Guantes">Guantes</option>
@@ -232,9 +232,13 @@ const FormularioDiseno: React.FC = () => {
 
             <label>Costo: <input type="number" value={costo} onChange={e => setCosto(e.target.value)} style={{width: '100%', padding: '8px'}} /></label>
 
-            <div style={{ textAlign: 'right', marginTop: '1rem' }}>
-              <button className="edna-btn" onClick={handleConfirmar}>Confirmar ➤</button>
-              
+            <div style={{ textAlign: 'right', marginTop: '1rem' }}>  
+              <button
+                className="edna-btn boton-confirmar"
+                onClick={handleConfirmar}
+              >
+                Confirmar ➤
+              </button>
             </div>
           </div>
         </main>
