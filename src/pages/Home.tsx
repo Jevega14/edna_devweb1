@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles.css";
+import IconoMascara from "../icons/icon-mascara.png";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -72,21 +73,15 @@ const Home: React.FC = () => {
           </div>
           <div className="edna-category-item">
             {/* Escudo (shield icon) */}
-            <span className="edna-category-icon">
-              <svg
-                width="36"
-                height="36"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#232323"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M12 2l7 4v6c0 5.25-3.5 10-7 10S5 17.25 5 12V6l7-4z" fill="#cccccc" />
-              </svg>
-            </span>
-            <span className="edna-category-label">Escudo</span>
+              <img
+          src={IconoMascara}
+          width={36}
+          height={36}
+          alt="Escudo"
+        />
+            <span className="edna-category-icon" style={{ display: 'none' }}></span>
+            <span className="edna-category-label" style={{ display: 'none' }}
+            >Escudo</span>
           </div>
           <div className="edna-category-item">
             {/* Botas (activity icon) */}
@@ -149,11 +144,11 @@ const Home: React.FC = () => {
         </div>
       </div>
       {/* Botón para ir a Diseñador */}
-      <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '2.2rem' }}>
+      {/*<div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '2.2rem' }}>
         <button className="edna-btn" style={{ fontSize: '0.98rem', padding: '0.5rem 1.2rem', minWidth: 0, width: 'auto', borderRadius: 8 }} onClick={() => navigate('/Diseñador')}>
           Ir a Diseñador
         </button>
-      </div>
+      </div>*/}
     </div>
   );
 };

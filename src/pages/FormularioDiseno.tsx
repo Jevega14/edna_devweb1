@@ -22,6 +22,7 @@ const FormularioDiseno: React.FC = () => {
   const [talla, setTalla] = useState('xxs');
   const [color, setColor] = useState('#ff0000');
   const [coloresSeleccionados, setColoresSeleccionados] = useState<string[]>([]);
+  const [imagen, setImagen] = useState<string | null>(null);
   const [materialId, setMaterialId] = useState('');
   const [costo, setCosto] = useState('');
 
@@ -62,6 +63,18 @@ const FormularioDiseno: React.FC = () => {
     };
     fetchData();
   }, []); // El array vacío asegura que solo se ejecute una vez
+      const manejarArchivo = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const archivo = e.target.files?.[0];
+        if (archivo) {
+          const lector = new FileReader();
+          lector.onloadend = () => {
+            if (lector.result) {
+              setImagen(lector.result as string);
+            }
+          };
+          lector.readAsDataURL(archivo);
+        }
+      };
 
   const agregarColor = () => {
     if (color && !coloresSeleccionados.includes(color)) {
@@ -74,7 +87,7 @@ const FormularioDiseno: React.FC = () => {
     const userId = localStorage.getItem('userId');
 
     if (!token || !userId) {
-      alert("Debes iniciar sesión para crear un diseño.");
+
       return;
     }
     if (!nombre || !prendaId || !materialId || !talla || !costo) {
@@ -95,8 +108,10 @@ const FormularioDiseno: React.FC = () => {
           colores: coloresSeleccionados,
           costo: parseFloat(costo),
           prenda_id: parseInt(prendaId),
+          
           material_id: parseInt(materialId),
           usuario_id: parseInt(userId)
+          
           // Los campos 'logo' e 'imagen' se pueden añadir aquí si se manejan
         })
       });
@@ -122,9 +137,38 @@ const FormularioDiseno: React.FC = () => {
         <main style={{ display: 'flex', gap: '2rem', maxWidth: '900px', margin: 'auto' }}>
           <div style={{ flex: 1 }}>
             {/* Aquí puedes añadir la lógica para la previsualización de la imagen */}
-            <div style={{ border: '2px dashed #ccc', height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-              <span>Cargar imagen</span>
-            </div>
+
+            <label
+  htmlFor="cargar-imagen"
+  style={{
+    border: '2px dashed #ccc',
+    height: '200px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    cursor: 'pointer',
+    backgroundColor: imagen ? 'transparent' : '#f0f0f0',
+  }}
+            >
+              {imagen ? (
+                <img
+                  src={imagen}
+                  alt="Imagen cargada"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              ) : (
+                <span>Cargar imagen</span>
+              )}
+            </label>
+            <input
+              id="cargar-imagen"
+              type="file"
+              accept="image/*"
+              style={{ display: 'none' }}
+              onChange={manejarArchivo}
+            />
+
             <p style={{ textAlign: 'center', marginTop: '1rem' }}>&lt; {nombre || 'Nombre del Diseño'} &gt;</p>
           </div>
           <div style={{ flex: 2, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -133,6 +177,28 @@ const FormularioDiseno: React.FC = () => {
             <label>Tipo de prenda:
               <select value={prendaId} onChange={e => setPrendaId(e.target.value)} style={{width: '100%', padding: '8px'}}>
                 {prendas.map(p => <option key={p.id} value={p.id}>{p.tipo}</option>)}
+                <option value="Sombrero">Sombrero</option>
+                <option value="Gorra">Gorra</option>
+                <option value="Collar">Collar</option>
+                 <option value="Máscara">Máscara</option>
+                <option value="Corbata">Corbata</option>
+                <option value="Pañoleta">Pañoleta</option>
+                <option value="Guantes">Guantes</option>
+                <option value="Capa">Capa</option>
+                <option value="Escudo">Escudo</option>
+                <option value="Sueter">Sueter</option>
+                <option value="Camisa">Camisa</option>
+                <option value="Vestido">Vestido</option>
+                <option value="Cinturón">Cinturón</option>
+                <option value="Falda">Falda</option>
+                <option value="Minifalda">Minifalda</option>
+                <option value="Pantalón">Pantalón</option>
+                <option value="Jogger">Jogger</option>
+                <option value="Zapatos">Zapatos</option>
+                <option value="Tenis">Tenis</option>
+                <option value="Botas">Botas</option>
+                <option value="Tacones">Tacones</option>
+                <option value="Medias">Medias</option>
               </select>
             </label>
 
@@ -168,6 +234,7 @@ const FormularioDiseno: React.FC = () => {
 
             <div style={{ textAlign: 'right', marginTop: '1rem' }}>
               <button className="edna-btn" onClick={handleConfirmar}>Confirmar ➤</button>
+              
             </div>
           </div>
         </main>

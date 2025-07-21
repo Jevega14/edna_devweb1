@@ -93,7 +93,7 @@ const NuevoMaterial: React.FC = () => {
             />
           </div>
           <div style={{ marginBottom: '2rem' }}>
-            <label style={{ color: '#232323', fontWeight: 600, display: 'block', marginBottom: 8 }} htmlFor="costo">Costo</label>
+            <label style={{ color: '#232323', fontWeight: 600, display: 'block', marginBottom: 8 }} htmlFor="costo">Costo / Metro^2</label>
             <input
                 id="costo"
                 type="number"
