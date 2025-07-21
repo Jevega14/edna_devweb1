@@ -24,6 +24,11 @@ const FormularioDiseno: React.FC = () => {
   const [coloresSeleccionados, setColoresSeleccionados] = useState<string[]>([]);
   const [materialId, setMaterialId] = useState('');
   const [costo, setCosto] = useState('');
+  // Estados para imágenes
+  const [logoFile, setLogoFile] = useState<File | null>(null);
+  const [imagenFile, setImagenFile] = useState<File | null>(null);
+  const [logoPreview, setLogoPreview] = useState<string | null>(null);
+  const [imagenPreview, setImagenPreview] = useState<string | null>(null);
 
   // Estados para almacenar los datos de los selectores y manejar la carga/errores
   const [prendas, setPrendas] = useState<Prenda[]>([]);
@@ -69,6 +74,27 @@ const FormularioDiseno: React.FC = () => {
     }
   };
 
+  // Previsualización de imágenes
+  useEffect(() => {
+    if (logoFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => setLogoPreview(reader.result as string);
+      reader.readAsDataURL(logoFile);
+    } else {
+      setLogoPreview(null);
+    }
+  }, [logoFile]);
+
+  useEffect(() => {
+    if (imagenFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => setImagenPreview(reader.result as string);
+      reader.readAsDataURL(imagenFile);
+    } else {
+      setImagenPreview(null);
+    }
+  }, [imagenFile]);
+
   const handleConfirmar = async () => {
     const token = localStorage.getItem('authToken');
     const userId = localStorage.getItem('userId');
@@ -83,22 +109,23 @@ const FormularioDiseno: React.FC = () => {
     }
 
     try {
+      const formData = new FormData();
+      formData.append('nombre', nombre);
+      formData.append('talla', talla);
+      formData.append('colores', JSON.stringify(coloresSeleccionados));
+      formData.append('costo', costo);
+      formData.append('prenda_id', prendaId);
+      formData.append('material_id', materialId);
+      formData.append('usuario_id', userId);
+      if (logoFile) formData.append('logo', logoFile);
+      if (imagenFile) formData.append('imagen', imagenFile);
+
       const response = await fetch('http://localhost:4000/api/disenos', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({
-          nombre,
-          talla,
-          colores: coloresSeleccionados,
-          costo: parseFloat(costo),
-          prenda_id: parseInt(prendaId),
-          material_id: parseInt(materialId),
-          usuario_id: parseInt(userId)
-          // Los campos 'logo' e 'imagen' se pueden añadir aquí si se manejan
-        })
+        body: formData
       });
 
       if (!response.ok) {
@@ -121,9 +148,21 @@ const FormularioDiseno: React.FC = () => {
         <h1 style={{ textAlign: 'center' }}>Diseño</h1>
         <main style={{ display: 'flex', gap: '2rem', maxWidth: '900px', margin: 'auto' }}>
           <div style={{ flex: 1 }}>
-            {/* Aquí puedes añadir la lógica para la previsualización de la imagen */}
+            {/* Previsualización de logo */}
+            <div style={{ border: '2px dashed #ccc', height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', marginBottom: '1rem' }}>
+              <span>Logo</span>
+              <input type="file" accept="image/*" onChange={e => {
+                if (e.target.files && e.target.files[0]) setLogoFile(e.target.files[0]);
+              }} />
+              {logoPreview && <img src={logoPreview} alt="Logo preview" style={{ maxWidth: '100%', maxHeight: '120px', marginTop: '10px' }} />}
+            </div>
+            {/* Previsualización de imagen de diseño */}
             <div style={{ border: '2px dashed #ccc', height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-              <span>Cargar imagen</span>
+              <span>Imagen del diseño</span>
+              <input type="file" accept="image/*" onChange={e => {
+                if (e.target.files && e.target.files[0]) setImagenFile(e.target.files[0]);
+              }} />
+              {imagenPreview && <img src={imagenPreview} alt="Imagen preview" style={{ maxWidth: '100%', maxHeight: '120px', marginTop: '10px' }} />}
             </div>
             <p style={{ textAlign: 'center', marginTop: '1rem' }}>&lt; {nombre || 'Nombre del Diseño'} &gt;</p>
           </div>
