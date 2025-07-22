@@ -1,10 +1,11 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
-import { Usuario } from './Usuario';
+// CAMBIO: Ya no importamos Usuario, ahora importamos Administrador
+import { Administrador } from './Administrador';
 import { Prenda } from './Prenda';
 import { Material } from './Material';
 import { PedidoDiseno } from './PedidoDiseno';
 
-@Entity('diseño') // El nombre de la tabla en MySQL
+@Entity('diseño')
 export class Diseno {
   @PrimaryGeneratedColumn()
   id!: number;
@@ -12,22 +13,22 @@ export class Diseno {
   @Column()
   nombre!: string;
 
-  // Un diseño es creado por un usuario (administrador)
-  @ManyToOne(() => Usuario)
+  // --- RELACIÓN CORREGIDA ---
+  // Ahora un Diseño pertenece a un Administrador.
+  // Usamos `JoinColumn` para decirle a TypeORM que la columna en la base de datos
+  // se sigue llamando 'usuario_id', aunque lógicamente apunta a un administrador.
+  @ManyToOne(() => Administrador)
   @JoinColumn({ name: 'usuario_id' })
-  usuario!: Usuario;
+  creador!: Administrador;
 
-  // Un diseño está compuesto por UNA prenda
   @ManyToOne(() => Prenda)
   @JoinColumn({ name: 'prenda_id' })
   prenda!: Prenda;
 
-  // y UN material
   @ManyToOne(() => Material)
   @JoinColumn({ name: 'material_id' })
   material!: Material;
 
-  // Relación con la tabla de unión (para futuros pedidos)
   @OneToMany(() => PedidoDiseno, (pedidoDiseno) => pedidoDiseno.diseno)
   public pedidos_disenos!: PedidoDiseno[];
 }

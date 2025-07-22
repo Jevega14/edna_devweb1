@@ -1,23 +1,22 @@
-// src/index.ts (versión actualizada)
 import 'reflect-metadata';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
 import cors from 'cors';
+import path from 'path'; // Importamos el módulo 'path' de Node.js
 import { AppDataSource } from './config/data-source';
+
+// Importación de todas las rutas
 import authRoutes from './routes/authRoutes';
-import adminRoutes from './routes/adminRoutes'; //
+import adminRoutes from './routes/adminRoutes';
 import prendaRoutes from './routes/prendaRoutes';
 import disenoRoutes from './routes/disenoRoutes';
-import pedidoRoutes from './routes/pedidoRoutes';
 import materialRoutes from './routes/materialRoutes';
-import userRoutes from './routes/userRoutes';
-import path from 'path'; // Importamos el módulo 'path' de Node.js
+import pedidoRoutes from './routes/pedidoRoutes';
 import uploadRoutes from './routes/uploadRoutes';
 
 const main = async () => {
-    // ... (código de conexión a la BD) ...
     try {
         await AppDataSource.initialize();
         console.log('✅ Conexión a la base de datos establecida.');
@@ -32,21 +31,17 @@ const main = async () => {
     app.use(cors());
     app.use(express.json());
 
-    // --- RUTAS DE LA API ---
+    // Hacemos que la carpeta 'uploads' sea accesible públicamente
+    app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
+    // --- REGISTRO DE RUTAS EN LA API ---
     app.use('/api/upload', uploadRoutes);
-    app.use('/api/auth', authRoutes);
     app.use('/api/auth', authRoutes);
     app.use('/api/admins', adminRoutes);
     app.use('/api/prendas', prendaRoutes);
-    app.use('/api/diseños', disenoRoutes);
-    app.use('/api/pedidos', pedidoRoutes);
+    app.use('/api/disenos', disenoRoutes); // <-- ESTA LÍNEA ES LA CLAVE
     app.use('/api/materiales', materialRoutes);
-    app.use('/api/usuarios', userRoutes);
-    app.use(cors());
-    app.use(express.json());
-    app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
-
-
+    app.use('/api/pedidos', pedidoRoutes);
 
     app.listen(PORT, () => {
         console.log(`🚀 Servidor backend corriendo en http://localhost:${PORT}`);

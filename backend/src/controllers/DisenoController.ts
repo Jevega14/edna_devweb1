@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../config/data-source';
 import { Diseno } from '../entities/Diseno';
-import { Usuario } from '../entities/Usuario';
+import { Administrador } from '../entities/Administrador';
 import { Prenda } from '../entities/Prenda';
 import { Material } from '../entities/Material';
 import { AuthRequest } from '../middleware/auth.middleware'; // Importamos la interfaz para peticiones autenticadas
@@ -11,27 +11,27 @@ class DisenoController {
     public async create(req: AuthRequest, res: Response): Promise<Response> {
         try {
             const { nombre, prenda_id, material_id } = req.body;
-            const usuario_id = req.user?.id; // Obtenemos el ID del admin/diseñador desde el token
+            const adminId = req.user?.id; // Obtenemos el ID del admin desde el token
 
             // Validación de entrada
-            if (!nombre || !prenda_id || !material_id || !usuario_id) {
-                return res.status(400).json({ message: 'Nombre, prenda, material y usuario son obligatorios.' });
+            if (!nombre || !prenda_id || !material_id || !adminId) {
+                return res.status(400).json({ message: 'Nombre, prenda, material y token de administrador son obligatorios.' });
             }
 
             const disenoRepo = AppDataSource.getRepository(Diseno);
 
             // Verificamos que las entidades base existan
-            const usuario = await AppDataSource.manager.findOneBy(Usuario, { id: usuario_id });
+            const creador = await AppDataSource.manager.findOneBy(Administrador, { id: adminId });
             const prenda = await AppDataSource.manager.findOneBy(Prenda, { id: prenda_id });
             const material = await AppDataSource.manager.findOneBy(Material, { id: material_id });
 
-            if (!usuario || !prenda || !material) {
-                return res.status(404).json({ message: 'Usuario, Prenda o Material no encontrado.' });
+            if (!creador || !prenda || !material) {
+                return res.status(404).json({ message: 'Administrador, Prenda o Material no encontrado.' });
             }
 
             const nuevoDiseno = disenoRepo.create({
                 nombre,
-                usuario,
+                creador,
                 prenda,
                 material,
             });
@@ -51,7 +51,7 @@ class DisenoController {
         try {
             const disenoRepository = AppDataSource.getRepository(Diseno);
             const disenos = await disenoRepository.find({
-                relations: ['usuario', 'prenda', 'material'], // Incluimos los datos de las relaciones
+                relations: ['creador', 'prenda', 'material'], // Incluimos los datos de las relaciones
             });
             return res.status(200).json(disenos);
         } catch (error: any) {
@@ -60,24 +60,24 @@ class DisenoController {
         }
     }
 
-    // --- OBTENER LOS DISEÑOS CREADOS POR EL USUARIO AUTENTICADO ---
-    public async getByUser(req: AuthRequest, res: Response): Promise<Response> {
+    // --- OBTENER LOS DISEÑOS CREADOS POR EL ADMINISTRADOR AUTENTICADO ---
+    public async getByAdmin(req: AuthRequest, res: Response): Promise<Response> {
         try {
-            const userId = req.user?.id;
+            const adminId = req.user?.id;
 
-            if (!userId) {
-                return res.status(400).json({ message: 'ID de usuario no encontrado en el token.' });
+            if (!adminId) {
+                return res.status(400).json({ message: 'ID de administrador no encontrado en el token.' });
             }
 
             const disenoRepository = AppDataSource.getRepository(Diseno);
             const disenos = await disenoRepository.find({
-                where: { usuario: { id: userId } },
+                where: { creador: { id: adminId } },
                 relations: ['prenda', 'material'],
             });
             return res.json(disenos);
         } catch (error: any) {
-            console.error("Error en DisenoController.getByUser:", error);
-            return res.status(500).json({ message: 'Error al obtener los diseños del usuario.', error: error.message });
+            console.error("Error en DisenoController.getByAdmin:", error);
+            return res.status(500).json({ message: 'Error al obtener los diseños del administrador.', error: error.message });
         }
     }
 
@@ -85,16 +85,16 @@ class DisenoController {
     public async delete(req: AuthRequest, res: Response): Promise<Response> {
         try {
             const disenoId = parseInt(req.params.id);
-            const userId = req.user?.id;
+            const adminId = req.user?.id;
 
-            if (!disenoId || !userId) {
-                return res.status(400).json({ message: 'ID de diseño o de usuario no válido.' });
+            if (!disenoId || !adminId) {
+                return res.status(400).json({ message: 'ID de diseño o de administrador no válido.' });
             }
 
             const disenoRepository = AppDataSource.getRepository(Diseno);
             const diseno = await disenoRepository.findOne({
                 where: { id: disenoId },
-                relations: ['usuario'],
+                relations: ['creador'],
             });
 
             if (!diseno) {
@@ -102,7 +102,7 @@ class DisenoController {
             }
 
             // Verificación de propiedad: solo el dueño puede borrar
-            if (diseno.usuario.id !== userId) {
+            if (diseno.creador.id !== adminId) {
                 return res.status(403).json({ message: 'No tienes permiso para eliminar este diseño.' });
             }
 
