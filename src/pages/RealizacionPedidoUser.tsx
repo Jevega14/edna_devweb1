@@ -1,9 +1,98 @@
-import React from 'react';
+import React,  { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './styles/RealizacionPedidoUser.css';
 
 const RealizacionPedidoUser: React.FC = () => {
+
+    
+    const [direccion, setDireccion] = useState('');
+    const [cliente, setCliente] = useState('');
+    const [prendasPedido, setPrendasPedido] = useState<{ id: number; nombre: string; cantidad: number }[]>([]);
+
+    useEffect(() => {
+    const stored = localStorage.getItem('prendasPedido');
+    if (stored) {
+        setPrendasPedido(JSON.parse(stored));
+    }
+    }, []);
+
+
+    const aumentarCantidad = (index: number) => {
+    setPrendasPedido(prev =>
+        prev.map((item, i) =>
+        i === index
+            ? { ...item, cantidad: typeof item.cantidad === 'number' ? item.cantidad + 1 : 1 }
+            : item
+        )
+    );
+    };
+
+    const disminuirCantidad = (index: number) => {
+    setPrendasPedido(prev =>
+        prev.map((item, i) =>
+        i === index
+            ? { ...item, cantidad: typeof item.cantidad === 'number' && item.cantidad > 1 ? item.cantidad - 1 : 1 }
+            : item
+        )
+    );
+    };
+
+    const pedido = {
+        precio: prendasPedido.reduce((acc, item) => acc + item.cantidad * 100, 0),
+        fechaEstimadaEntrega: new Date().toISOString(),
+        direccionEntrega: direccion,
+        estado: 'Pendiente',
+        cliente_id: 1, // ← debe existir en la tabla Usuario
+        encargado_id: 1, // ← debe existir en la tabla Administrador
+        detalles: prendasPedido.map(item => ({
+            diseno_id: item.id, // ← debe existir en la tabla Diseño
+            cantidad: item.cantidad
+        }))
+    };
+
+    
+
     const navigate = useNavigate();
+
+    const handleHacerPedido = async () => {
+    if (!direccion || !cliente || prendasPedido.length === 0) {
+        alert('Completa todos los campos y selecciona al menos una prenda.');
+        return;
+    }
+
+    const pedido = {
+        precio: prendasPedido.reduce((acc, item) => acc + item.cantidad * 100, 0),
+        fechaEstimadaEntrega: new Date().toISOString(),
+        direccionEntrega: direccion,
+        estado: 'Pendiente',
+        cliente_id: 1,
+        encargado_id: 1,
+        detalles: prendasPedido.map(item => ({
+        diseno_id: item.id,
+        cantidad: item.cantidad
+        }))
+    };
+
+    try {
+        const response = await fetch('http://localhost:4000/api/pedidos/crear', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(pedido)
+        });
+
+        if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText);
+        }
+
+        const data = await response.json();
+        alert('Pedido realizado con éxito');
+        navigate('/pedidos-usuario');
+    } catch (error: any) {
+        console.error('Error al hacer el pedido:', error.message);
+        alert(`No se pudo guardar el pedido.\n${error.message}`);
+    }
+    };
     return (
         <div className="pedido-container" style={{ fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif', background: '#f5f5f5', minHeight: '100vh', position: 'relative' }}>
             <main className="pedido-main" style={{ background: '#fff', borderRadius: 18, boxShadow: '0 4px 24px rgba(35,35,35,0.10)', maxWidth: 1100, margin: '3.5rem auto 0 auto', padding: '2.5rem 1.5rem' }}>
@@ -16,11 +105,23 @@ const RealizacionPedidoUser: React.FC = () => {
                         <h3>Datos del pedido</h3>
                         <div className="input-group">
                             <label htmlFor="delivery-address">Dirección de entrega</label>
-                            <input type="text" id="delivery-address" className="text-input" />
+                            <input
+                                type="text"
+                                id="delivery-address"
+                                className="text-input"
+                                value={direccion}
+                                onChange={(e) => setDireccion(e.target.value)}
+                                />
                         </div>
                         <div className="input-group">
                             <label htmlFor="client-name">Nombre de cliente</label>
-                            <input type="text" id="client-name" className="text-input" />
+                            <input
+                                type="text"
+                                id="client-name"
+                                className="text-input"
+                                value={cliente}
+                                onChange={(e) => setCliente(e.target.value)}
+                                />
                         </div>
                         <div className="input-group">
                             <label htmlFor="additional-data">Datos adicionales</label>
@@ -29,25 +130,32 @@ const RealizacionPedidoUser: React.FC = () => {
                     </div>
                     <div className="order-summary-card" style={{ maxWidth: 520, minWidth: 340, flex: 1 }}>
                         <h3>Resumen del pedido</h3>
-                        <div className="summary-items">
-                            <div className="summary-item">
-                                <span className="item-icon">👕</span>
-                                <p>Diseño Boda</p>
-                            </div>
-                            <div className="summary-item">
-                                <span className="item-icon">👖</span>
-                                <p>Diseño Azul</p>
-                            </div>
+                       <div className="summary-items">
+                            {prendasPedido.map((prenda, index) => (
+                                <div key={index} className="summary-item" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                <span className="item-icon">
+                                    {prenda?.nombre?.includes('boda') ? '👕' :
+                                    prenda?.nombre?.includes('azul') ? '👖' :
+                                    prenda?.nombre?.includes('final') ? '👚' : '👗'}
+                                </span>
+                                <p>{prenda.nombre}</p>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    <button onClick={() => disminuirCantidad(index)} style={{ padding: '0.3rem 0.7rem' }}>➖</button>
+                                    <span>{prenda.cantidad}</span>
+                                    <button onClick={() => aumentarCantidad(index)} style={{ padding: '0.3rem 0.7rem' }}>➕</button>
+                                </div>
+                                </div>
+                            ))}
                         </div>
                         <div className="summary-info">
                             <p><strong>Dirección de entrega:</strong></p>
-                            <p className="summary-text">_ _ _ _ _ _ _ _</p>
-                            <p><strong>Encargado del diseño:</strong></p>
-                            <p className="summary-text">_ _ _ _ _ _ _ _</p>
+                            <p className="summary-text">{direccion}</p>
+                            <p><strong>Nombre del cliente:</strong></p>
+                            <p className="summary-text">{cliente}</p>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1.5rem' }}>
-                            <button className="edna-btn" style={{ fontWeight: 700, width: 'fit-content', fontSize: '1.08rem' }} onClick={() => alert('Hacer pedido')}>
-                                Hacer pedido ❯
+                            <button className="edna-btn" onClick={handleHacerPedido}>
+                            Hacer pedido ❯
                             </button>
                         </div>
                     </div>
