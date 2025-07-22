@@ -36,18 +36,19 @@ function PedidosUsuario() {
             setIsLoading(true);
             setError(null);
             try {
-                // Hacemos la petición GET a nuestro endpoint del backend
-                const response = await fetch('http://localhost:4000/api/pedidos');
-
-                if (!response.ok) {
-                    throw new Error('Error al obtener los pedidos del servidor.');
+                // Leer pedidos simulados desde localStorage
+                const pedidosLocal = localStorage.getItem('pedidosUsuario');
+                let data: Pedido[] = [];
+                if (pedidosLocal) {
+                    data = JSON.parse(pedidosLocal);
                 }
-
-                const data: Pedido[] = await response.json();
-
-                // NOTA: Por ahora, esto trae TODOS los pedidos. Más adelante lo filtraremos por usuario.
+                
+                // const response = await fetch('http://localhost:4000/api/pedidos');
+                // if (response.ok) {
+                //     const backendData: Pedido[] = await response.json();
+                //     data = [...data, ...backendData];
+                // }
                 setPedidos(data);
-
             } catch (err: any) {
                 setError(err.message);
             } finally {

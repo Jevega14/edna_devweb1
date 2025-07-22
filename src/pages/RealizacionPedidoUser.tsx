@@ -61,37 +61,27 @@ const RealizacionPedidoUser: React.FC = () => {
     }
 
     const pedido = {
+        id: Date.now(), // id único simulado
         precio: prendasPedido.reduce((acc, item) => acc + item.cantidad * 100, 0),
         fechaEstimadaEntrega: new Date().toISOString(),
         direccionEntrega: direccion,
         estado: 'Pendiente',
-        cliente_id: 1,
-        encargado_id: 1,
-        detalles: prendasPedido.map(item => ({
-        diseno_id: item.id,
-        cantidad: item.cantidad
+        cliente: { nombre: cliente },
+        encargado: { nombre: 'Diseñador 1' },
+        pedido_disenos: prendasPedido.map(item => ({
+        cantidad: item.cantidad,
+        diseno: { nombre: item.nombre }
         }))
     };
 
-    try {
-        const response = await fetch('http://localhost:4000/api/pedidos/crear', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(pedido)
-        });
+    // Guardar en localStorage
+    const pedidosGuardados = localStorage.getItem('pedidosUsuario');
+    const pedidosArray = pedidosGuardados ? JSON.parse(pedidosGuardados) : [];
+    pedidosArray.push(pedido);
+    localStorage.setItem('pedidosUsuario', JSON.stringify(pedidosArray));
 
-        if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText);
-        }
-
-        const data = await response.json();
-        alert('Pedido realizado con éxito');
-        navigate('/pedidos-usuario');
-    } catch (error: any) {
-        console.error('Error al hacer el pedido:', error.message);
-        alert(`No se pudo guardar el pedido.\n${error.message}`);
-    }
+    alert('Pedido realizado con éxito');
+    navigate('/pedidos-usuario');
     };
     return (
         <div className="pedido-container" style={{ fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif', background: '#f5f5f5', minHeight: '100vh', position: 'relative' }}>
