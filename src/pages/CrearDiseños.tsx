@@ -18,12 +18,11 @@ interface Material {
 }
 
 // Interfaz para cada fila de nuestro diseño/pedido
-interface LineaDiseño {
+export interface LineaDiseño {
   id: number; // Un ID único para la fila en el frontend
   prendaId: string;
   materialId: string;
   talla: string;
-  colores: string[];
   costo: number;
 }
 
@@ -36,6 +35,7 @@ const CrearDiseños: React.FC = () => {
 
   // Estado para las líneas del diseño que el usuario va creando
   const [lineasDiseño, setLineasDiseño] = useState<LineaDiseño[]>([]);
+  const [nombreDiseño, setNombreDiseño] = useState(''); // Estado para el nombre del diseño
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -67,7 +67,6 @@ const CrearDiseños: React.FC = () => {
       alert("No hay prendas o materiales disponibles para crear un diseño.");
       return;
     }
-    // Usamos la primera prenda y material como valores por defecto
     const prendaPorDefecto = prendas[0];
     const materialPorDefecto = materiales[0];
 
@@ -76,8 +75,6 @@ const CrearDiseños: React.FC = () => {
       prendaId: prendaPorDefecto.id.toString(),
       materialId: materialPorDefecto.id.toString(),
       talla: prendaPorDefecto.talla,
-      colores: [],
-      // Aseguramos que el costo sea un número
       costo: Number(prendaPorDefecto.precio) || 0,
     };
     setLineasDiseño([...lineasDiseño, nuevaLinea]);
@@ -89,7 +86,6 @@ const CrearDiseños: React.FC = () => {
       if (linea.id === id) {
         const updatedLinea = { ...linea, [campo]: valor };
 
-        // Si cambia la prenda, actualizamos el costo y la talla base
         if (campo === 'prendaId') {
           const prendaSeleccionada = prendas.find(p => p.id === parseInt(valor));
           if(prendaSeleccionada) {
@@ -103,7 +99,31 @@ const CrearDiseños: React.FC = () => {
     }));
   };
 
-  // Calcular el costo total
+  // Función para guardar el diseño en localStorage
+  const guardarDiseño = () => {
+    if (lineasDiseño.length === 0) {
+      alert("Debes añadir al menos una prenda para guardar el diseño.");
+      return;
+    }
+    if (!nombreDiseño.trim()) {
+      alert("Por favor, dale un nombre a tu diseño.");
+      return;
+    }
+
+    const diseñosGuardados = JSON.parse(localStorage.getItem('savedDesigns') || '[]');
+    const nuevoDiseñoGuardado = {
+      id: Date.now(),
+      nombre: nombreDiseño,
+      lineas: lineasDiseño,
+      costoTotal: costoTotal
+    };
+    diseñosGuardados.push(nuevoDiseñoGuardado);
+    localStorage.setItem('savedDesigns', JSON.stringify(diseñosGuardados));
+
+    alert(`Diseño "${nombreDiseño}" guardado exitosamente.`);
+    navigate('/diseñosguardados');
+  };
+
   const costoTotal = lineasDiseño.reduce((total, linea) => total + (linea.costo || 0), 0);
 
   if (isLoading) return <div>Cargando...</div>;
@@ -121,7 +141,7 @@ const CrearDiseños: React.FC = () => {
               <tr>
                 <th>Vista</th>
                 <th>Tipo</th>
-                <th>Color(es)</th>
+                <th>Color</th>
                 <th>Tela</th>
                 <th>Talla</th>
                 <th>Logo</th>
@@ -131,6 +151,7 @@ const CrearDiseños: React.FC = () => {
               <tbody>
               {lineasDiseño.map(linea => {
                 const prendaSeleccionada = prendas.find(p => p.id === parseInt(linea.prendaId));
+                const materialSeleccionado = materiales.find(m => m.id === parseInt(linea.materialId));
                 return (
                     <tr key={linea.id}>
                       <td><img src={prendaSeleccionada?.imagen ? `http://localhost:4000${prendaSeleccionada.imagen}` : 'https://placehold.co/60x60/EEE/333?text=Prenda'} alt="vista" className="vista-prenda" /></td>
@@ -139,7 +160,12 @@ const CrearDiseños: React.FC = () => {
                           {prendas.map(p => <option key={p.id} value={p.id}>{p.tipo}</option>)}
                         </select>
                       </td>
-                      <td>{/* Selector de color iría aquí */}</td>
+                      <td>
+                        <div className="color-display">
+                          <div className="color-swatch" style={{ backgroundColor: materialSeleccionado?.color || '#ccc' }}></div>
+                          <span>{materialSeleccionado?.color}</span>
+                        </div>
+                      </td>
                       <td>
                         <select value={linea.materialId} onChange={(e) => actualizarLinea(linea.id, 'materialId', e.target.value)}>
                           {materiales.map(m => <option key={m.id} value={m.id}>{m.tela}</option>)}
@@ -151,7 +177,6 @@ const CrearDiseños: React.FC = () => {
                         </select>
                       </td>
                       <td><img src={prendaSeleccionada?.logo ? `http://localhost:4000${prendaSeleccionada.logo}` : 'https://placehold.co/40x40/EEE/333?text=Logo'} alt="logo" className="vista-logo" /></td>
-                      {/* --- CORRECCIÓN CLAVE --- */}
                       <td>${(linea.costo || 0).toFixed(2)}</td>
                     </tr>
                 )
@@ -161,11 +186,20 @@ const CrearDiseños: React.FC = () => {
           </div>
           <button onClick={añadirLinea} className="btn-accion btn-añadir-linea">+ Añadir prenda/diseño</button>
           <div className="acciones-finales">
+            <div className="nombre-diseno-input">
+              <label htmlFor="nombreDiseño">Nombre del Diseño:</label>
+              <input
+                  type="text"
+                  id="nombreDiseño"
+                  value={nombreDiseño}
+                  onChange={(e) => setNombreDiseño(e.target.value)}
+                  placeholder="Ej: Conjunto de verano"
+              />
+            </div>
             <div className="costo-total">
               <strong>Costo Total: ${costoTotal.toFixed(2)}</strong>
             </div>
-            <button className="btn-accion">Añadir diseño al carrito</button>
-            <button className="btn-accion btn-principal">Guardar diseño</button>
+            <button onClick={guardarDiseño} className="btn-accion btn-principal">Guardar diseño</button>
           </div>
         </main>
       </div>

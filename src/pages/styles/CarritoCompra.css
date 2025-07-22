@@ -1,122 +1,136 @@
 .cart-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-}
-
-.cart-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem 2rem;
-    border-bottom: 1px solid #ccc;
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-}
-
-.cart-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    max-width: 1100px;
+    margin: 2rem auto;
     padding: 2rem;
-    gap: 1.5rem;
-    position: relative;
+    font-family: 'Montserrat', sans-serif;
 }
 
-.cart-header-section {
-    width: 80%;
+.cart-container h1 {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-weight: 800;
+}
+
+.cart-content {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 1rem;
-}
-
-.select-all-checkbox {
-    margin-top: 0.5rem;
-    margin-left: 0;
-}
-
-.cart-items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     gap: 2rem;
-    width: 80%;
-    flex-grow: 1; /* Allows items to take up available space */
+    flex-wrap: wrap;
+}
+
+.cart-items-list {
+    flex: 3;
+    min-width: 300px;
 }
 
 .cart-item-card {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    width: 180px;
-    height: 180px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.cart-item-header {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    text-align: center;
-    padding: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
-.item-icon {
-    font-size: 48px;
-    margin-bottom: 10px;
+.cart-item-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
 }
 
-.cart-actions-right { /* Adjusted positioning */
-    position: absolute;
-    top: 50%; /* Center vertically within the main section */
-    right: 2rem;
-    transform: translateY(-50%); /* Adjust for accurate vertical centering */
+.remove-item-btn {
+    background: transparent;
+    border: 1.5px solid #dc3545;
+    color: #dc3545;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+.remove-item-btn:hover {
+    background: #dc3545;
+    color: white;
+}
+
+.cart-item-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cart-item-details li {
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
+.cart-item-price {
+    text-align: right;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+.cart-summary {
+    flex: 1;
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 12px;
+    height: fit-content; /* Para que no se estire innecesariamente */
+}
+
+.cart-summary h2 {
+    margin-top: 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 1rem;
+}
+
+.summary-total {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    align-items: flex-end; /* Align buttons to the right */
+    justify-content: space-between;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 1.5rem 0;
 }
 
-.action-button {
-    padding: 0.8rem 1.5rem;
+.checkout-btn, .back-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
     border: none;
-    border-radius: 5px;
     font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s;
+    margin-bottom: 1rem;
 }
 
-.delete-button {
-    background-color: #f44336;
+.checkout-btn {
+    background-color: #28a745;
     color: white;
 }
 
-.delete-button:hover {
-    background-color: #d32f2f;
-}
-
-.order-button {
-    background-color: #4CAF50;
+.back-btn {
+    background-color: #6c757d;
     color: white;
 }
 
-.order-button:hover {
-    background-color: #388e3c;
+.empty-cart {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: #f8f9fa;
+    border-radius: 12px;
 }
 
-.cart-footer {
-    padding: 1rem 2rem;
-    text-align: left;
-    position: absolute;
-    bottom: 1rem;
-    left: 2rem;
+.loading-message, .error-message {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
 }
-
-.back-button {
-    border: none;
-    background: none;
-    font-size: 1rem;
-    cursor: pointer;
+.error-message {
+    color: #dc3545;
 }
