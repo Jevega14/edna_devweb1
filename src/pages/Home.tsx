@@ -148,12 +148,7 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      {/* Botón para ir a Diseñador */}
-      <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '2.2rem' }}>
-        <button className="edna-btn" style={{ fontSize: '0.98rem', padding: '0.5rem 1.2rem', minWidth: 0, width: 'auto', borderRadius: 8 }} onClick={() => navigate('/Diseñador')}>
-          Ir a Diseñador
-        </button>
-      </div>
+      
     </div>
   );
 };
