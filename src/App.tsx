@@ -18,6 +18,8 @@ import PedidosUsuario from './pages/PedidosUsuario';
 import Header from './components/Header';
 import CatalogoPrendas from './pages/CatalogoPrendas';
 import EditarMaterial from './pages/EditarMaterial';
+import NuevoDisenoAdmin from './pages/NuevoDisenoAdmin';
+import NuevaPrenda from './pages/NuevaPrenda';
 
 const App: React.FC = () => {
   return (
@@ -43,6 +45,8 @@ const App: React.FC = () => {
         <Route path="/pedidos-usuario" element={<PedidosUsuario />} />
         <Route path="/catalogo" element={<CatalogoPrendas />} />
         <Route path="/editar-material/:id" element={<EditarMaterial />} />
+        <Route path="/nuevo-diseno-admin" element={<NuevoDisenoAdmin />} />
+        <Route path="/nueva-prenda" element={<NuevaPrenda />} />
       </Routes>
     </Router>
   );

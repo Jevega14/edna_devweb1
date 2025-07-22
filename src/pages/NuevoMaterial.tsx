@@ -4,46 +4,44 @@ import './styles/NuevoMaterial.css';
 
 const NuevoMaterial: React.FC = () => {
   const navigate = useNavigate();
-  // Estados para cada campo del formulario
+
   const [tela, setTela] = useState('');
-  const [color, setColor] = useState('');
   const [costo, setCosto] = useState('');
+
+  // Estados para el selector de color
+  const [currentColor, setCurrentColor] = useState('#ff0000'); // Color seleccionado en el picker
+  const [selectedColors, setSelectedColors] = useState<string[]>([]); // Lista de colores añadidos
 
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [imagenPreview, setImagenPreview] = useState<string | null>(null);
 
-  // Maneja la carga de imagen y genera la vista previa
-  const handleImagen = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagenPreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    } else {
-      setImagenPreview(null);
+  // Función para añadir un color a la lista
+  const addColor = () => {
+    if (currentColor && !selectedColors.includes(currentColor)) {
+      setSelectedColors([...selectedColors, currentColor]);
     }
+  };
+
+  // Función para eliminar un color de la lista al hacer clic en él
+  const removeColor = (colorToRemove: string) => {
+    setSelectedColors(selectedColors.filter(color => color !== colorToRemove));
   };
 
   const handleGuardar = async () => {
     setError(null);
     setIsLoading(true);
 
-    // Obtenemos el token y el ID del admin desde localStorage
     const token = localStorage.getItem('authToken');
-    const adminId = localStorage.getItem('adminId'); // Asumimos que guardas esto en el login de admin
+    const adminId = localStorage.getItem('adminId');
 
     if (!token || !adminId) {
-      setError('Debes iniciar sesión como administrador para agregar materiales.');
+      setError('Debes iniciar sesión como administrador.');
       setIsLoading(false);
       return;
     }
 
-    // Validación de campos vacíos
-    if (!tela.trim() || !color.trim() || !costo.trim()) {
-      setError('Todos los campos son obligatorios.');
+    if (!tela.trim() || selectedColors.length === 0 || !costo.trim()) {
+      setError('Tela, al menos un color y costo son obligatorios.');
       setIsLoading(false);
       return;
     }
@@ -53,13 +51,14 @@ const NuevoMaterial: React.FC = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}` // Enviamos el token para la autenticación
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
           tela: tela,
-          color: color,
-          costo: parseFloat(costo), // Convertimos el costo a número
-          administrador_id: parseInt(adminId) // Convertimos el ID a número
+          // Unimos el array de colores en un solo string para guardarlo
+          color: selectedColors.join(', '),
+          costo: parseFloat(costo),
+          administrador_id: parseInt(adminId)
         })
       });
 
@@ -69,7 +68,7 @@ const NuevoMaterial: React.FC = () => {
       }
 
       alert('¡Material agregado exitosamente!');
-      navigate('/inventario'); // Redirigimos al inventario después de guardar
+      navigate('/inventario');
 
     } catch (err: any) {
       setError(err.message);
@@ -79,74 +78,72 @@ const NuevoMaterial: React.FC = () => {
   };
 
   return (
-      <div style={{ fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif', background: '#f5f5f5', minHeight: '100vh', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '4.5rem' }}>
-        <div style={{ background: '#fff', borderRadius: 18, boxShadow: '0 4px 24px rgba(35,35,35,0.10)', padding: '2.5rem 2.2rem', maxWidth: 480, width: '100%' }}>
-          <h2 style={{ fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif', fontWeight: 800, fontSize: '2rem', color: '#232323', margin: 0, letterSpacing: '1px', textAlign: 'center', marginBottom: '2rem' }}>Añadir Nuevo Material</h2>
+      <div className="form-container-page">
+        <div className="form-card">
+          <h2 className="form-title">Añadir Nuevo Material</h2>
 
-          {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
+          {error && <p className="form-error">{error}</p>}
 
-          <div style={{ marginBottom: '1.5rem' }}>
-            <label style={{ color: '#232323', fontWeight: 600, display: 'block', marginBottom: 8 }} htmlFor="tela">Tipo de Tela</label>
+          <div className="form-group">
+            <label className="form-label" htmlFor="tela">Tipo de Tela</label>
             <input
                 id="tela"
                 type="text"
                 value={tela}
                 onChange={(e) => setTela(e.target.value)}
-                style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1.5px solid #cccccc', fontSize: '1rem' }}
+                className="form-input"
                 placeholder="Ej: Algodón, Seda, Lino"
             />
           </div>
-          <div style={{ marginBottom: '1.5rem' }}>
-            <label style={{ color: '#232323', fontWeight: 600, display: 'block', marginBottom: 8 }} htmlFor="color">Color</label>
-            <input
-                id="color"
-                type="text"
-                value={color}
-                onChange={(e) => setColor(e.target.value)}
-                style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1.5px solid #cccccc', fontSize: '1rem' }}
-                placeholder="Ej: Rojo, Azul Marino"
-            />
+
+          <div className="form-group">
+            <label className="form-label" htmlFor="color">Color(es)</label>
+            <div className="color-picker-container">
+              <input
+                  id="color"
+                  type="color"
+                  value={currentColor}
+                  onChange={(e) => setCurrentColor(e.target.value)}
+                  className="color-picker-input"
+              />
+              <button onClick={addColor} className="add-color-btn">Añadir</button>
+            </div>
+            <div className="color-swatch-container">
+              {selectedColors.map((color, index) => (
+                  <div
+                      key={index}
+                      className="color-swatch"
+                      style={{ backgroundColor: color }}
+                      onClick={() => removeColor(color)}
+                      title={`Quitar ${color}`}
+                  />
+              ))}
+            </div>
           </div>
-          <div style={{ marginBottom: '2rem' }}>
-            <label style={{ color: '#232323', fontWeight: 600, display: 'block', marginBottom: 8 }} htmlFor="costo">Costo</label>
+
+          <div className="form-group">
+            <label className="form-label" htmlFor="costo">Costo</label>
             <input
                 id="costo"
                 type="number"
                 value={costo}
                 onChange={(e) => setCosto(e.target.value)}
-                style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1.5px solid #cccccc', fontSize: '1rem' }}
+                className="form-input"
                 placeholder="Ej: 25000.50"
             />
           </div>
 
-          <button className="edna-btn" style={{ width: '100%' }} onClick={handleGuardar} disabled={isLoading}>
-            {isLoading ? 'Guardando...' : 'Guardar Material'}
-          </button>
-          <button className="edna-btn" style={{ width: '100%', marginTop: '1rem', background: '#6c757d', borderColor: '#6c757d' }} onClick={() => navigate('/inventario')}>
-            Cancelar
-          </button>
-        </div>
-        <div style={{ marginBottom: '1.5rem' }}>
-          <label style={{ color: '#232323', fontWeight: 600, display: 'block', marginBottom: 6 }}>Imagen del material</label>
-          <input type="file" accept="image/*" onChange={handleImagen} style={{ marginBottom: 10 }} />
-          {imagenPreview && (
-            <img src={imagenPreview} alt="Vista previa" style={{ marginTop: 12, maxWidth: '100%', maxHeight: 200, border: '1.5px solid #cccccc', borderRadius: 10 }} />
-          )}
-
-        <button className="edna-btn" style={{ width: '100%', marginTop: '0.5rem' }} onClick={handleGuardar}>Guardar</button>
-                </div>
-                  <div className="center-action">
-            <button
-              className="edna-btn"
-              onClick={() => navigate('/inventario')}
-            >
-              ↩ Volver
+          <div className="form-actions">
+            <button className="edna-btn" onClick={handleGuardar} disabled={isLoading}>
+              {isLoading ? 'Guardando...' : 'Guardar Material'}
+            </button>
+            <button className="edna-btn edna-btn-secondary" onClick={() => navigate('/inventario')}>
+              Cancelar
             </button>
           </div>
-        
+        </div>
       </div>
   );
 };
 
 export default NuevoMaterial;
-

@@ -4,7 +4,7 @@ import { Prenda } from './Prenda';
 import { Material } from './Material';
 import { PedidoDiseno } from './PedidoDiseno';
 
-@Entity()
+@Entity('diseño') // El nombre de la tabla en MySQL
 export class Diseno {
   @PrimaryGeneratedColumn()
   id!: number;
@@ -12,38 +12,22 @@ export class Diseno {
   @Column()
   nombre!: string;
 
-  @Column({ length: 100 })
-  tipo_prenda!: string;
-
-  // --- NUEVOS CAMPOS DEL FORMULARIO ---
-  @Column()
-  talla!: string;
-
-  @Column({ type: 'json', nullable: true })
-  colores?: string[]; // Se guardará como un array de strings en formato JSON
-
-  @Column({ nullable: true })
-  logo?: string; // URL de la imagen del logo
-
-  @Column({ nullable: true })
-  imagen?: string; // URL de la imagen
-
-  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: true })
-  costo?: number;
-
-  // --- RELACIONES EXISTENTES ---
+  // Un diseño es creado por un usuario (administrador)
   @ManyToOne(() => Usuario)
   @JoinColumn({ name: 'usuario_id' })
   usuario!: Usuario;
 
+  // Un diseño está compuesto por UNA prenda
   @ManyToOne(() => Prenda)
   @JoinColumn({ name: 'prenda_id' })
   prenda!: Prenda;
 
+  // y UN material
   @ManyToOne(() => Material)
   @JoinColumn({ name: 'material_id' })
   material!: Material;
 
-  @OneToMany(() => PedidoDiseno, pedidoDiseno => pedidoDiseno.diseno)
-  pedidos_disenos!: PedidoDiseno[];
+  // Relación con la tabla de unión (para futuros pedidos)
+  @OneToMany(() => PedidoDiseno, (pedidoDiseno) => pedidoDiseno.diseno)
+  public pedidos_disenos!: PedidoDiseno[];
 }

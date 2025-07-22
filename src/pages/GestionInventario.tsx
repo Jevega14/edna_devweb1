@@ -42,7 +42,7 @@ const GestionInventario: React.FC = () => {
           fetch('http://localhost:4000/api/materiales/mis-materiales', {
             headers: { 'Authorization': `Bearer ${token}` }
           }),
-          fetch('http://localhost:4000/api/prendas', { // Prendas es público por ahora
+          fetch('http://localhost:4000/api/prendas', {
             headers: { 'Authorization': `Bearer ${token}` }
           })
         ]);
@@ -105,7 +105,7 @@ const GestionInventario: React.FC = () => {
   if (error) return <div style={{ textAlign: 'center', color: 'red', padding: '2rem' }}>Error: {error}</div>;
 
   return (
-      <div style={{ fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif', background: '#f5f5f5', minHeight: '100vh', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '4.5rem' }}>
+      <div style={{ fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif', background: '#f5f5f5', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: '4.5rem' }}>
         <div style={{ background: '#fff', borderRadius: 18, boxShadow: '0 4px 24px rgba(35,35,35,0.10)', padding: '2.5rem 2.2rem', maxWidth: 980, width: '100%' }}>
           <h1 style={{ fontFamily: 'Montserrat, Segoe UI, Arial, sans-serif', fontWeight: 800, fontSize: '2rem', color: '#232323', margin: 0, letterSpacing: '1px', textAlign: 'center', marginBottom: '2.2rem' }}>Gestión de inventario</h1>
           <main style={{ display: 'flex', gap: '2.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -115,16 +115,16 @@ const GestionInventario: React.FC = () => {
               <h2 style={{ color: '#232323', fontWeight: 700, fontSize: '1.3rem', marginBottom: '1.2rem' }}>Materiales</h2>
               <div style={{ display: 'flex', gap: '1.2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
                 {materiales.map(m => (
-                    <div key={m.id} style={{ background: '#f5f5f5', borderRadius: 12, padding: '1.2rem 1.1rem', minWidth: 160, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(35,35,35,0.06)' }}>
-                      <p style={{ color: '#232323', fontWeight: 600, margin: '0 0 10px 0' }}>{m.tela} {m.color}</p>
-                      <div style={{ display: 'flex', gap: 10 }}>
-                        <button className="edna-btn" style={{padding: '5px 10px', fontSize: '0.9rem'}} onClick={() => navigate(`/editar-material/${m.id}`)}>Editar</button>
-                        <button className="edna-btn" style={{padding: '5px 10px', fontSize: '0.9rem', background: '#dc3545', borderColor: '#dc3545', color: 'white'}} onClick={() => eliminarMaterial(m.id)}>Eliminar</button>
+                    <div key={m.id} className="inventory-card">
+                      <p className="inventory-card-title">{m.tela} {m.color}</p>
+                      <div className="inventory-card-actions">
+                        <button className="edna-btn-small" onClick={() => navigate(`/editar-material/${m.id}`)}>Editar</button>
+                        <button className="edna-btn-small edna-btn-danger" onClick={() => eliminarMaterial(m.id)}>Eliminar</button>
                       </div>
                     </div>
                 ))}
-                <div style={{ background: '#e0e0e0', borderRadius: 12, padding: '1.2rem 1.1rem', minWidth: 160, minHeight: 120, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '2px dashed #cccccc' }} onClick={() => navigate('/nuevo-material')}>
-                  <span style={{ fontSize: '2rem', fontWeight: 'bold' }}>+</span>
+                <div className="inventory-card-add" onClick={() => navigate('/nuevo-material')}>
+                  <span className="add-icon">+</span>
                   <span>Añadir material</span>
                 </div>
               </div>
@@ -135,35 +135,31 @@ const GestionInventario: React.FC = () => {
               <h2 style={{ color: '#232323', fontWeight: 700, fontSize: '1.3rem', marginBottom: '1.2rem' }}>Prendas</h2>
               <div style={{ display: 'flex', gap: '1.2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
                 {prendas.map(p => (
-                    <div key={p.id} style={{ background: '#f5f5f5', borderRadius: 12, padding: '1.2rem 1.1rem', minWidth: 160, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(35,35,35,0.06)' }}>
-                      <p style={{ color: '#232323', fontWeight: 600, margin: '0 0 10px 0' }}>{p.tipo} (Talla: {p.talla})</p>
-                      <div style={{ display: 'flex', gap: 10 }}>
-                        <button className="edna-btn" style={{padding: '5px 10px', fontSize: '0.9rem'}}>Editar</button>
-                        <button className="edna-btn" style={{padding: '5px 10px', fontSize: '0.9rem', background: '#dc3545', borderColor: '#dc3545', color: 'white'}} onClick={() => eliminarPrenda(p.id)}>Eliminar</button>
+                    <div key={p.id} className="inventory-card">
+                      <p className="inventory-card-title">{p.tipo} (Talla: {p.talla})</p>
+                      <div className="inventory-card-actions">
+                        <button className="edna-btn-small">Editar</button>
+                        <button className="edna-btn-small edna-btn-danger" onClick={() => eliminarPrenda(p.id)}>Eliminar</button>
                       </div>
                     </div>
                 ))}
-                <div style={{ background: '#e0e0e0', borderRadius: 12, padding: '1.2rem 1.1rem', minWidth: 160, minHeight: 120, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: '2px dashed #cccccc' }} onClick={() => navigate('/nuevo-diseno')}>
-                  <span style={{ fontSize: '2rem', fontWeight: 'bold' }}>+</span>
-                  <span>Agregar nuevo diseño</span>
+                {/* --- BOTÓN CORREGIDO --- */}
+                <div className="inventory-card-add" onClick={() => navigate('/nueva-prenda')}>
+                  <span className="add-icon">+</span>
+                  <span>Agregar nueva prenda</span>
                 </div>
               </div>
             </section>
           </main>
         </div>
-        <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '2.5rem' }}>
-          <button className="edna-btn" style={{ minWidth: 180 }}>
-            Guardar
+
+        {/* --- BOTÓN PRINCIPAL PARA CREAR DISEÑO --- */}
+        <div style={{ marginTop: '2.5rem', textAlign: 'center' }}>
+          <button className="edna-btn edna-btn-primary" style={{padding: '12px 24px', fontSize: '1.1rem'}} onClick={() => navigate('/nuevo-diseno-admin')}>
+            Crear Nuevo Diseño (Combinar)
           </button>
-        <button
-            className="edna-btn"
-            style={{ minWidth: 180 }}
-            onClick={() => navigate('/Diseñador')}
-          >
-            ↩ Volver
-        </button>
         </div>
-        
+
       </div>
   );
 };

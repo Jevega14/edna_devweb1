@@ -13,10 +13,10 @@ export class Prenda {
     @Column()
     talla!: string;
 
-    @Column({ nullable: true }) // Puede que una prenda no tenga logo
+    @Column({ type: 'text', nullable: true }) // Puede que una prenda no tenga logo
     logo?: string;
 
-    @Column({ nullable: true }) // Puede que una prenda no tenga imagen inicialmente
+    @Column({ type: 'text', nullable: true })// Puede que una prenda no tenga imagen inicialmente
     imagen?: string;
 
     // --- MANEJO DE LA RELACIÓN ---
