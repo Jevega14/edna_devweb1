@@ -28,9 +28,9 @@ const DiseñosGuardados: React.FC = () => {
     setTimeout(() => setShowMessage(false), 3000);
   };
 
-  const handleEditDesign = (id: string) => {
-    console.log(`Editar diseño ${id}`);
-    displayMessage(`Editar diseño ${id}`);
+  const handleEditDesign = (designId: string) => {
+    // Si más adelante quieres pasar el ID, podrías usar: `/creardiseño/${designId}`
+    navigate('/creardiseño');
   };
 
   const handleSelectDesign = (id: string) => {
@@ -51,12 +51,12 @@ const DiseñosGuardados: React.FC = () => {
   };
 
   const handleAddToCart = () => {
-    const selected = designs.filter(d => d.selected);
-    if (selected.length) {
-      const names = selected.map(d => `"${d.name}"`).join(', ');
-      displayMessage(`${names} añadido(s) al carrito.`);
+  const selectedDesigns = designs.filter(design => design.selected);
+    if (selectedDesigns.length > 0) {
+      localStorage.setItem('carritoDiseños', JSON.stringify(selectedDesigns.map(d => d.name)));
+      navigate('/CarritoCompra');
     } else {
-      displayMessage('Selecciona al menos un diseño para añadir al carrito.');
+      displayMessage('Por favor, selecciona al menos un diseño para añadir al carrito.');
     }
   };
 

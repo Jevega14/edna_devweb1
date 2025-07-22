@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './styles/CarritoCompra.css';
 
 const CarritoCompra: React.FC = () => {
     const navigate = useNavigate();
-    const [designs, setDesigns] = useState<string[]>(['Diseño boda', 'Diseño azul', 'Diseño 1', 'Diseño final']);
+    const [designs, setDesigns] = useState<string[]>([]);
+    useEffect(() => {
+        const storedDesigns = localStorage.getItem('carritoDiseños');
+        if (storedDesigns) {
+            setDesigns(JSON.parse(storedDesigns));
+        }
+    }, []);
     const [selectedDesigns, setSelectedDesigns] = useState<string[]>([]);
 
     const handleSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,6 +19,21 @@ const CarritoCompra: React.FC = () => {
         } else {
             setSelectedDesigns([]);
         }
+    };
+
+    const handleRealizarPedido = () => {
+    if (selectedDesigns.length > 0) {
+        localStorage.setItem('prendasPedido', JSON.stringify(
+        selectedDesigns.map((nombre, index) => ({
+            id: index + 1,
+            nombre,
+            cantidad: 1
+        }))
+        ));
+        navigate('/RealizacionPedidoUser'); // ✅ redirige a la vista de pedido
+    } else {
+        alert('Por favor selecciona al menos una prenda antes de realizar el pedido.');
+    }
     };
 
     const handleDesignSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,8 +48,10 @@ const CarritoCompra: React.FC = () => {
     };
 
     const handleDeleteFromCart = () => {
-        setDesigns(prev => prev.filter(design => !selectedDesigns.includes(design)));
+        const nuevosDiseños = designs.filter(design => !selectedDesigns.includes(design));
+        setDesigns(nuevosDiseños);
         setSelectedDesigns([]);
+        localStorage.setItem('carritoDiseños', JSON.stringify(nuevosDiseños)); // ✅ actualiza el almacenamiento local
     };
 
     return (
@@ -84,7 +107,7 @@ const CarritoCompra: React.FC = () => {
                     <button
                         className="edna-btn"
                         style={{ background: '#232323', color: '#cccccc', border: '2px solid #cccccc', minWidth: 180, fontWeight: 700 }}
-                        onClick={() => navigate('/realizacionpedidouser')}
+                        onClick={handleRealizarPedido}
                     >
                         🔒 Realizar pedido
                     </button>

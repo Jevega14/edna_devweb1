@@ -62,6 +62,7 @@ class PedidoController {
             const nuevoPedido = new Pedido();
             nuevoPedido.precio = precio;
             nuevoPedido.fechaEstimadaEntrega = new Date(fechaEstimadaEntrega);
+            nuevoPedido.fechaRealizacion = new Date(); // ← esto llena el campo obligatorio
             nuevoPedido.direccionEntrega = direccionEntrega;
             nuevoPedido.estado = estado || 'Pendiente';
             nuevoPedido.cliente = cliente;
