@@ -91,7 +91,7 @@ const DiseñosGuardados: React.FC = () => {
     localStorage.setItem('shoppingCart', JSON.stringify(updatedCart));
 
     alert(`${designsToAdd.length} diseño(s) añadido(s) al carrito.`);
-    navigate('/carrito'); // Redirigimos a la página del carrito
+    navigate('/CarritoCompra'); // Redirigimos a la página del carrito
   };
 
   if (isLoading) {
