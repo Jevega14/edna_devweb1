@@ -14,7 +14,8 @@ Asegúrate de tener instalado:
 
 1. **Clonar o descargar el proyecto**
    ```bash
-   cd c:\Users\jpvega\EDNADEVWEB\edna_devweb1
+   Tener directorio para descargar el proyecto 
+   git clone https://github.com/Jevega14/edna_devweb1.git
    ```
 
 2. **Instalar dependencias**
@@ -49,19 +50,34 @@ Una vez que la aplicación esté ejecutándose, puedes navegar a:
 - `/Añadir material` - Crear nuevo material para las prendas  (accesible desde el dashboard del diseñador)
 - `/Crear nuevo diseño` - Crear desde 0 diseño para el catálogo  (accesible desde el dashboard del diseñador)
 - `/Mis pedidos` - Detalles de pedidos realizados al diseñador (accesible desde el dashboard del diseñador)
+
 ## 📁 Estructura del proyecto
 
 ```
 edna_devweb1/
-├── public/                 # Archivos públicos (HTML base)
-├── src/                    # Código fuente
-│   ├── components/        # Componentes reutilizables
-│   ├── pages/            # Páginas/vistas principales
-│   ├── App.tsx           # Componente principal y rutas
-│   └── index.js          # Punto de entrada
-├── package.json          # Dependencias y scripts
-├── tsconfig.json         # Configuración de TypeScript
-└── README.md            # Este archivo
+├── backend/                # Servidor y API
+│   ├── src/
+│   │   ├── config/        # Configuración de la base de datos y controladores
+│   │   ├── controllers/   # Controladores de la API
+│   │   ├── entities/      # Entidades/Modelos de la base de datos
+│   │   ├── middleware/    # Middleware de autenticación y autorización
+│   │   ├── routes/        # Rutas de la API
+│   │   ├── types/        # Tipos personalizados
+│   │   └── index.ts      # Punto de entrada del servidor
+│   ├── package.json      # Dependencias del backend
+│   └── tsconfig.json     # Configuración de TypeScript para el backend
+├── public/               # Archivos públicos (HTML base)
+├── src/                  # Código fuente del frontend
+│   ├── components/      # Componentes reutilizables
+│   ├── icons/          # Iconos y assets
+│   ├── pages/          # Páginas/vistas principales
+│   │   └── styles/    # Estilos CSS de las páginas
+│   ├── App.tsx         # Componente principal y rutas
+│   └── index.js        # Punto de entrada del frontend
+├── ednamoda.sql        # Script de la base de datos
+├── package.json        # Dependencias del frontend
+├── tsconfig.json       # Configuración de TypeScript para el frontend
+└── README.md          # Este archivo
 ```
 
 ## 🛠️ Tecnologías utilizadas
@@ -77,6 +93,50 @@ edna_devweb1/
 - Los archivos JSON que se generan automáticamente (como `package-lock.json`) no se suben al repositorio
 - El archivo `.gitignore` se encarga de excluir automáticamente los archivos innecesarios
 - Algunas de las funcionalidades como crear nuevo material o gestionar inventario son puramente visuales y sólo funcionan dentro de la pestaña, pues aún no se ha enlazado una base de datos de soporte
+
+## 🗄️ Configuración del Backend y Base de Datos
+
+### Requisitos previos
+- MySQL (versión 8.0 o superior)
+- Node.js (versión 14 o superior)
+
+### Configuración de la Base de Datos
+
+1. **Crear la base de datos**
+   - Abre MySQL Workbench o tu cliente SQL preferido
+   - Ejecuta el script `ednamoda.sql` que se encuentra en la raíz del proyecto
+
+2. **Configurar las variables de entorno**
+   - En la carpeta `backend`, crea un archivo `.env` con la siguiente información:
+     ```
+     DB_HOST=localhost
+     DB_PORT=3306
+     DB_USER=tu_usuario
+     DB_PASSWORD=tu_contraseña
+     DB_DATABASE=ednamoda
+     
+     PORT=4000
+     ```
+
+### Ejecutar el Backend
+
+1. **Instalar dependencias del backend**
+   ```bash
+   cd backend
+   npm install
+   ```
+
+2. **Iniciar el servidor de desarrollo**
+   ```bash
+   npm run dev
+   ```
+   El servidor se iniciará en `http://localhost:4000`
+
+### Problemas comunes
+- Si hay un error de conexión a la base de datos, verifica que:
+  - El servicio MySQL esté ejecutándose
+  - Las credenciales en el archivo `.env` sean correctas
+  - El puerto 3306 esté disponible
 
 
 
