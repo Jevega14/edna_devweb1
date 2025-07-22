@@ -1,6 +1,5 @@
-// src/entities/Prenda.ts
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
-import { Administrador } from './Administrador'; // Importamos la entidad Administrador
+import { Administrador } from './Administrador';
 
 @Entity('prenda')
 export class Prenda {
@@ -13,16 +12,17 @@ export class Prenda {
     @Column()
     talla!: string;
 
-    @Column({ type: 'text', nullable: true }) // Puede que una prenda no tenga logo
+    @Column({ type: 'text', nullable: true })
     logo?: string;
 
-    @Column({ type: 'text', nullable: true })// Puede que una prenda no tenga imagen inicialmente
+    @Column({ type: 'text', nullable: true })
     imagen?: string;
 
-    // --- MANEJO DE LA RELACIÓN ---
-    // Esto crea una relación donde Muchas Prendas pertenecen a Un Administrador.
+    // --- CAMPO AÑADIDO ---
+    @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
+    precio!: number;
+
     @ManyToOne(() => Administrador)
-    // Esto le dice a TypeORM que la columna de la llave foránea en la tabla 'prenda' se llama 'administrador_id'.
     @JoinColumn({ name: 'administrador_id' })
     admin!: Administrador;
 }

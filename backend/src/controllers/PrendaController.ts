@@ -6,10 +6,12 @@ import { Administrador } from '../entities/Administrador';
 class PrendaController {
     // --- CREAR UNA NUEVA PRENDA ---
     public async create(req: Request, res: Response): Promise<Response> {
-        const { tipo, talla, logo, imagen, administrador_id } = req.body;
+        // 1. Añadimos 'precio' a la desestructuración del body
+        const { tipo, talla, logo, imagen, precio, administrador_id } = req.body;
 
-        if (!tipo || !talla || !administrador_id) {
-            return res.status(400).json({ message: 'Los campos tipo, talla y administrador_id son obligatorios.' });
+        // 2. Añadimos 'precio' a la validación
+        if (!tipo || !talla || precio === undefined || !administrador_id) {
+            return res.status(400).json({ message: 'Los campos tipo, talla, precio y administrador_id son obligatorios.' });
         }
         const prendaRepository = AppDataSource.getRepository(Prenda);
         const adminRepository = AppDataSource.getRepository(Administrador);
@@ -18,7 +20,8 @@ class PrendaController {
             if (!admin) {
                 return res.status(404).json({ message: 'Administrador no encontrado.' });
             }
-            const newPrenda = prendaRepository.create({ tipo, talla, logo, imagen, admin });
+            // 3. Pasamos 'precio' al crear la nueva instancia
+            const newPrenda = prendaRepository.create({ tipo, talla, logo, imagen, precio, admin });
             const savedPrenda = await prendaRepository.save(newPrenda);
             return res.status(201).json(savedPrenda);
         } catch (error) {

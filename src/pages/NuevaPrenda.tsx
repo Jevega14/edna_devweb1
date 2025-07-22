@@ -5,9 +5,10 @@ import '../styles.css';
 const NuevaPrenda: React.FC = () => {
     const navigate = useNavigate();
 
-    // Estados para cada campo del formulario, con valores por defecto para los selectores
+    // Estados para los campos del formulario
     const [tipo, setTipo] = useState('Gorra');
     const [talla, setTalla] = useState('M');
+    const [precio, setPrecio] = useState(''); // <-- Estado para el precio
     const [logoPath, setLogoPath] = useState('');
     const [imagenPath, setImagenPath] = useState('');
 
@@ -20,7 +21,7 @@ const NuevaPrenda: React.FC = () => {
         setIsUploading(true);
         setError(null);
         const formData = new FormData();
-        formData.append('image', file); // 'image' debe coincidir con upload.single('image') en el backend
+        formData.append('image', file);
 
         try {
             const response = await fetch('http://localhost:4000/api/upload', {
@@ -33,7 +34,7 @@ const NuevaPrenda: React.FC = () => {
             }
 
             const data = await response.json();
-            setPath(data.filePath); // Guardamos la ruta del archivo
+            setPath(data.filePath);
         } catch (err: any) {
             setError(err.message);
         } finally {
@@ -56,12 +57,13 @@ const NuevaPrenda: React.FC = () => {
         const adminId = localStorage.getItem('adminId');
 
         if (!token || !adminId) {
-            setError('Debes iniciar sesión como administrador para agregar prendas.');
+            setError('Debes iniciar sesión como administrador.');
             setIsSaving(false);
             return;
         }
-        if (!tipo.trim() || !talla.trim()) {
-            setError('El tipo y la talla son campos obligatorios.');
+        // Añadimos 'precio' a la validación
+        if (!tipo.trim() || !talla.trim() || !precio.trim()) {
+            setError('Tipo, talla y precio son campos obligatorios.');
             setIsSaving(false);
             return;
         }
@@ -73,8 +75,9 @@ const NuevaPrenda: React.FC = () => {
                 body: JSON.stringify({
                     tipo,
                     talla,
-                    logo: logoPath, // Enviamos la ruta del logo
-                    imagen: imagenPath, // Enviamos la ruta de la imagen
+                    logo: logoPath,
+                    imagen: imagenPath,
+                    precio: parseFloat(precio), // Enviamos el precio como número
                     administrador_id: parseInt(adminId)
                 })
             });
@@ -103,18 +106,15 @@ const NuevaPrenda: React.FC = () => {
 
                 <div style={{ marginBottom: '1.5rem' }}>
                     <label style={{ fontWeight: 600, display: 'block', marginBottom: 8 }} htmlFor="tipo">Tipo de Prenda</label>
-                    {/* --- CAMBIO A MENÚ DESPLEGABLE --- */}
                     <select id="tipo" value={tipo} onChange={(e) => setTipo(e.target.value)} className="form-input">
                         <option value="Gorra">Gorra</option>
                         <option value="Camisa">Camisa</option>
                         <option value="Pantalón">Pantalón</option>
                         <option value="Gafas">Gafas</option>
-                        {/* Puedes añadir más opciones aquí */}
                     </select>
                 </div>
                 <div style={{ marginBottom: '1.5rem' }}>
                     <label style={{ fontWeight: 600, display: 'block', marginBottom: 8 }} htmlFor="talla">Talla Base</label>
-                    {/* --- CAMBIO A MENÚ DESPLEGABLE --- */}
                     <select id="talla" value={talla} onChange={(e) => setTalla(e.target.value)} className="form-input">
                         <option value="XXS">XXS</option>
                         <option value="S">S</option>
@@ -122,6 +122,18 @@ const NuevaPrenda: React.FC = () => {
                         <option value="L">L</option>
                         <option value="XL">XL</option>
                     </select>
+                </div>
+                {/* --- CAMPO DE PRECIO AÑADIDO --- */}
+                <div style={{ marginBottom: '1.5rem' }}>
+                    <label style={{ fontWeight: 600, display: 'block', marginBottom: 8 }} htmlFor="precio">Precio</label>
+                    <input
+                        id="precio"
+                        type="number"
+                        value={precio}
+                        onChange={(e) => setPrecio(e.target.value)}
+                        className="form-input"
+                        placeholder="Ej: 50000.00"
+                    />
                 </div>
                 <div style={{ marginBottom: '1.5rem' }}>
                     <label style={{ fontWeight: 600, display: 'block', marginBottom: 8 }} htmlFor="imagen">Imagen de la Prenda</label>
